@@ -4,8 +4,22 @@ import {
     Text,
     StyleSheet
 } from 'react-native'
+import NavigationUtil from "../navigator/NavigationUtil";
 
 export default class WelcomePage extends Component {
+    componentDidMount() {
+        this.timer = setTimeout(() => {
+            NavigationUtil.resetToHomePage({
+                navigation: this.props.navigation
+            })
+        }, 500)
+    }
+
+    componentWillUnmount() {
+        this.timer && clearTimeout(this.timer)
+    }
+
+
     render() {
         return (
             <View style={styles.container}>
@@ -20,10 +34,10 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#ddd'
+        backgroundColor: '#405697'
     },
     welcome: {
         fontSize: 26,
-        color: '#ff00ff'
+        color: '#f4f6ff'
     }
 })
