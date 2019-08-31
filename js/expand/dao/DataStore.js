@@ -1,7 +1,39 @@
 import {AsyncStorage} from "react-native";
 
 export default class DataStore {
+    fetchPostData(url, postParams) {
+        return new Promise((resolve, reject) => {
+            fetch(url, postParams)
+                .then((response) => {
+                    if (response.ok) {
+                        return response.json()
+                    }
+                })
+                .then((data) => {
+                    resolve(data)
+                })
+                .catch((error) => {
+                    console.log(error)
+                    reject(error)
+                })
+        })
+    }
+
     fetchData(url) {
+        console.log('read net work')
+        console.log(url)
+        fetch(url)
+            .then((response) => {
+                console.log(11)
+                console.log(response)
+            })
+            .catch((error) => {
+                console.log(12)
+                console.log(error)
+            })
+
+        return
+
         return new Promise((resolve, reject) => {
             this.fetchLocalData(url)
                 .then((response) => {
@@ -42,6 +74,8 @@ export default class DataStore {
     }
 
     fetchNetData(url) {
+
+
         return new Promise((resolve, reject) => {
             fetch(url)
                 .then((response) => {
