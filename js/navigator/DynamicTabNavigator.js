@@ -1,13 +1,15 @@
 import React, {Component} from 'react'
 import {
     createBottomTabNavigator,
-    createAppContainer
+    createAppContainer,
+    BottomTabBar
 } from 'react-navigation'
 import NoteListPage from "../page/NoteListPage";
 import NoteCategoryPage from "../page/NoteCategoryPage";
 import NewNotePage from "../page/NewNotePage";
 import SettingsPage from "../page/SettingsPage";
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import {connect} from "react-redux";
 
 const TABS = {
     Note: {
@@ -68,16 +70,51 @@ class DynamicTabNavigator extends Component {
         if (this.Tabs) {
             return this.Tabs
         }
-        this.Tabs = createBottomTabNavigator(TABS)
+        this.Tabs = createAppContainer(
+            createBottomTabNavigator(TABS, {
+                tabBarComponent: props => {
+                    return (
+                        <TabBarComponent
+                            {...props}
+                            theme={this.props.theme}
+                        />
+                    )
+                }
+            })
+        )
         return this.Tabs
     }
 
     render() {
-        const Tab = createAppContainer(this._genBottomTab())
+        const Tab = this._genBottomTab()
         return (
             <Tab/>
         )
     }
 }
 
-export default DynamicTabNavigator
+class TabBarComponent extends Component {
+    constructor(props) {
+        super(props)
+        this.theme = {
+            tintColor: props.activeTintColor,
+            updateTime: new Date().getTime()
+        }
+    }
+
+    render() {
+        return (
+            <BottomTabBar
+                {...this.props}
+                activeTintColor={this.props.theme}
+            />
+        )
+    }
+
+}
+
+const mapStateToProps = state => ({
+    theme: state.theme.theme
+})
+
+export default connect(mapStateToProps)(DynamicTabNavigator)

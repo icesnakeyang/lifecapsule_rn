@@ -5,6 +5,8 @@ import {
 } from 'react-navigation'
 import WelcomePage from "../page/WelcomePage";
 import HomePage from "../page/HomePage";
+import {createReactNavigationReduxMiddleware, createReduxContainer} from "react-navigation-redux-helpers";
+import {connect} from "react-redux";
 
 export const rootCam = 'Init'
 
@@ -25,4 +27,20 @@ export const RootNavigator = createSwitchNavigator({
     Main: MainNavigator
 })
 
-export default createAppContainer(RootNavigator)
+// export default createAppContainer(RootNavigator)
+
+export const middleware = createReactNavigationReduxMiddleware(
+    state => state.nav,
+    'root'
+)
+
+const AppWithNavigationState = createReduxContainer(
+    RootNavigator,
+    'root'
+)
+
+const mapStateToProps = state => ({
+    state: state.nav
+})
+
+export default connect(mapStateToProps)(AppWithNavigationState)
