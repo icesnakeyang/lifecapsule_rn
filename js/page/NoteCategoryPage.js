@@ -3,7 +3,8 @@ import {
     View,
     Text,
     StyleSheet,
-    Button
+    Button,
+    FlatList
 } from 'react-native'
 import actions from "../action";
 import {connect} from "react-redux";
@@ -11,9 +12,20 @@ import DataStore from "../expand/dao/DataStore";
 
 // const url = 'https://api.github.com/search/repositories?q=java'
 // const url = 'http://127.0.0.1:8088/security/requestRSAPublicKey'
-const url = 'http://127.0.0.1:8088/note/listNoteByUserToken'
+// const url = 'http://127.0.0.1:8088/note/listNoteByUserToken'
+const url = 'http://127.0.0.1:8088/category/listCategory'
 
 class NoteCategoryPage extends Component {
+    constructor(props) {
+        super(props)
+        this.categoryList = []
+    }
+
+    componentDidMount() {
+        this.loadData()
+    }
+
+
     loadData() {
         console.log('load data')
         console.log(url)
@@ -39,7 +51,11 @@ class NoteCategoryPage extends Component {
         ds.fetchPostData(url, postParams)
             .then((response) => {
                 // console.log(`初次加载：${new Date(response.timestamp)}`)
-                console.log(response)
+                if (response.code === 0) {
+                    this.categoryList = response.data.categoryList
+                    console.log(this.categoryList)
+
+                }
             })
             .catch((error) => {
                 console.log(error)
@@ -47,21 +63,29 @@ class NoteCategoryPage extends Component {
 
     }
 
+    renderItem(data) {
+        console.log(data)
+        const item = data.item
+        return (
+            <View>
+                <Text>ok</Text>
+            </View>
+        )
+    }
 
     render() {
+        console.log(this.categoryList)
         return (
             <View>
                 <Text>Note category page</Text>
-                <Button title={'change color'} onPress={() => {
-                    this.props.onThemeChange('#ff0000')
-                }}
-                />
-                <Button
-                    title={'test storage'}
-                    onPress={() => {
-                        this.loadData()
-                    }}
-                />
+
+                <View>
+                    <FlatList
+                        keyExtractor={item => '' + item.id}
+                        data={this.categoryList}
+                        renderItem={data => this.renderItem(data)}
+                    />
+                </View>
             </View>
         )
     }
