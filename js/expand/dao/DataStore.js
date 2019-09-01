@@ -2,14 +2,18 @@ import {AsyncStorage} from "react-native";
 
 export default class DataStore {
     fetchPostData(url, postParams) {
+        console.log(3)
+        console.log(url)
         return new Promise((resolve, reject) => {
             fetch(url, postParams)
                 .then((response) => {
+                    console.log(4)
                     if (response.ok) {
                         return response.json()
                     }
                 })
                 .then((data) => {
+                    console.log(data)
                     resolve(data)
                 })
                 .catch((error) => {

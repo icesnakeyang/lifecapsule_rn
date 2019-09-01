@@ -10,10 +10,8 @@ import actions from "../action";
 import {connect} from "react-redux";
 import DataStore from "../expand/dao/DataStore";
 
-// const url = 'https://api.github.com/search/repositories?q=java'
-// const url = 'http://127.0.0.1:8088/security/requestRSAPublicKey'
-// const url = 'http://127.0.0.1:8088/note/listNoteByUserToken'
-const url = 'http://127.0.0.1:8088/category/listCategory'
+const url = 'http://gogorpg.com:8088/category/listCategory'
+
 
 class NoteCategoryPage extends Component {
     constructor(props) {
@@ -42,7 +40,7 @@ class NoteCategoryPage extends Component {
             // mode: 'cors',
             body: JSON.stringify(data),
             headers: {
-                'Content-Type': "application/json",
+                'Content-Type': "application/json;charset=UTF-8",
                 token: token
             }
         }
