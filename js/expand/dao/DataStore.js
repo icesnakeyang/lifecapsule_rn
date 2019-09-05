@@ -1,5 +1,7 @@
 import {AsyncStorage} from "react-native";
 
+const host = 'http://gogorpg.com:8088/'
+
 export default class DataStore {
     fetchPostData(url, postParams) {
         console.log(3)

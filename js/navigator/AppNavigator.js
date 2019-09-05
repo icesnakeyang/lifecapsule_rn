@@ -7,6 +7,8 @@ import WelcomePage from "../page/WelcomePage";
 import HomePage from "../page/HomePage";
 import {createReactNavigationReduxMiddleware, createReduxContainer} from "react-navigation-redux-helpers";
 import {connect} from "react-redux";
+import NewNotePage from "../page/NewNotePage";
+import EditNotePage from "../page/EditNotePage";
 
 export const rootCam = 'Init'
 
@@ -19,6 +21,12 @@ const InitNavigator = createStackNavigator({
 const MainNavigator = createStackNavigator({
     HomePage: {
         screen: HomePage
+    },
+    NewNotePage: {
+        screen: NewNotePage
+    },
+    EditNotePage: {
+        screen: EditNotePage
     }
 })
 

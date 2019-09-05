@@ -1,7 +1,8 @@
 import {onThemeChange} from "./theme";
-import {onListNote} from "./note";
+import {onListNote, onNoteDetail} from "./note";
 
 export default {
     onThemeChange,
-    onListNote
+    onListNote,
+    onNoteDetail
 }

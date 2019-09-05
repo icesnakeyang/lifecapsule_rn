@@ -39,3 +39,48 @@ export function onListNote(url) {
             })
     }
 }
+
+export function onNoteDetail(noteId) {
+    return dispatch => {
+        dispatch({
+            type: Types.NOTE_DETAIL
+        })
+        let dataStore = new DataStore()
+        let encryptKey=''
+        let keyToken=''
+        dataStore.fetchData('security/requestRSAPublicKey')
+            .then((response) => {
+                console.log(response)
+            })
+
+        const postParams = {
+            method: 'post',
+            body: JSON.stringify({
+                noteId,
+                encryptKey,
+                keyToken
+            }),
+            headers: {
+                'Content-Type': "application/json;charset=UTF-8",
+                token: '3e75b1bb-d664-4949-9a22-d86bd5645bae'
+            }
+        }
+
+        console.log(2)
+        dataStore.fetchPostData('note/getNoteDetailByNoteId', postParams)
+            .then((data) => {
+                console.log(data.data.noteList)
+                dispatch({
+                    type: Types.NOTE_LIST_SUCCESS,
+                    noteList: data.data.noteList
+                })
+            })
+            .catch((error) => {
+                console.log(error)
+                dispatch({
+                    type: Types.NOTE_LIST_FAIL,
+                    error
+                })
+            })
+    }
+}

@@ -6,6 +6,7 @@ import {
     TouchableOpacity
 } from 'react-native'
 import moment from "moment";
+import NavigationUtil from "../../navigator/NavigationUtil";
 
 export default class NoteListItem extends Component {
     render() {
@@ -14,7 +15,10 @@ export default class NoteListItem extends Component {
         return (
             <TouchableOpacity
                 style={styles.row}
-                onPress={this.props.onSelect}
+                onPress={()=>{
+                    NavigationUtil.goPage({
+                    projectModels: item
+                }, 'EditNotePage')}}
             >
                 <Text style={styles.title}>{item.title}</Text>
                 <Text style={styles.time}>{createdTime}</Text>

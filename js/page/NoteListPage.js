@@ -27,7 +27,6 @@ class NoteListPage extends Component {
     }
 
     renderItem(data) {
-
         return (
             <NoteListItem item={data}></NoteListItem>
         )
