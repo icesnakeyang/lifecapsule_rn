@@ -2,8 +2,6 @@ import Types from "../types";
 import DataStore from "../../expand/dao/DataStore";
 
 export function onListNote(url) {
-    console.log(1)
-    console.log(url)
     return dispatch => {
         dispatch({
             type: Types.NOTE_LIST
@@ -21,10 +19,8 @@ export function onListNote(url) {
             }
         }
 
-        console.log(2)
         dataStore.fetchPostData(url, postParams)
             .then((data) => {
-                console.log(data.data.noteList)
                 dispatch({
                     type: Types.NOTE_LIST_SUCCESS,
                     noteList: data.data.noteList
@@ -50,7 +46,6 @@ export function onNoteDetail(noteId) {
         let keyToken=''
         dataStore.fetchData('security/requestRSAPublicKey')
             .then((response) => {
-                console.log(response)
             })
 
         const postParams = {
@@ -66,10 +61,8 @@ export function onNoteDetail(noteId) {
             }
         }
 
-        console.log(2)
         dataStore.fetchPostData('note/getNoteDetailByNoteId', postParams)
             .then((data) => {
-                console.log(data.data.noteList)
                 dispatch({
                     type: Types.NOTE_LIST_SUCCESS,
                     noteList: data.data.noteList

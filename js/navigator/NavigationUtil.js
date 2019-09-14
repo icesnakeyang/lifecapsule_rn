@@ -6,8 +6,6 @@ export default class NavigationUtil {
 
     static goPage(params, page) {
         const navigation = NavigationUtil.navigation
-        console.log(navigation)
-        console.log(page)
         navigation.navigate(
             page,
             {...params}

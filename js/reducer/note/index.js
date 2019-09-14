@@ -8,7 +8,6 @@ export default function onAction(state=[], action) {
                 noteList: action.noteList
             }
         case Types.NOTE_LIST_SUCCESS:
-            console.log(action.noteList)
             return {
                 // ...state,
                 noteList: action.noteList

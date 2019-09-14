@@ -25,9 +25,6 @@ class NoteCategoryPage extends Component {
 
 
     loadData() {
-        console.log('load data')
-        console.log(url)
-
         const data = {
             pageIndex: 1,
             pageSize: 10
@@ -51,8 +48,6 @@ class NoteCategoryPage extends Component {
                 // console.log(`初次加载：${new Date(response.timestamp)}`)
                 if (response.code === 0) {
                     this.categoryList = response.data.categoryList
-                    console.log(this.categoryList)
-
                 }
             })
             .catch((error) => {
@@ -62,7 +57,6 @@ class NoteCategoryPage extends Component {
     }
 
     renderItem(data) {
-        console.log(data)
         const item = data.item
         return (
             <View>
@@ -72,7 +66,6 @@ class NoteCategoryPage extends Component {
     }
 
     render() {
-        console.log(this.categoryList)
         return (
             <View>
                 <Text>Note category page</Text>

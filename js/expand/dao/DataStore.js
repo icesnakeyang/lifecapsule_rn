@@ -4,18 +4,14 @@ const host = 'http://gogorpg.com:8088/'
 
 export default class DataStore {
     fetchPostData(url, postParams) {
-        console.log(3)
-        console.log(url)
         return new Promise((resolve, reject) => {
             fetch(url, postParams)
                 .then((response) => {
-                    console.log(4)
                     if (response.ok) {
                         return response.json()
                     }
                 })
                 .then((data) => {
-                    console.log(data)
                     resolve(data)
                 })
                 .catch((error) => {
@@ -26,15 +22,10 @@ export default class DataStore {
     }
 
     fetchData(url) {
-        console.log('read net work')
-        console.log(url)
         fetch(url)
             .then((response) => {
-                console.log(11)
-                console.log(response)
             })
             .catch((error) => {
-                console.log(12)
                 console.log(error)
             })
 
@@ -115,25 +106,18 @@ export default class DataStore {
     }
 
     checkTimeValid(timestamp) {
-        console.log('check time')
         const currentDate = new Date()
         const targetDate = new Date()
         targetDate.setTime(timestamp)
         if (currentDate.getMonth() !== targetDate.getMonth()) {
-            console.log(1)
             return false
         }
         if (currentDate.getDate() !== targetDate.getDate()) {
-            console.log(2)
             return false
         }
-        console.log(currentDate.getHours())
-        console.log(targetDate.getHours())
         if (currentDate.getHours() - targetDate.getHours() > 1) {
-            console.log(3)
             return false
         }
-        console.log(4)
         return true
     }
 }
