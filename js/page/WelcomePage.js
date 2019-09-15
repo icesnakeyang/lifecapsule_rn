@@ -7,26 +7,29 @@ import {
 import NavigationUtil from "../navigator/NavigationUtil";
 import actions from "../action";
 import {connect} from "react-redux";
-import {create} from "react-native/jest/renderer";
 
 class WelcomePage extends Component {
     componentDidMount() {
         this.loadData()
+        /**
+         * 首先，检查用户的token，如果有token，就跳转到首页，
+         * 如果没有token，就创建token，然后再检查
+         * 如果创建成功，就跳转到首页
+         * @type {number}
+         */
         this.timer = setTimeout(() => {
-            console.log(this.props.user.user.token)
-            const user = this.props.user.user
-            console.log(user.token)
+            let user = this.props.user.user
             if (!user || !user.token) {
-                console.log('no user')
-                this.createBlankUser().then(response => {
-                    console.log(response)
-                })
-
-                console.log(user)
+                this.createBlankUser()
+                user = this.props.user.user
+                if (!user || !user.token) {
+                    console.log('no token')
+                } else {
+                    NavigationUtil.resetToHomePage({
+                        navigation: this.props.navigation
+                    })
+                }
             }
-            NavigationUtil.resetToHomePage({
-                navigation: this.props.navigation
-            })
         }, 1000)
     }
 
@@ -39,9 +42,9 @@ class WelcomePage extends Component {
         getLocalToken()
     }
 
-    async createBlankUser() {
-        const {createBlankUser} = this.props
-        await createBlankUser()
+    createBlankUser() {
+        const {createBlankToken} = this.props
+        createBlankToken()
     }
 
 
