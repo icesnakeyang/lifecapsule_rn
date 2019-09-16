@@ -11,13 +11,13 @@ export function getRSA() {
             .then((data) => {
                 dispatch({
                     type: Types.RSA_GET_SUCCESS,
-                    data:data.data
+                    RSA:data.data
                 })
             })
             .catch((error) => {
                 console.log(error)
                 dispatch({
-                    type: Types.NOTE_LIST_FAIL,
+                    type: Types.RSA_GET_FAIL,
                     error
                 })
             })

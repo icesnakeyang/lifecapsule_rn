@@ -5,7 +5,7 @@ export default function onAction(state = [], action) {
         case Types.RSA_GET_SUCCESS:
             return {
                 ...state,
-                data: action.data
+                RSA: action.RSA
             }
         case Types.RSA_GET_FAIL:
             return {
