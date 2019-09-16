@@ -3,7 +3,6 @@ import Types from "../../action/types";
 const defaultState = {}
 
 export default function onAction(state = defaultState, action) {
-    console.log(action)
     switch (action.type) {
         case Types.USER_LOCAL_TOKEN_SUCCESS:
             return {

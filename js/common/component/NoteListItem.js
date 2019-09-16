@@ -17,7 +17,7 @@ export default class NoteListItem extends Component {
                 style={styles.row}
                 onPress={()=>{
                     NavigationUtil.goPage({
-                    projectModels: item
+                    note: item
                 }, 'EditNotePage')}}
             >
                 <Text style={styles.title}>{item.title}</Text>

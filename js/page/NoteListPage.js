@@ -9,7 +9,6 @@ import actions from "../action";
 import {connect} from "react-redux";
 import NoteListItem from "../common/component/NoteListItem";
 
-const URL = 'http://gogorpg.com:8088/note/listNoteByUserToken'
 
 class NoteListPage extends Component {
     constructor(props) {
@@ -18,8 +17,8 @@ class NoteListPage extends Component {
 
     loadData() {
         const {onListNote} = this.props
-        const url = URL
-        onListNote(url)
+        const token=this.props.user.user.token
+        onListNote(token)
     }
 
     componentDidMount() {
@@ -49,11 +48,12 @@ class NoteListPage extends Component {
 }
 
 const mapStateToProps = state => ({
-    noteList: state.noteList
+    noteList: state.noteList,
+    user: state.user
 })
 
 const mapDispatchToProps = dispatch => ({
-    onListNote: (url) => dispatch(actions.onListNote(url))
+    onListNote: (token) => dispatch(actions.onListNote(token))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(NoteListPage)

@@ -9,7 +9,6 @@ export function getLocalToken() {
         let dataStore = new DataStore()
         dataStore.fetchLocalData('life_token')
             .then((data) => {
-                console.log(data)
                 dispatch({
                     type: Types.USER_LOCAL_TOKEN_SUCCESS,
                     user: {
@@ -30,12 +29,12 @@ export function getLocalToken() {
  * 创建一个临时新用户
  */
 export function createBlankToken() {
-    console.log('create blank token')
     return  dispatch => {
         dispatch({
             type: Types.USER_CREATE_BLANK_USER_SUCCESS,
             user: {
-                token: '3e75b1bb-d664-4949-9a22-d86bd5645bae'
+                // token: '3e75b1bb-d664-4949-9a22-d86bd5645bae'
+                token: 'dcfbc543-d549-467f-8e9c-de09c5038b78'
             }
         })
     }

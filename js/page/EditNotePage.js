@@ -7,7 +7,17 @@ import actions from "../action";
 import {connect} from "react-redux";
 
 class EditNotePage extends Component {
+    constructor(props) {
+        super(props)
+        this.note = this.props.navigation.state.params.note
+    }
+
+    getRSA(){
+
+    }
+
     render() {
+        console.log(this.note)
         return (
             <View>
                 <Text>edit note here</Text>

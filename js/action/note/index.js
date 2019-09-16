@@ -1,11 +1,10 @@
 import Types from "../types";
 import DataStore from "../../expand/dao/DataStore";
+import {API} from "../../api/api";
 
-export function onListNote(url) {
+export function onListNote(token) {
+    const url = API.apiListNote
     return dispatch => {
-        dispatch({
-            type: Types.NOTE_LIST
-        })
         let dataStore = new DataStore()
         const postParams = {
             method: 'post',
@@ -15,7 +14,7 @@ export function onListNote(url) {
             }),
             headers: {
                 'Content-Type': "application/json;charset=UTF-8",
-                token: '3e75b1bb-d664-4949-9a22-d86bd5645bae'
+                token: token
             }
         }
 
@@ -42,8 +41,8 @@ export function onNoteDetail(noteId) {
             type: Types.NOTE_DETAIL
         })
         let dataStore = new DataStore()
-        let encryptKey=''
-        let keyToken=''
+        let encryptKey = ''
+        let keyToken = ''
         dataStore.fetchData('security/requestRSAPublicKey')
             .then((response) => {
             })

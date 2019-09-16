@@ -45,7 +45,6 @@ class NoteCategoryPage extends Component {
         let ds = new DataStore()
         ds.fetchPostData(url, postParams)
             .then((response) => {
-                // console.log(`初次加载：${new Date(response.timestamp)}`)
                 if (response.code === 0) {
                     this.categoryList = response.data.categoryList
                 }
