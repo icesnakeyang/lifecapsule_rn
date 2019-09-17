@@ -3,27 +3,43 @@ import {
     View,
     Text
 } from 'react-native'
+import {WebView} from "react-native-webview"
 import actions from "../action";
 import {connect} from "react-redux";
 
 class EditNotePage extends Component {
     constructor(props) {
         super(props)
-        this.note = this.props.navigation.state.params.note
-        this.getRSAPublicKey()
     }
 
-    getRSAPublicKey() {
-        const {getRSA} = this.props
-        getRSA()
+    componentWillMount() {
+        this.loadData()
+    }
+
+
+    loadData() {
+        const {onNoteDetail} = this.props
+        const noteId = this.props.navigation.state.params.note.noteId
+        const token = this.props.user.user.token
+        onNoteDetail(noteId, token)
     }
 
     render() {
-        console.log(this.note)
-        console.log(this.props)
+        let detail = ''
+        if (this.props.noteList.note) {
+            detail = this.props.noteList.note.detail
+        }
+        console.log(detail)
         return (
-            <View>
+            <View style={{flex: 1}}>
                 <Text>edit note here</Text>
+                <View style={{flex: 1, fontSize: 48, backgroundColor: '#00ff00'}}>
+                    <WebView
+                        style={{color: '#ffff00', fontSize: 48}}
+                        originWhitelist={['*']}
+                        source={{html: detail}}
+                    />
+                </View>
             </View>
         )
     }
@@ -31,12 +47,13 @@ class EditNotePage extends Component {
 
 const mapStateToProps = state => ({
     RSA: state.RSA,
-    noteDetail: state.noteDetail
+    noteList: state.noteList,
+    user: state.user
 })
 
 const mapDispatchToProps = dispatch => ({
     getRSA: () => dispatch(actions.getRSA()),
-    onNoteDetail: (noteId) => dispatch(actions.onNoteDetail(noteId))
+    onNoteDetail: (noteId, token) => dispatch(actions.onNoteDetail(noteId, token))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditNotePage)

@@ -33,8 +33,8 @@ export function createBlankToken() {
         dispatch({
             type: Types.USER_CREATE_BLANK_USER_SUCCESS,
             user: {
-                // token: '3e75b1bb-d664-4949-9a22-d86bd5645bae'
-                token: 'dcfbc543-d549-467f-8e9c-de09c5038b78'
+                token: '3e75b1bb-d664-4949-9a22-d86bd5645bae'
+                // token: 'dcfbc543-d549-467f-8e9c-de09c5038b78'
             }
         })
     }

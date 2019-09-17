@@ -1,6 +1,6 @@
 import Types from "../../action/types";
 
-export default function onAction(state=[], action) {
+export default function onAction(state = [], action) {
     switch (action.type) {
         case Types.NOTE_LIST:
             return {
@@ -16,6 +16,11 @@ export default function onAction(state=[], action) {
             return {
                 ...state,
                 error: action.error
+            }
+        case Types.NOTE_DETAIL_SUCCESS:
+            return {
+                ...state,
+                note: action.note
             }
         default:
             return state

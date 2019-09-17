@@ -1,6 +1,7 @@
 import Types from "../types";
 import DataStore from "../../expand/dao/DataStore";
 import {API} from "../../api/api";
+import {Decrypt, Decrypt2, GenerateRandomString16, RSAencrypt} from "../../common/encoder/crypto";
 
 export function onListNote(token) {
     const url = API.apiListNote
@@ -35,44 +36,60 @@ export function onListNote(token) {
     }
 }
 
-export function onNoteDetail(noteId) {
+export function onNoteDetail(noteId, token) {
+    console.log(noteId)
+    console.log(token)
+    let url = API.apiGetRSAKey
+    let RSA = null
+    let note = {}
+    let dataStore = new DataStore()
     return dispatch => {
-        dispatch({
-            type: Types.NOTE_DETAIL
-        })
-        let dataStore = new DataStore()
-        let encryptKey = ''
-        let keyToken = ''
-        dataStore.fetchData('security/requestRSAPublicKey')
-            .then((response) => {
-            })
-
-        const postParams = {
-            method: 'post',
-            body: JSON.stringify({
-                noteId,
-                encryptKey,
-                keyToken
-            }),
-            headers: {
-                'Content-Type': "application/json;charset=UTF-8",
-                token: '3e75b1bb-d664-4949-9a22-d86bd5645bae'
+        dataStore.fetchNetData(url).then((data) => {
+            console.log(data)
+            RSA = data.data
+            console.log(RSA)
+            let params = {
+                noteId: noteId,
             }
-        }
+            const keyAES_1 = GenerateRandomString16();
+            if (RSA) {
+                const publicKey = RSA.publicKey
+                const keyToken = RSA.keyToken
 
-        dataStore.fetchPostData('note/getNoteDetailByNoteId', postParams)
-            .then((data) => {
-                dispatch({
-                    type: Types.NOTE_LIST_SUCCESS,
-                    noteList: data.data.noteList
+                params.encryptKey = RSAencrypt(keyAES_1, publicKey)
+                params.keyToken = keyToken
+
+                const url = API.apiGetNoteDetailByNoteId
+                fetch(url, {
+                    method: 'POST',
+                    body: JSON.stringify(params),
+                    headers: {
+                        'Content-Type': "application/json;charset=UTF-8",
+                        token: token
+                    }
+                }).then((response) => {
+                    console.log(response)
+                    if (response.ok) {
+                        return response.json()
+                    }
+                }).then((responseData) => {
+                    console.log(responseData)
+                    if (responseData.code === 0) {
+                        note = responseData.data.note
+                        console.log(note)
+                        let strKey = note.userEncodeKey
+                        strKey = Decrypt2(strKey, keyAES_1)
+                        note.detail = Decrypt(note.detail, strKey, strKey)
+                        console.log(note.detail)
+                        dispatch({
+                            type: Types.NOTE_DETAIL_SUCCESS,
+                            note: note
+                        })
+                    }
                 })
-            })
-            .catch((error) => {
-                console.log(error)
-                dispatch({
-                    type: Types.NOTE_LIST_FAIL,
-                    error
-                })
-            })
+            }
+        }).catch((error) => {
+            console.log(error)
+        })
     }
 }

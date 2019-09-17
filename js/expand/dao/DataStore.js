@@ -71,21 +71,20 @@ export default class DataStore {
     }
 
     fetchNetData(url) {
-
-
+        console.log(url)
         return new Promise((resolve, reject) => {
-            fetch(url)
-                .then((response) => {
+            fetch(url).then((response) => {
+                    console.log(2)
                     if (response.ok) {
                         return response.json()
                     }
                     throw new Error('Network response error')
-                })
-                .then((responseData) => {
+                }).then((responseData) => {
                     this.saveData(url, responseData)
                     resolve(responseData)
-                })
-                .catch((error) => {
+                }).catch((error) => {
+                    console.log(3)
+                    console.log(error)
                     reject(error)
                 })
         })
