@@ -1,15 +1,18 @@
 import React, {Component} from 'react'
 import {
     View,
-    Text
+    Text,
+    TextInput
 } from 'react-native'
-import {WebView} from "react-native-webview"
 import actions from "../action";
 import {connect} from "react-redux";
 
 class EditNotePage extends Component {
     constructor(props) {
         super(props)
+        this.state = {
+            text: 'ok'
+        }
     }
 
     componentWillMount() {
@@ -32,13 +35,12 @@ class EditNotePage extends Component {
         console.log(detail)
         return (
             <View style={{flex: 1}}>
-                <Text>edit note here</Text>
-                <View style={{flex: 1, fontSize: 48, backgroundColor: '#00ff00'}}>
-                    <WebView
-                        style={{color: '#ffff00', fontSize: 48}}
-                        originWhitelist={['*']}
-                        source={{html: detail}}
-                    />
+                <Text>edit note here2</Text>
+                <Text>我是谁</Text>
+                <View style={{flex: 1, backgroundColor:'#ddff00'}}>
+                    <TextInput
+                        value={detail}
+                    ></TextInput>
                 </View>
             </View>
         )
