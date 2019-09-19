@@ -1,15 +1,21 @@
 import React, {Component} from 'react'
 import {
     View,
-    Text
+    Text,
+    Button
 } from 'react-native'
 import {WebView} from "react-native-webview"
 import actions from "../action";
 import {connect} from "react-redux";
+import Textarea from "react-native-textarea";
 
 class EditNotePage extends Component {
     constructor(props) {
         super(props)
+        this.state={
+            noteDetail:''
+        }
+
     }
 
     componentWillMount() {
@@ -24,22 +30,45 @@ class EditNotePage extends Component {
         onNoteDetail(noteId, token)
     }
 
-    render() {
-        let detail = ''
-        if (this.props.noteList.note) {
-            detail = this.props.noteList.note.detail
+    saveNote(){
+        let note=this.props.noteList.note
+        note.detail=this.state.noteDetail
+        const token=this.props.user.user.token
+        let params={
+            note:note,
+            token:token
         }
-        console.log(detail)
+
+        const {updateNote}=this.props
+        updateNote(params)
+    }
+
+    render() {
+        let theDetail=''
+        if (this.props.noteList.note) {
+            theDetail=this.props.noteList.note.detail
+        }
         return (
             <View style={{flex: 1}}>
                 <Text>edit note here</Text>
-                <View style={{flex: 1, fontSize: 48, backgroundColor: '#00ff00'}}>
-                    <WebView
-                        style={{color: '#ffff00', fontSize: 48}}
-                        originWhitelist={['*']}
-                        source={{html: detail}}
-                    />
-                </View>
+                {/*<View style={{flex: 1, fontSize: 48, backgroundColor: '#00ff00'}}>*/}
+                {/*    <WebView*/}
+                {/*        style={{color: '#ffff00', fontSize: 48}}*/}
+                {/*        originWhitelist={['*']}*/}
+                {/*        source={{html: detail}}*/}
+                {/*    />*/}
+                {/*</View>*/}
+                <Textarea
+                    containerStyle={{flex:1}}
+                    defaultValue={theDetail}
+                    onChangeText={(noteDetail)=>this.setState({noteDetail})}
+                />
+                <Button
+                    title={'Save'}
+                    onPress={()=>{
+                        this.saveNote()
+                    }}
+                />
             </View>
         )
     }
@@ -53,7 +82,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     getRSA: () => dispatch(actions.getRSA()),
-    onNoteDetail: (noteId, token) => dispatch(actions.onNoteDetail(noteId, token))
+    onNoteDetail: (noteId, token) => dispatch(actions.onNoteDetail(noteId, token)),
+    updateNote:(params)=>dispatch(actions.updateNote(params))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditNotePage)

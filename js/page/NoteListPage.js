@@ -32,7 +32,6 @@ class NoteListPage extends Component {
 
     render() {
         const {noteList} = this.props.noteList
-        console.log(noteList)
         return (
             <View>
                 <Text>note list page</Text>

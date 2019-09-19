@@ -1,20 +1,22 @@
 import {AsyncStorage} from "react-native";
 
-const host = 'http://gogorpg.com:8088/'
-
 export default class DataStore {
-    fetchPostData(url, postParams) {
+    fetchPostData(url, requestBody, token) {
         return new Promise((resolve, reject) => {
-            fetch(url, postParams)
-                .then((response) => {
+            fetch(url, {
+                method:'POST',
+                body:JSON.stringify(requestBody),
+                headers:{
+                    'Content-Type': "application/json;charset=UTF-8",
+                    token: token
+                }
+            }).then((response) => {
                     if (response.ok) {
                         return response.json()
                     }
-                })
-                .then((data) => {
+                }).then((data) => {
                     resolve(data)
-                })
-                .catch((error) => {
+                }).catch((error) => {
                     console.log(error)
                     reject(error)
                 })
@@ -71,10 +73,8 @@ export default class DataStore {
     }
 
     fetchNetData(url) {
-        console.log(url)
         return new Promise((resolve, reject) => {
             fetch(url).then((response) => {
-                    console.log(2)
                     if (response.ok) {
                         return response.json()
                     }
@@ -83,7 +83,6 @@ export default class DataStore {
                     this.saveData(url, responseData)
                     resolve(responseData)
                 }).catch((error) => {
-                    console.log(3)
                     console.log(error)
                     reject(error)
                 })
