@@ -6,14 +6,13 @@ import {Decrypt, Decrypt2, Encrypt, GenerateKey, GenerateRandomString16, RSAencr
 
 export function onListNote(token) {
     const url = API.apiListNote
+    let dataStore = new DataStore()
+    const requestBody = {
+        pageIndex: 1,
+        pageSize: 10
+    }
     return dispatch => {
-        let dataStore = new DataStore()
-        const requestBody = {
-                pageIndex: 1,
-                pageSize: 10
-        }
-
-        dataStore.fetchPostData(url,requestBody , token)
+        dataStore.fetchPostData(url, requestBody, token)
             .then((data) => {
                 dispatch({
                     type: Types.NOTE_LIST_SUCCESS,
@@ -50,28 +49,18 @@ export function onNoteDetail(noteId, token) {
                 params.keyToken = keyToken
 
                 const url = API.apiGetNoteDetailByNoteId
-                fetch(url, {
-                    method: 'POST',
-                    body: JSON.stringify(params),
-                    headers: {
-                        'Content-Type': "application/json;charset=UTF-8",
-                        token: token
-                    }
-                }).then((response) => {
-                    if (response.ok) {
-                        return response.json()
-                    }
-                }).then((responseData) => {
-                    if (responseData.code === 0) {
-                        note = responseData.data.note
-                        let strKey = note.userEncodeKey
-                        strKey = Decrypt2(strKey, keyAES_1)
-                        note.detail = Decrypt(note.detail, strKey, strKey)
-                        dispatch({
-                            type: Types.NOTE_DETAIL_SUCCESS,
-                            note: note
-                        })
-                    }
+                dataStore.fetchPostData(url, params, token)
+                    .then((responseData) => {
+                        if (responseData.code === 0) {
+                            note = responseData.data.note
+                            let strKey = note.userEncodeKey
+                            strKey = Decrypt2(strKey, keyAES_1)
+                            note.detail = Decrypt(note.detail, strKey, strKey)
+                            dispatch({
+                                type: Types.NOTE_DETAIL_SUCCESS,
+                                note: note
+                            })
+                        }
                 })
             }
         }).catch((error) => {
@@ -82,7 +71,6 @@ export function onNoteDetail(noteId, token) {
 
 export function updateNote(params) {
     let url=''
-    console.log(params)
 
     /**
      * 生成一个uuid
@@ -106,8 +94,6 @@ export function updateNote(params) {
         encryptKey:keyAESBase64
     }
 
-    console.log(postParams)
-
     return dispatch=> {
         url = API.apiGetRSAKey
         const dataStore = new DataStore()
@@ -120,13 +106,30 @@ export function updateNote(params) {
                     url = API.apiUpdateNote
                     dataStore.fetchPostData(url, postParams, params.token)
                         .then((response) => {
-                            console.log(response)
+                            if(response.code===0){
+                                dispatch({
+                                    type:Types.NOTE_UPDATE_SUCCESS
+                                })
+                            }
                         })
                         .catch((error) => {
                             console.log(error)
+                            dispatch({
+                                type:Types.NOTE_UPDATE_FAIL,
+                                error:error
+                            })
                         })
                 }
             })
     }
 
+}
+
+export function clearNote() {
+    return dispatch=> {
+        dispatch({
+            type: Types.NOTE_CLEAR,
+            note:null
+        })
+    }
 }

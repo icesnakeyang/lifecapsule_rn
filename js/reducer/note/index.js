@@ -22,6 +22,22 @@ export default function onAction(state = [], action) {
                 ...state,
                 note: action.note
             }
+        case Types.NOTE_UPDATE_SUCCESS:
+            return {
+                ...state,
+                updateResult:true
+            }
+        case Types.NOTE_UPDATE_FAIL:
+            return {
+                ...state,
+                updateResult: false,
+                error:action.error
+            }
+        case Types.NOTE_CLEAR:
+            return {
+                ...state,
+                note:null
+            }
         default:
             return state
     }

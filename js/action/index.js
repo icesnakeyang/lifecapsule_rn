@@ -1,5 +1,5 @@
 import {onThemeChange} from "./theme";
-import {onListNote, onNoteDetail, updateNote} from "./note";
+import {clearNote, onListNote, onNoteDetail, updateNote} from "./note";
 import {createBlankToken, getLocalToken, loginUser} from "./user";
 import {getRSA} from "./encoder";
 
@@ -11,5 +11,6 @@ export default {
     createBlankToken,
     loginUser,
     getRSA,
-    updateNote
+    updateNote,
+    clearNote
 }

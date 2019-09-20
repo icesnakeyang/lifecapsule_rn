@@ -31,7 +31,10 @@ class NoteListPage extends Component {
     }
 
     render() {
-        const {noteList} = this.props.noteList
+        let noteList=null
+        if(this.props.note.noteList){
+             noteList = this.props.note.noteList
+        }
         return (
             <View>
                 <Text>note list page</Text>
@@ -48,7 +51,7 @@ class NoteListPage extends Component {
 
 const
     mapStateToProps = state => ({
-        noteList: state.noteList,
+        note: state.note,
         user: state.user
     })
 

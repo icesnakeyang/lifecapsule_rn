@@ -23,7 +23,6 @@ class WelcomePage extends Component {
                 this.createBlankUser()
                 user = this.props.user.user
                 if (!user || !user.token) {
-                    console.log('no token')
                 } else {
                     NavigationUtil.resetToHomePage({
                         navigation: this.props.navigation
