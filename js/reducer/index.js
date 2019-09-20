@@ -1,9 +1,7 @@
 import {rootCam, RootNavigator} from "../navigator/AppNavigator";
 import {combineReducers} from "redux";
 import theme from './theme'
-import note from './note'
 import user from './user'
-import RSA from './encoder'
 
 const navState = RootNavigator.router.getStateForAction(
     RootNavigator.router.getActionForPathAndParams(rootCam)
@@ -17,9 +15,7 @@ const navReducer = (state = navState, action) => {
 const index = combineReducers({
     nav: navReducer,
     theme,
-    note,
     user,
-    RSA
 })
 
 export default index

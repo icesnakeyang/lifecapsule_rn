@@ -15,7 +15,7 @@ const TABS = {
     Note: {
         screen: NoteListPage,
         navigationOptions: {
-            tabBarLabel: 'Note',
+            tabBarLabel: 'NoteList',
             tabBarIcon: ({tintColor, focused}) => (
                 <Ionicons
                     name={'ios-journal'}
