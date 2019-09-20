@@ -13,6 +13,8 @@ import DataStore from "../expand/dao/DataStore";
 import {Decrypt, Decrypt2, Encrypt, GenerateKey, GenerateRandomString16, RSAencrypt} from "../common/encoder/crypto";
 import Types from "../action/types";
 import CryptoJS from "crypto-js";
+import refreshNoteList from "../action/note";
+import actions from "../action";
 
 class EditNotePage extends Component {
     constructor(props) {
@@ -99,6 +101,9 @@ class EditNotePage extends Component {
 
             this.updateNote(params).then((response)=>{
                 // NavigationUtil.goPage({}, 'HomePage')
+                let {refreshNoteList}=this.props
+                refreshNoteList()
+
                 NavigationUtil.goBack(this.props.navigation)
             }).catch((error)=>{
                 console.log('save failed')
@@ -195,6 +200,8 @@ const mapStateToProps = state => ({
     user: state.user
 })
 
-const mapDispatchToProps = dispatch => ({})
+const mapDispatchToProps = dispatch => ({
+    refreshNoteList:(params)=>dispatch(actions.refreshNoteList(params))
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditNotePage)
