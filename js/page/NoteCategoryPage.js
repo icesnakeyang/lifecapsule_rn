@@ -4,23 +4,35 @@ import {
     Text,
     StyleSheet,
     Button,
-    FlatList
+    FlatList,
+    DeviceEventEmitter,
+    TouchableOpacity
 } from 'react-native'
+
 import actions from "../action";
 import {connect} from "react-redux";
 import DataStore from "../expand/dao/DataStore";
-
-const url = 'http://gogorpg.com:8088/category/listCategory'
-
+import {API} from "../api/api";
+import NavigationUtil from "../navigator/NavigationUtil";
 
 class NoteCategoryPage extends Component {
     constructor(props) {
         super(props)
-        this.categoryList = []
+        this.state = {
+            text: 'init',
+            categoryList: []
+        }
     }
 
     componentDidMount() {
         this.loadData()
+        DeviceEventEmitter.addListener('refresh_list', (params) => {
+            console.log('refresh_list')
+            this.setState({
+                text: 'init4'
+            })
+            this.loadData()
+        })
     }
 
 
@@ -30,6 +42,7 @@ class NoteCategoryPage extends Component {
             pageSize: 10
         }
 
+        const url = API.apiListCategory
         const token = '3e75b1bb-d664-4949-9a22-d86bd5645bae'
 
         const postParams = {
@@ -43,10 +56,13 @@ class NoteCategoryPage extends Component {
         }
 
         let ds = new DataStore()
-        ds.fetchPostData(url, postParams)
+        ds.fetchPostData(url, data, token)
             .then((response) => {
+                console.log(response)
                 if (response.code === 0) {
-                    this.categoryList = response.data.categoryList
+                    this.setState({
+                        categoryList: response.data.categoryList
+                    })
                 }
             })
             .catch((error) => {
@@ -57,34 +73,57 @@ class NoteCategoryPage extends Component {
 
     renderItem(data) {
         const item = data.item
+        console.log(item)
         return (
             <View>
-                <Text>ok</Text>
+                <TouchableOpacity
+                    onPress={() => {
+                        NavigationUtil.goPage({
+                            item: item
+                        }, 'CategoryDetail')
+                    }}
+                >
+                    <Text>{item.categoryName}</Text>
+                </TouchableOpacity>
             </View>
         )
     }
 
+    goDetail() {
+        NavigationUtil.goPage({}, 'CategoryDetail')
+    }
+
     render() {
+        console.log(this.props)
+        console.log(this.state)
         return (
             <View>
                 <Text>Note category page</Text>
-
+                <Text>{this.state.text}</Text>
                 <View>
+
                     <FlatList
                         keyExtractor={item => '' + item.id}
-                        data={this.categoryList}
+                        data={this.state.categoryList}
                         renderItem={data => this.renderItem(data)}
                     />
                 </View>
+                <Button title={'detail'} onPress={() => {
+                    this.goDetail()
+                }}
+                />
             </View>
         )
     }
 }
 
-const mapStateToProps = state => ({})
+const mapStateToProps = state => ({
+    category: state.category
+})
 
 const mapDispatchToProps = dispatch => ({
-    onThemeChange: theme => dispatch(actions.onThemeChange(theme))
+    onThemeChange: theme => dispatch(actions.onThemeChange(theme)),
+    loadCategory: () => dispatch(actions.loadCategory())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(NoteCategoryPage)

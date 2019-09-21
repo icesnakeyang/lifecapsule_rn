@@ -9,46 +9,23 @@ import {connect} from "react-redux";
 import NoteListItem from "../common/component/NoteListItem";
 import {API} from "../api/api";
 import DataStore from "../expand/dao/DataStore";
-import {NavigationActions} from "react-navigation";
 import actions from "../action";
 
 class NoteListPage extends Component {
     constructor(props) {
-        console.log('construct note list page')
         super(props)
-        this.state={
-            noteList:this.props.note.noteList
+        this.state = {
+            noteList: this.props.note.noteList
         }
     }
 
     componentDidMount() {
-        this.willFocusSubscription=this.props.navigation.addListener(
-            'willFocus',
-            payload=>{
-                const {refreshNoteList}=this.props
-                refreshNoteList()
-                console.log('load payload')
-                console.log(this.props)
-                // this.loadData()
-            }
-        )
-        // this.loadData()
-        // BackHandler.addEventListener('hardwareBackPress', ()=>{
-        //     const {nav, dispatch} =this.props
-        //     if (nav.routes[1].index === 0) {//如果RootNavigator中的MainNavigator的index为0，则不处理返回事件
-        //         return false;
-        //     }
-        //     dispatch(NavigationActions.back());
-        //     return true;
-        // })
+        console.log('did mount')
+        this.loadData()
     }
-
-    componentWillUnmount(){
-
-    }
-
 
     loadData() {
+        console.log('load data')
         const url = API.apiListNote
         let dataStore = new DataStore()
         const requestBody = {
@@ -56,10 +33,15 @@ class NoteListPage extends Component {
             pageSize: 10
         }
         const token = this.props.user.user.token
+        console.log(5)
+        console.log(url)
+        console.log(requestBody)
+        console.log(token)
         dataStore.fetchPostData(url, requestBody, token)
             .then((data) => {
+                console.log(data)
                 this.setState({
-                    noteList:data.data.noteList
+                    noteList: data.data.noteList
                 })
             })
             .catch((error) => {
@@ -74,32 +56,25 @@ class NoteListPage extends Component {
     }
 
     render() {
-        console.log('render note list page')
-        console.log(this.state)
-        console.log(this.props)
         return (
             <View>
-                {/*<FlatList*/}
-                {/*    data={this.state.noteList}*/}
-                {/*    renderItem={({item}) => (*/}
-                {/*        this.renderItem(item)*/}
-                {/*    )}*/}
-                {/*/>*/}
-                <Text>test 1</Text>
-                <Text>test 2</Text>
-                <Text>test 3</Text>
-                <Text>{this.state.noteList}</Text>
+                <FlatList
+                    data={this.state.noteList}
+                    renderItem={({item}) => (
+                        this.renderItem(item)
+                    )}
+                />
             </View>
         )
     }
 }
 
 const mapStateToProps = state => ({
-        user: state.user,
-    note:state.note
-    })
-const mapDispatchToProps=dispatch=>({
-    refreshNoteList:(params)=>(actions.refreshNoteList(params))
+    user: state.user,
+    note: state.note
+})
+const mapDispatchToProps = dispatch => ({
+    refreshNoteList: () => (actions.refreshNoteList())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(NoteListPage)
