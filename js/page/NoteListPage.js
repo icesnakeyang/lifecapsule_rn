@@ -34,6 +34,7 @@ class NoteListPage extends Component {
             pageSize: 10
         }
         const token = this.props.user.user.token
+        console.log(url)
         dataStore.fetchPostData(url, requestBody, token)
             .then((data) => {
                 this.setState({

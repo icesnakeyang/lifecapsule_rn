@@ -14,6 +14,8 @@ import DataStore from "../expand/dao/DataStore";
 import {API} from "../api/api";
 import NavigationUtil from "../navigator/NavigationUtil";
 import CategoryListItem from "../common/component/CategoryListItem";
+import Feather from 'react-native-vector-icons/Feather'
+import NavigationBar from "../common/component/NavigationBar";
 
 class NoteCategoryPage extends Component {
     constructor(props) {
@@ -33,7 +35,6 @@ class NoteCategoryPage extends Component {
             this.loadData()
         })
     }
-
 
     loadData() {
         const data = {
@@ -88,9 +89,41 @@ class NoteCategoryPage extends Component {
         )
     }
 
+    getRightButton(){
+        return(
+            <View>
+                <TouchableOpacity
+                    onPress={()=>{
+                        console.log('add category')
+                    }}
+                >
+                    <View style={{padding:5, marginRight:8}}>
+                        <Feather
+                            name={'plus'}
+                            size={24}
+                            style={{color:'#ddd'}}
+                        />
+                    </View>
+                </TouchableOpacity>
+            </View>
+        )
+    }
+
     render() {
+        let statusBar={
+            backgroundColor: '#678',
+            barStyle:'light-content'
+        }
+        let navigationBar=
+            <NavigationBar
+                title={'Category'}
+                statusBar={statusBar}
+                style={{backgroundColor: '#678'}}
+                rightButton={this.getRightButton()}
+            />
         return (
             <View style={styles.container}>
+                {navigationBar}
                 <View style={styles.row_container}>
                     <FlatList
                         keyExtractor={item => '' + item.id}

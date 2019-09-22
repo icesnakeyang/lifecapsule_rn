@@ -8,11 +8,25 @@ import {
 import NavigationBar from "../common/component/NavigationBar";
 import Feather from "react-native-vector-icons/Feather";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import NavigationUtil from "../navigator/NavigationUtil";
 
 export default class TriggerPage extends Component{
     getRightButton(){
         return(
             <View style={{flexDirection: 'row'}}>
+                <TouchableOpacity
+                    onPress={()=>{
+                        console.log('press third button')
+                    }}
+                >
+                    <View style={{padding:5, marginRight:13}}>
+                        <Feather
+                            name={'search'}
+                            size={24}
+                            style={{color:'#ddd'}}
+                        />
+                    </View>
+                </TouchableOpacity>
                 <TouchableOpacity
                     onPress={()=>{
                         console.log('press right button')
@@ -36,6 +50,7 @@ export default class TriggerPage extends Component{
                 style={{padding:8,paddingLeft:12}}
                 onPress={()=>{
                     console.log('press left button')
+                    NavigationUtil.goBack(this.props.navigation)
                 }}
             >
                 <Ionicons
@@ -46,6 +61,7 @@ export default class TriggerPage extends Component{
             </TouchableOpacity>
         )
     }
+
     render(){
         let statusBar={
             backgroundColor: '#678',
