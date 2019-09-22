@@ -10,6 +10,7 @@ import {connect} from "react-redux";
 import NewNotePage from "../page/NewNotePage";
 import EditNotePage from "../page/EditNotePage";
 import CategoryDetail from "../page/CategoryDetail";
+import TriggerPage from "../page/TriggerPage";
 
 export const rootCam = 'Init'
 
@@ -31,6 +32,13 @@ const MainNavigator = createStackNavigator({
     },
     CategoryDetail: {
         screen: CategoryDetail
+    },
+    TriggerPage:{
+        screen:TriggerPage,
+        navigationOptions:{
+            title:'Trigger',
+            header:null
+        }
     }
 })
 
