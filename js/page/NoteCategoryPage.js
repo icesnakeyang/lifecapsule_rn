@@ -3,7 +3,6 @@ import {
     View,
     Text,
     StyleSheet,
-    Button,
     FlatList,
     DeviceEventEmitter,
     TouchableOpacity
@@ -14,6 +13,7 @@ import {connect} from "react-redux";
 import DataStore from "../expand/dao/DataStore";
 import {API} from "../api/api";
 import NavigationUtil from "../navigator/NavigationUtil";
+import CategoryListItem from "../common/component/CategoryListItem";
 
 class NoteCategoryPage extends Component {
     constructor(props) {
@@ -27,7 +27,6 @@ class NoteCategoryPage extends Component {
     componentDidMount() {
         this.loadData()
         DeviceEventEmitter.addListener('refresh_list', (params) => {
-            console.log('refresh_list')
             this.setState({
                 text: 'init4'
             })
@@ -58,7 +57,6 @@ class NoteCategoryPage extends Component {
         let ds = new DataStore()
         ds.fetchPostData(url, data, token)
             .then((response) => {
-                console.log(response)
                 if (response.code === 0) {
                     this.setState({
                         categoryList: response.data.categoryList
@@ -66,14 +64,15 @@ class NoteCategoryPage extends Component {
                 }
             })
             .catch((error) => {
-                console.log(error)
             })
 
     }
 
     renderItem(data) {
         const item = data.item
-        console.log(item)
+        return (
+            <CategoryListItem item={data}></CategoryListItem>
+        )
         return (
             <View>
                 <TouchableOpacity
@@ -89,29 +88,18 @@ class NoteCategoryPage extends Component {
         )
     }
 
-    goDetail() {
-        NavigationUtil.goPage({}, 'CategoryDetail')
-    }
-
     render() {
-        console.log(this.props)
-        console.log(this.state)
         return (
-            <View>
-                <Text>Note category page</Text>
-                <Text>{this.state.text}</Text>
-                <View>
-
+            <View style={styles.container}>
+                <View style={styles.row_container}>
                     <FlatList
                         keyExtractor={item => '' + item.id}
                         data={this.state.categoryList}
-                        renderItem={data => this.renderItem(data)}
+                        renderItem={({item}) => (
+                            this.renderItem(item)
+                        )}
                     />
                 </View>
-                <Button title={'detail'} onPress={() => {
-                    this.goDetail()
-                }}
-                />
             </View>
         )
     }
@@ -127,3 +115,13 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(NoteCategoryPage)
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1
+    },
+    row_container:{
+        backgroundColor:'#ddd',
+
+    }
+})

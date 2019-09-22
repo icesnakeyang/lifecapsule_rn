@@ -17,7 +17,6 @@ export default class DataStore {
                 }).then((data) => {
                     resolve(data)
                 }).catch((error) => {
-                    console.log(error)
                     reject(error)
                 })
         })
@@ -28,7 +27,6 @@ export default class DataStore {
             .then((response) => {
             })
             .catch((error) => {
-                console.log(error)
             })
 
         return
@@ -62,11 +60,9 @@ export default class DataStore {
                         resolve(JSON.parse(result))
                     } catch (e) {
                         reject(e)
-                        console.log(e)
                     }
                 } else {
                     reject(error)
-                    console.log(error)
                 }
             })
         })
@@ -83,7 +79,6 @@ export default class DataStore {
                     this.saveData(url, responseData)
                     resolve(responseData)
                 }).catch((error) => {
-                    console.log(error)
                     reject(error)
                 })
         })

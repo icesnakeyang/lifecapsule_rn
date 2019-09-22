@@ -2,12 +2,6 @@ import Types from "../types";
 import DataStore from "../../expand/dao/DataStore";
 
 export function refreshNoteList() {
-    console.log('refresh note list')
-    // return dispatch=>{
-    //     dispatch({
-    //         type:Types.NOTE_REFRESH_LIST_SUCCESS
-    //     })
-    // }
     return dispatch => {
         let dataStore = new DataStore()
         dataStore.fetchLocalData('life_token')

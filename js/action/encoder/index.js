@@ -15,7 +15,6 @@ export function getRSA() {
                 })
             })
             .catch((error) => {
-                console.log(error)
                 dispatch({
                     type: Types.RSA_GET_FAIL,
                     error

@@ -8,9 +8,6 @@ import {BackHandler} from 'react-native'
 class HomePage extends Component {
     constructor(props) {
         super(props);
-
-        console.log('construct home page')
-
     }
 
     componentDidMount() {
@@ -29,7 +26,6 @@ class HomePage extends Component {
     }
 
     render() {
-        console.log('render home page')
         NavigationUtil.navigation = this.props.navigation
         return (
             <DynamicTabNavigator/>

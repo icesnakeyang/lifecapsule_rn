@@ -3,7 +3,7 @@ import {
     View,
     Text,
     StyleSheet,
-    FlatList, BackHandler
+    FlatList, BackHandler, DeviceEventEmitter
 } from 'react-native'
 import {connect} from "react-redux";
 import NoteListItem from "../common/component/NoteListItem";
@@ -20,12 +20,13 @@ class NoteListPage extends Component {
     }
 
     componentDidMount() {
-        console.log('did mount')
         this.loadData()
+        DeviceEventEmitter.addListener('Refresh_NoteList', (params) => {
+            this.loadData()
+        })
     }
 
     loadData() {
-        console.log('load data')
         const url = API.apiListNote
         let dataStore = new DataStore()
         const requestBody = {
@@ -33,19 +34,13 @@ class NoteListPage extends Component {
             pageSize: 10
         }
         const token = this.props.user.user.token
-        console.log(5)
-        console.log(url)
-        console.log(requestBody)
-        console.log(token)
         dataStore.fetchPostData(url, requestBody, token)
             .then((data) => {
-                console.log(data)
                 this.setState({
                     noteList: data.data.noteList
                 })
             })
             .catch((error) => {
-                console.log(error)
             })
     }
 
