@@ -47,7 +47,7 @@ class NewCategoryDetail extends Component {
             <View style={{flex: 1}}>
                 <Text>Category name:</Text>
                 <TextInput
-                    style={{borderWidth:.5, margin:10}}
+                    style={{borderWidth: .5, margin: 10}}
                     defaultValue={''}
                     onChangeText={(editCategoryName) => this.setState({editCategoryName})}
                 ></TextInput>
