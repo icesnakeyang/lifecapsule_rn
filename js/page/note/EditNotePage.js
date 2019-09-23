@@ -3,7 +3,9 @@ import {
     View,
     Text,
     Button,
-    TextInput, DeviceEventEmitter
+    TextInput,
+    DeviceEventEmitter,
+    TouchableOpacity
 } from 'react-native'
 import {connect} from "react-redux";
 import Textarea from "react-native-textarea";
@@ -13,6 +15,9 @@ import DataStore from "../../expand/dao/DataStore";
 import {Decrypt, Decrypt2, Encrypt, GenerateKey, GenerateRandomString16, RSAencrypt} from "../../common/encoder/crypto";
 import CryptoJS from "crypto-js";
 import actions from "../../action";
+import NavigationBar from "../../common/component/NavigationBar";
+import GetLeftButton from "../../common/component/GetLeftButton";
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
 class EditNotePage extends Component {
     constructor(props) {
@@ -27,7 +32,6 @@ class EditNotePage extends Component {
     componentDidMount() {
         this.loadData()
     }
-
 
     loadData() {
         const noteId = this.props.navigation.state.params.note.noteId
@@ -139,31 +143,77 @@ class EditNotePage extends Component {
             })
     }
 
+    getLeftButton() {
+        return (
+            <GetLeftButton {...this.props}></GetLeftButton>
+        )
+    }
+
+    getRightButton() {
+        return (
+            <View style={{flexDirection: 'row'}}>
+                <TouchableOpacity
+                    onPress={() => {
+                        console.log('save note')
+                        this.saveNote()
+                    }}
+                >
+                    <View style={{padding: 5, marginRight: 13}}>
+                        <Ionicons
+                            name={'md-checkmark'}
+                            size={26}
+                            style={{color: '#ddd'}}
+                        />
+                    </View>
+                </TouchableOpacity>
+            </View>
+        )
+    }
+
     render() {
+        let statusBar = {
+            backgroundColor: this.props.theme.theme.THEME_COLOR,
+            barStyle: 'light-content'
+        }
+        let navigationBar =
+            <NavigationBar
+                title={'Note'}
+                statusBar={statusBar}
+                style={{backgroundColor: this.props.theme.theme.THEME_COLOR}}
+                leftButton={this.getLeftButton()}
+                rightButton={this.getRightButton()}
+            />
         return (
             <View style={{flex: 1}}>
-                {/*<View style={{flex: 1, fontSize: 48, backgroundColor: '#00ff00'}}>*/}
-                {/*    <WebView*/}
-                {/*        style={{color: '#ffff00', fontSize: 48}}*/}
-                {/*        originWhitelist={['*']}*/}
-                {/*        source={{html: detail}}*/}
-                {/*    />*/}
-                {/*</View>*/}
+                {/*<View style={{flex: 1, fontSize: 48, backgroundColor: '#00ff00'}}>*/
+                }
+                {/*    <WebView*/
+                }
+                {/*        style={{color: '#ffff00', fontSize: 48}}*/
+                }
+                {/*        originWhitelist={['*']}*/
+                }
+                {/*        source={{html: detail}}*/
+                }
+                {/*    />*/
+                }
+                {/*</View>*/
+                }
+                {navigationBar}
                 <TextInput
                     defaultValue={this.state.note.title}
                     // onChangeText={(editTitle)=>this.setState({editTitle})}
                     onChangeText={(editTitle) => this.setState({editTitle})}
                 />
                 <Textarea
-                    containerStyle={{flex: 1}}
+                    containerStyle={
+                        {
+                            flex: 1
+                        }
+                    }
                     defaultValue={this.state.note.detail}
-                    onChangeText={(editDetail) => this.setState({editDetail})}
-                />
-                <Button
-                    title={'Save'}
-                    onPress={() => {
-                        this.saveNote()
-                    }}
+                    onChangeText={(editDetail) => this.setState({editDetail})
+                    }
                 />
             </View>
         )
@@ -171,7 +221,8 @@ class EditNotePage extends Component {
 }
 
 const mapStateToProps = state => ({
-    user: state.user
+    user: state.user,
+    theme: state.theme
 })
 
 const mapDispatchToProps = dispatch => ({

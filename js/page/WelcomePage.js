@@ -50,14 +50,15 @@ class WelcomePage extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.welcome}>Welcome page</Text>
+                <Text style={styles.welcome}>Welcome LefeCapsule</Text>
             </View>
         )
     }
 }
 
 const mapStateToProps = state => ({
-    user: state.user
+    user: state.user,
+    theme: state.theme
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -73,10 +74,10 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#405697'
+        backgroundColor: '#008871'
     },
     welcome: {
         fontSize: 26,
-        color: '#f4f6ff'
+        color: '#ddd'
     }
 })

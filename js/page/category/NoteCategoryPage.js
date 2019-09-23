@@ -112,14 +112,14 @@ class NoteCategoryPage extends Component {
 
     render() {
         let statusBar={
-            backgroundColor: '#678',
+            backgroundColor: this.props.theme.theme.THEME_COLOR,
             barStyle:'light-content'
         }
         let navigationBar=
             <NavigationBar
                 title={'Category'}
                 statusBar={statusBar}
-                style={{backgroundColor: '#678'}}
+                style={{backgroundColor: this.props.theme.theme.THEME_COLOR}}
                 rightButton={this.getRightButton()}
             />
         return (
@@ -140,7 +140,8 @@ class NoteCategoryPage extends Component {
 }
 
 const mapStateToProps = state => ({
-    category: state.category
+    category: state.category,
+    theme:state.theme
 })
 
 const mapDispatchToProps = dispatch => ({

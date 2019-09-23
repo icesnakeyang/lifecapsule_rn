@@ -80,15 +80,16 @@ class NoteListPage extends Component {
     }
 
     render() {
+        console.log(this.props.theme.theme.backgroundColor)
         let statusBar={
-            backgroundColor:'#678',
+            backgroundColor:this.props.theme.theme.THEME_COLOR,
             barStyle:'light-content'
         }
         let navigationBar=
             <NavigationBar
                 title={'Note'}
                 statusBar={statusBar}
-                style={{backgroundColor: '#678'}}
+                style={{backgroundColor: this.props.theme.theme.THEME_COLOR}}
                 rightButton={this.getRightButton()}
                 />
         return (
@@ -107,7 +108,8 @@ class NoteListPage extends Component {
 
 const mapStateToProps = state => ({
     user: state.user,
-    note: state.note
+    note: state.note,
+    theme:state.theme
 })
 const mapDispatchToProps = dispatch => ({
     refreshNoteList: () => (actions.refreshNoteList())

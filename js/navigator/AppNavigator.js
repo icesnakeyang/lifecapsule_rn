@@ -17,40 +17,49 @@ export const rootCam = 'Init'
 
 const InitNavigator = createStackNavigator({
     WelcomePage: {
-        screen: WelcomePage
+        screen: WelcomePage,
+        navigationOptions: {
+            header: null
+        }
     }
 })
 
 const MainNavigator = createStackNavigator({
     HomePage: {
         screen: HomePage,
-        navigationOptions:{
-            header:null
+        navigationOptions: {
+            header: null
         }
     },
     NewNotePage: {
         screen: NewNotePage,
-        navigationOptions:{
-            header:null
+        navigationOptions: {
+            header: null
         }
     },
     EditNotePage: {
-        screen: EditNotePage
-    },
-    CategoryDetail: {
-        screen: CategoryDetail
-    },
-    TriggerPage:{
-        screen:TriggerPage,
-        navigationOptions:{
-            title:'Trigger',
-            header:null
+        screen: EditNotePage,
+        navigationOptions: {
+            header: null
         }
     },
-    NewCategoryDetail:{
-        screen:NewCategoryDetail,
-        navigationOptions:{
-            header:null
+    CategoryDetail: {
+        screen: CategoryDetail,
+        navigationOptions: {
+            header: null
+        }
+    },
+    TriggerPage: {
+        screen: TriggerPage,
+        navigationOptions: {
+            title: 'Trigger',
+            header: null
+        }
+    },
+    NewCategoryDetail: {
+        screen: NewCategoryDetail,
+        navigationOptions: {
+            header: null
         }
     }
 })

@@ -7,9 +7,9 @@ import {
     TextInput, DeviceEventEmitter
 } from 'react-native'
 import Textarea from 'react-native-textarea'
-import NavigationBar fsrom "../../common/component/NavigationBar";
+import NavigationBar from "../../common/component/NavigationBar";
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import {connect} from "react-sredux";
+import {connect} from "react-redux";
 import {Encrypt, GenerateKey, RSAencrypt} from "../../common/encoder/crypto";
 import {API} from "../../api/api";
 import DataStore from "../../expand/dao/DataStore";
@@ -21,9 +21,9 @@ class NewNotePage extends Component {
         super(props);
         this.state = {
             editDetail: '',
-            editTitle: ''s
-        }s
-    }s
+            editTitle: ''
+        }
+    }
 
     getRightButton() {
         return (
@@ -47,10 +47,6 @@ class NewNotePage extends Component {
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={() => {
-                        console.log('save note')
-                        console.log(this.state)
-                        console.log(this.props.user.user.token)
-                        console.log(this.props)
                         this.saveNote()
                     }}
                 >
