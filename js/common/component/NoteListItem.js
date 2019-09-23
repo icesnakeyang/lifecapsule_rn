@@ -18,7 +18,7 @@ export default class NoteListItem extends Component {
                 onPress={()=>{
                     NavigationUtil.goPage({
                     note: item
-                }, 'TriggerPage')}}
+                }, 'EditNotePage')}}
             >
                 <Text style={styles.title}>{item.title}</Text>
                 <Text style={styles.time}>{createdTime}</Text>

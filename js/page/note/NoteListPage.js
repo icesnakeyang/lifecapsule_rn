@@ -3,13 +3,17 @@ import {
     View,
     Text,
     StyleSheet,
-    FlatList, BackHandler, DeviceEventEmitter
+    FlatList, BackHandler, DeviceEventEmitter,
+    TouchableOpacity
 } from 'react-native'
 import {connect} from "react-redux";
-import NoteListItem from "../common/component/NoteListItem";
-import {API} from "../api/api";
-import DataStore from "../expand/dao/DataStore";
-import actions from "../action";
+import NoteListItem from "../../common/component/NoteListItem";
+import {API} from "../../api/api";
+import DataStore from "../../expand/dao/DataStore";
+import actions from "../../action";
+import Feather from 'react-native-vector-icons/Feather'
+import NavigationBar from "../../common/component/NavigationBar";
+import NavigationUtil from "../../navigator/NavigationUtil";
 
 class NoteListPage extends Component {
     constructor(props) {
@@ -35,6 +39,8 @@ class NoteListPage extends Component {
         }
         const token = this.props.user.user.token
         console.log(url)
+        console.log(requestBody)
+        console.log(token)
         dataStore.fetchPostData(url, requestBody, token)
             .then((data) => {
                 this.setState({
@@ -51,9 +57,43 @@ class NoteListPage extends Component {
         )
     }
 
+    getRightButton(){
+        return(
+            <View>
+                <TouchableOpacity
+                    onPress={()=>{
+                        console.log('new note')
+                        NavigationUtil.goPage({}, 'NewNotePage')
+                    }}
+                >
+                    <View style={{padding:5, marginRight:8}}>
+                        <Feather
+                            name={'plus'}
+                            size={24}
+                            style={{color:'#ddd'}}
+                        >
+                        </Feather>
+                    </View>
+                </TouchableOpacity>
+            </View>
+        )
+    }
+
     render() {
+        let statusBar={
+            backgroundColor:'#678',
+            barStyle:'light-content'
+        }
+        let navigationBar=
+            <NavigationBar
+                title={'Note'}
+                statusBar={statusBar}
+                style={{backgroundColor: '#678'}}
+                rightButton={this.getRightButton()}
+                />
         return (
             <View>
+                {navigationBar}
                 <FlatList
                     data={this.state.noteList}
                     renderItem={({item}) => (

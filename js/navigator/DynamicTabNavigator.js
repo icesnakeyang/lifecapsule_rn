@@ -4,9 +4,9 @@ import {
     createAppContainer,
     BottomTabBar
 } from 'react-navigation'
-import NoteListPage from "../page/NoteListPage";
-import NoteCategoryPage from "../page/NoteCategoryPage";
-import NewNotePage from "../page/NewNotePage";
+import NoteListPage from "../page/note/NoteListPage";
+import NoteCategoryPage from "../page/category/NoteCategoryPage";
+import NewNotePage from "../page/note/NewNotePage";
 import SettingsPage from "../page/SettingsPage";
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import {connect} from "react-redux";

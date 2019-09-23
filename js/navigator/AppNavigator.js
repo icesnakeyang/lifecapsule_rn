@@ -7,10 +7,11 @@ import WelcomePage from "../page/WelcomePage";
 import HomePage from "../page/HomePage";
 import {createReactNavigationReduxMiddleware, createReduxContainer} from "react-navigation-redux-helpers";
 import {connect} from "react-redux";
-import NewNotePage from "../page/NewNotePage";
-import EditNotePage from "../page/EditNotePage";
-import CategoryDetail from "../page/CategoryDetail";
+import NewNotePage from "../page/note/NewNotePage";
+import EditNotePage from "../page/note/EditNotePage";
+import CategoryDetail from "../page/category/CategoryDetail";
 import TriggerPage from "../page/TriggerPage";
+import NewCategoryDetail from "../page/category/NewCategoryDetail";
 
 export const rootCam = 'Init'
 
@@ -28,7 +29,10 @@ const MainNavigator = createStackNavigator({
         }
     },
     NewNotePage: {
-        screen: NewNotePage
+        screen: NewNotePage,
+        navigationOptions:{
+            header:null
+        }
     },
     EditNotePage: {
         screen: EditNotePage
@@ -40,6 +44,12 @@ const MainNavigator = createStackNavigator({
         screen:TriggerPage,
         navigationOptions:{
             title:'Trigger',
+            header:null
+        }
+    },
+    NewCategoryDetail:{
+        screen:NewCategoryDetail,
+        navigationOptions:{
             header:null
         }
     }

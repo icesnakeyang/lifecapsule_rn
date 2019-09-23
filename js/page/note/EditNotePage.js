@@ -7,12 +7,12 @@ import {
 } from 'react-native'
 import {connect} from "react-redux";
 import Textarea from "react-native-textarea";
-import NavigationUtil from "../navigator/NavigationUtil";
-import {API} from "../api/api";
-import DataStore from "../expand/dao/DataStore";
-import {Decrypt, Decrypt2, Encrypt, GenerateKey, GenerateRandomString16, RSAencrypt} from "../common/encoder/crypto";
+import NavigationUtil from "../../navigator/NavigationUtil";
+import {API} from "../../api/api";
+import DataStore from "../../expand/dao/DataStore";
+import {Decrypt, Decrypt2, Encrypt, GenerateKey, GenerateRandomString16, RSAencrypt} from "../../common/encoder/crypto";
 import CryptoJS from "crypto-js";
-import actions from "../action";
+import actions from "../../action";
 
 class EditNotePage extends Component {
     constructor(props) {

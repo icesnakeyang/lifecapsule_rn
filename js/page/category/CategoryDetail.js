@@ -7,10 +7,10 @@ import {
     Button,
     DeviceEventEmitter
 } from 'react-native'
-import NavigationUtil from "../navigator/NavigationUtil";
-import {API} from "../api/api";
+import NavigationUtil from "../../navigator/NavigationUtil";
+import {API} from "../../api/api";
 import {connect} from "react-redux";
-import DataStore from "../expand/dao/DataStore";
+import DataStore from "../../expand/dao/DataStore";
 
 class CategoryDetail extends Component {
     constructor(props) {

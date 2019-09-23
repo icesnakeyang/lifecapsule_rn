@@ -8,14 +8,14 @@ import {
     TouchableOpacity
 } from 'react-native'
 
-import actions from "../action";
+import actions from "../../action";
 import {connect} from "react-redux";
-import DataStore from "../expand/dao/DataStore";
-import {API} from "../api/api";
-import NavigationUtil from "../navigator/NavigationUtil";
-import CategoryListItem from "../common/component/CategoryListItem";
+import DataStore from "../../expand/dao/DataStore";
+import {API} from "../../api/api";
+import NavigationUtil from "../../navigator/NavigationUtil";
+import CategoryListItem from "../../common/component/CategoryListItem";
 import Feather from 'react-native-vector-icons/Feather'
-import NavigationBar from "../common/component/NavigationBar";
+import NavigationBar from "../../common/component/NavigationBar";
 
 class NoteCategoryPage extends Component {
     constructor(props) {
@@ -95,6 +95,7 @@ class NoteCategoryPage extends Component {
                 <TouchableOpacity
                     onPress={()=>{
                         console.log('add category')
+                        NavigationUtil.goPage({},'NewCategoryDetail')
                     }}
                 >
                     <View style={{padding:5, marginRight:8}}>
@@ -126,7 +127,7 @@ class NoteCategoryPage extends Component {
                 {navigationBar}
                 <View style={styles.row_container}>
                     <FlatList
-                        keyExtractor={item => '' + item.id}
+                        keyExtractor={item => '' + item.ids}
                         data={this.state.categoryList}
                         renderItem={({item}) => (
                             this.renderItem(item)
