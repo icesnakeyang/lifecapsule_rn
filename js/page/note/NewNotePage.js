@@ -15,7 +15,11 @@ export default class NewNotePage extends Component{
             <View style={{flexDirection:'row'}}>
                 <TouchableOpacity
                     onPress={()=>{
-                        console.log('save')
+                        console.log('go to trigger page')
+                        /**
+                         * 先保存note，获取noteId，再进入trigger页面
+                         * 把note保存到AsyncStorage，再进入trigger页面。保存trigger时，一起保存note
+                         */
                     }}
                 >
                     <View style={{padding:5, marginRight:13}}>
@@ -28,7 +32,7 @@ export default class NewNotePage extends Component{
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={()=>{
-                        console.log('save')
+                        console.log('save note')
                     }}
                 >
                     <View style={{padding:5, marginRight:8}}>
