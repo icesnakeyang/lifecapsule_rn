@@ -38,9 +38,6 @@ class NoteListPage extends Component {
             pageSize: 10
         }
         const token = this.props.user.user.token
-        console.log(url)
-        console.log(requestBody)
-        console.log(token)
         dataStore.fetchPostData(url, requestBody, token)
             .then((data) => {
                 this.setState({
@@ -62,7 +59,6 @@ class NoteListPage extends Component {
             <View>
                 <TouchableOpacity
                     onPress={()=>{
-                        console.log('new note')
                         NavigationUtil.goPage({}, 'NewNotePage')
                     }}
                 >
@@ -80,7 +76,6 @@ class NoteListPage extends Component {
     }
 
     render() {
-        console.log(this.props.theme.theme.backgroundColor)
         let statusBar={
             backgroundColor:this.props.theme.theme.THEME_COLOR,
             barStyle:'light-content'

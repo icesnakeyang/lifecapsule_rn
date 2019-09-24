@@ -16,7 +16,6 @@ export default class TriggerPage extends Component{
             <View style={{flexDirection: 'row'}}>
                 <TouchableOpacity
                     onPress={()=>{
-                        console.log('press third button')
                     }}
                 >
                     <View style={{padding:5, marginRight:13}}>
@@ -29,7 +28,6 @@ export default class TriggerPage extends Component{
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={()=>{
-                        console.log('press right button')
                     }}
                 >
                     <View style={{padding:5, marginRight:8}}>
@@ -49,7 +47,6 @@ export default class TriggerPage extends Component{
             <TouchableOpacity
                 style={{padding:8,paddingLeft:12}}
                 onPress={()=>{
-                    console.log('press left button')
                     NavigationUtil.goBack(this.props.navigation)
                 }}
             >

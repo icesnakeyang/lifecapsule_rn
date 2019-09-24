@@ -9,15 +9,12 @@ import {connect} from "react-redux";
 
 class MyAccount extends Component {
     render() {
-        console.log(this.props)
         return (
             <View>
                 <TouchableOpacity
                     onPress={() => {
-                        console.log('sign out')
                         const {logoutUser} = this.props
                         logoutUser()
-                        console.log(this.props)
                     }}
                 >
                     <Text>

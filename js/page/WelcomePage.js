@@ -7,12 +7,10 @@ import {
 import NavigationUtil from "../navigator/NavigationUtil";
 import actions from "../action";
 import {connect} from "react-redux";
-import possibleConstructorReturn from "@babel/runtime/helpers/esm/possibleConstructorReturn";
 
 class WelcomePage extends Component {
     componentDidMount() {
         this.loadData()
-        console.log(this.props)
         /**
          * 首先，检查用户的token，如果有token，就跳转到首页，
          * 如果没有token，就创建token，然后再检查
@@ -20,8 +18,8 @@ class WelcomePage extends Component {
          * @type {number}
          */
         this.timer = setTimeout(() => {
-            console.log(this.props)
             let user = this.props.user.user
+            console.log(this.props)
             if (!user || !user.token) {
                 //本地没有用户，创建一个临时用户
                 this.createBlankUser()
@@ -33,7 +31,6 @@ class WelcomePage extends Component {
                 //本地有用户，检测用户是否过期
                 //如果用户已过期，则自动续签一个token
                 const {loginUser} = this.props
-                console.log(user.token)
                 loginUser(user.token)
             }
 
@@ -59,6 +56,7 @@ class WelcomePage extends Component {
 
 
     render() {
+        console.log(this.props)
         return (
             <View style={styles.container}>
                 <Text style={styles.welcome}>Welcome LefeCapsule</Text>

@@ -34,7 +34,6 @@ class NewCategoryDetail extends Component {
         }
         dataStore.fetchPostData(url, requestBody, token)
             .then((response) => {
-                console.log(response)
                 if (response.code === 0) {
                     DeviceEventEmitter.emit('refresh_list')
                     NavigationUtil.goBack(this.props.navigation)

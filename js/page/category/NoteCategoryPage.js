@@ -94,7 +94,6 @@ class NoteCategoryPage extends Component {
             <View>
                 <TouchableOpacity
                     onPress={()=>{
-                        console.log('add category')
                         NavigationUtil.goPage({},'NewCategoryDetail')
                     }}
                 >

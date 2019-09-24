@@ -154,7 +154,6 @@ class EditNotePage extends Component {
             <View style={{flexDirection: 'row'}}>
                 <TouchableOpacity
                     onPress={() => {
-                        console.log('save note')
                         this.saveNote()
                     }}
                 >

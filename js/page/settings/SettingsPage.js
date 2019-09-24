@@ -19,7 +19,6 @@ class SettingsPage extends Component {
                 <View style={{padding: 5, paddingRight: 8}}>
                     <TouchableOpacity
                         onPress={() => {
-                            console.log('message')
                         }}
                     >
                         <Ionicons
@@ -32,7 +31,6 @@ class SettingsPage extends Component {
                 <View style={{padding: 5, paddingRight: 13}}>
                     <TouchableOpacity
                         onPress={() => {
-                            console.log('settings')
                         }}
                     >
                         <Ionicons
@@ -48,7 +46,6 @@ class SettingsPage extends Component {
     }
 
     render() {
-        console.log(this.props.theme.THEME_COLOR)
         let statusBar = {
             backgroundColor: this.props.theme.THEME_COLOR
         }

@@ -9,7 +9,6 @@ export default class GetLeftButton extends Component {
             <TouchableOpacity
                 style={{padding: 8, paddingLeft: 12}}
                 onPress={() => {
-                    console.log('press left button')
                     NavigationUtil.goBack(this.props.navigation)
                 }}
             >

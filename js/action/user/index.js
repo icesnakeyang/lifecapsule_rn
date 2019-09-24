@@ -10,8 +10,6 @@ export function getLocalToken() {
         let dataStore = new DataStore()
         dataStore.fetchLocalData('life_token')
             .then((data) => {
-                console.log('read from local')
-                console.log(data)
                 dispatch({
                     type: Types.USER_LOCAL_TOKEN_SUCCESS,
                     user: {
@@ -35,11 +33,8 @@ export function createBlankToken() {
     const url = API.apiCreateNewUser
     let dataStore = new DataStore()
     return dispatch => {
-        console.log(url)
         dataStore.fetchPostData(url, {}, '')
             .then((response) => {
-                console.log('create from server')
-                console.log(response)
                 if (response.code === 0) {
                     dataStore.saveData('life_token', response.data.user.token)
                     dispatch({
@@ -60,39 +55,33 @@ export function createBlankToken() {
  * 用户登录
  */
 export function loginUser(token) {
-    console.log(token)
-    let url = API.apiLoginBlankUser
-    let dataStore = new DataStore()
-    return dispatch => {
-        dataStore.fetchPostData(url, {}, token)
-            .then((response) => {
-                console.log(response)
-                if (response.code === 0) {
-                    console.log('0')
-                    console.log(response.data.user)
-                    dispatch({
-                        type: Types.USER_LOGIN_SUCCESS,
-                        user: response.data.user
-                    })
-                } else {
-                    console.log(1)
-                }
-            })
-    }
+    return new Promise((resolve, reject) => {
+        let url = API.apiLoginBlankUser
+        let dataStore = new DataStore()
+        return dispatch => {
+            dataStore.fetchPostData(url, {}, token)
+                .then((response) => {
+                    if (response.code === 0) {
+                        dispatch({
+                            type: Types.USER_LOGIN_SUCCESS,
+                            user: response.data.user
+                        })
+                    } else {
+                    }
+                })
+        }
+    })
 }
 
 export function logoutUser() {
-    console.log('log out')
     let dataStore = new DataStore()
     return dispatch => {
         if (dataStore.removeData('life_token')) {
-            console.log('log out success')
             dispatch({
                 type: Types.USER_LOGOUT_SUCCESS,
                 user: {}
             })
         } else {
-            console.log('log out error')
         }
     }
 }

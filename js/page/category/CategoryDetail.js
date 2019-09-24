@@ -39,18 +39,15 @@ class CategoryDetail extends Component {
         const token = this.props.user.user.token
         dataStore.fetchPostData(url, requestBody, token)
             .then((response) => {
-                console.log(response)
                 if (response.code === 0) {
                     this.setState({
                         category: response.data.category
                     })
-                    console.log(this.state)
                 }
             })
     }
 
     saveCategory() {
-        console.log(this.state)
         const url = API.apiUpdateCategory
         const token = this.props.user.user.token
         const categoryId = this.state.category.categoryId
@@ -63,7 +60,6 @@ class CategoryDetail extends Component {
         }
         dataStore.fetchPostData(url, requestBody, token)
             .then((response) => {
-                console.log(response)
                 if (response.code === 0) {
                     DeviceEventEmitter.emit('refresh_list')
                     NavigationUtil.goBack(this.props.navigation)

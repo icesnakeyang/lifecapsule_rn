@@ -18,7 +18,6 @@ const STATUS_BAR_HEIGHT=(Platform.OS!=='ios'||DeviceInfo.isIPhoneX_deprecated)?0
 
 const StatusBarShape={
     barStyle: PropTypes.oneOf(['light-content', 'default']),
-    hidden:PropTypes.boolean,
     backgroundColor:PropTypes.string
 }
 
@@ -28,7 +27,6 @@ export default class NavigationBar extends Component{
         title:PropTypes.string,
         titleView:PropTypes.element,
         titleLayoutStyle:ViewPropTypes.style,
-        hidden:PropTypes.boolean,
         statusBar:PropTypes.shape(StatusBarShape),
         rightButton:PropTypes.element,
         leftButton:PropTypes.element
@@ -36,8 +34,7 @@ export default class NavigationBar extends Component{
 
     static defaultProps={
         statusBar:{
-            barStyle: 'light-content',
-            hidden:false
+            barStyle: 'light-content'
         }
     }
 

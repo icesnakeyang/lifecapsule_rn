@@ -92,14 +92,11 @@ export default class DataStore {
     }
 
     removeData(key) {
-        console.log('remove data')
         let item1=AsyncStorage.getItem(key)
-        console.log(item1)
         AsyncStorage.removeItem(key, (error) => {
             return false
         })
         let item2=AsyncStorage.getItem(key)
-        console.log(item2)
         return true
     }
 
