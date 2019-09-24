@@ -10,7 +10,10 @@ import {connect} from "react-redux";
 
 class WelcomePage extends Component {
     componentDidMount() {
+
+
         this.loadData()
+        console.log(this.props)
         /**
          * 首先，检查用户的token，如果有token，就跳转到首页，
          * 如果没有token，就创建token，然后再检查
@@ -18,17 +21,18 @@ class WelcomePage extends Component {
          * @type {number}
          */
         this.timer = setTimeout(() => {
+            console.log(this.props)
             let user = this.props.user.user
             if (!user || !user.token) {
                 this.createBlankUser()
                 user = this.props.user.user
                 if (!user || !user.token) {
-                } else {
-                    NavigationUtil.resetToHomePage({
-                        navigation: this.props.navigation
-                    })
+                    //跳转到错误页面
                 }
             }
+            NavigationUtil.resetToHomePage({
+                navigation: this.props.navigation
+            })
         }, 1000)
     }
 
@@ -48,6 +52,7 @@ class WelcomePage extends Component {
 
 
     render() {
+        console.log(this.props)
         return (
             <View style={styles.container}>
                 <Text style={styles.welcome}>Welcome LefeCapsule</Text>

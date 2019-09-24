@@ -10,5 +10,6 @@ export const API = {
     apiGetCategory: `${host}/category/getCategory`,
     apiUpdateCategory: `${host}/category/updateCategory`,
     apiCreateCategory: `${host}/category/createCategory`,
-    apiCreateNote: `${host}/note/createNote`
+    apiCreateNote: `${host}/note/createNote`,
+    apiCreateNewUser: `${host}/user/createNewUser`
 }
