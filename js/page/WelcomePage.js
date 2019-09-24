@@ -24,12 +24,17 @@ class WelcomePage extends Component {
             console.log(this.props)
             let user = this.props.user.user
             if (!user || !user.token) {
+                //本地没有用户，创建一个临时用户
                 this.createBlankUser()
                 user = this.props.user.user
                 if (!user || !user.token) {
                     //跳转到错误页面
                 }
+            }else{
+                //本地有用户，检测用户是否过期
+                //如果用户已过期，则自动续签一个token
             }
+
             NavigationUtil.resetToHomePage({
                 navigation: this.props.navigation
             })

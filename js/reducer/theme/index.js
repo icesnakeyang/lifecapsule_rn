@@ -2,7 +2,8 @@ import Types from "../../action/types";
 
 const defaultState = {
     theme: {
-        THEME_COLOR:'#008871'
+        THEME_COLOR:'#008871',
+        THEME_ICON_COLOR:'#ddd'
     }
 }
 
