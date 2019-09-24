@@ -7,11 +7,10 @@ import {
 import NavigationUtil from "../navigator/NavigationUtil";
 import actions from "../action";
 import {connect} from "react-redux";
+import possibleConstructorReturn from "@babel/runtime/helpers/esm/possibleConstructorReturn";
 
 class WelcomePage extends Component {
     componentDidMount() {
-
-
         this.loadData()
         console.log(this.props)
         /**
@@ -30,9 +29,12 @@ class WelcomePage extends Component {
                 if (!user || !user.token) {
                     //跳转到错误页面
                 }
-            }else{
+            } else {
                 //本地有用户，检测用户是否过期
                 //如果用户已过期，则自动续签一个token
+                const {loginUser} = this.props
+                console.log(user.token)
+                loginUser(user.token)
             }
 
             NavigationUtil.resetToHomePage({
@@ -57,7 +59,6 @@ class WelcomePage extends Component {
 
 
     render() {
-        console.log(this.props)
         return (
             <View style={styles.container}>
                 <Text style={styles.welcome}>Welcome LefeCapsule</Text>
@@ -74,7 +75,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     getLocalToken: () => dispatch(actions.getLocalToken()),
     createBlankToken: () => dispatch(actions.createBlankToken()),
-    loginUser: () => dispatch(actions.loginUser())
+    loginUser: (token) => dispatch(actions.loginUser(token))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(WelcomePage)

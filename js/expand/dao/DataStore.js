@@ -4,21 +4,21 @@ export default class DataStore {
     fetchPostData(url, requestBody, token) {
         return new Promise((resolve, reject) => {
             fetch(url, {
-                method:'POST',
-                body:JSON.stringify(requestBody),
-                headers:{
+                method: 'POST',
+                body: JSON.stringify(requestBody),
+                headers: {
                     'Content-Type': "application/json;charset=UTF-8",
                     token: token
                 }
             }).then((response) => {
-                    if (response.ok) {
-                        return response.json()
-                    }
-                }).then((data) => {
-                    resolve(data)
-                }).catch((error) => {
-                    reject(error)
-                })
+                if (response.ok) {
+                    return response.json()
+                }
+            }).then((data) => {
+                resolve(data)
+            }).catch((error) => {
+                reject(error)
+            })
         })
     }
 
@@ -71,16 +71,16 @@ export default class DataStore {
     fetchNetData(url) {
         return new Promise((resolve, reject) => {
             fetch(url).then((response) => {
-                    if (response.ok) {
-                        return response.json()
-                    }
-                    throw new Error('Network response error')
-                }).then((responseData) => {
-                    this.saveData(url, responseData)
-                    resolve(responseData)
-                }).catch((error) => {
-                    reject(error)
-                })
+                if (response.ok) {
+                    return response.json()
+                }
+                throw new Error('Network response error')
+            }).then((responseData) => {
+                this.saveData(url, responseData)
+                resolve(responseData)
+            }).catch((error) => {
+                reject(error)
+            })
         })
     }
 
@@ -89,6 +89,18 @@ export default class DataStore {
             return
         }
         AsyncStorage.setItem(key, JSON.stringify(this.wrapData(data)), callback)
+    }
+
+    removeData(key) {
+        console.log('remove data')
+        let item1=AsyncStorage.getItem(key)
+        console.log(item1)
+        AsyncStorage.removeItem(key, (error) => {
+            return false
+        })
+        let item2=AsyncStorage.getItem(key)
+        console.log(item2)
+        return true
     }
 
     wrapData(data) {

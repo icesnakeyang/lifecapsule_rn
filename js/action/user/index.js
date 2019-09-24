@@ -44,10 +44,7 @@ export function createBlankToken() {
                     dataStore.saveData('life_token', response.data.user.token)
                     dispatch({
                         type: Types.USER_CREATE_BLANK_USER_SUCCESS,
-                        user: {
-                            token: response.data.user.token
-                            // token: 'dcfbc543-d549-467f-8e9c-de09c5038b78'
-                        }
+                        user: response.data.user
                     })
                 } else {
                     dispatch({
@@ -62,13 +59,40 @@ export function createBlankToken() {
 /**
  * 用户登录
  */
-export function loginUser() {
+export function loginUser(token) {
+    console.log(token)
+    let url = API.apiLoginBlankUser
+    let dataStore = new DataStore()
     return dispatch => {
-        dispatch({
-            type: Types.USER_LOGIN_SUCCESS,
-            user: {
-                token: '3e75b1bb-d664-4949-9a22-d86bd5645bae'
-            }
-        })
+        dataStore.fetchPostData(url, {}, token)
+            .then((response) => {
+                console.log(response)
+                if (response.code === 0) {
+                    console.log('0')
+                    console.log(response.data.user)
+                    dispatch({
+                        type: Types.USER_LOGIN_SUCCESS,
+                        user: response.data.user
+                    })
+                } else {
+                    console.log(1)
+                }
+            })
+    }
+}
+
+export function logoutUser() {
+    console.log('log out')
+    let dataStore = new DataStore()
+    return dispatch => {
+        if (dataStore.removeData('life_token')) {
+            console.log('log out success')
+            dispatch({
+                type: Types.USER_LOGOUT_SUCCESS,
+                user: {}
+            })
+        } else {
+            console.log('log out error')
+        }
     }
 }

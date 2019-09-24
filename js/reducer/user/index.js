@@ -20,9 +20,15 @@ export default function onAction(state = defaultState, action) {
                 user: action.user
             }
         case Types.USER_LOGIN_SUCCESS:
+            console.log(action)
             return {
                 ...state,
                 user: action.user
+            }
+        case Types.USER_LOGOUT_SUCCESS:
+            return {
+                ...state,
+                user: {}
             }
         default:
             return state

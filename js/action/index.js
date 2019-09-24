@@ -1,5 +1,5 @@
 import {onThemeChange} from "./theme";
-import {createBlankToken, getLocalToken, loginUser} from "./user";
+import {createBlankToken, getLocalToken, loginUser, logoutUser} from "./user";
 import {refreshNoteList} from "./note";
 import {loadCategory} from "./category";
 
@@ -9,5 +9,6 @@ export default {
     createBlankToken,
     loginUser,
     refreshNoteList,
-    loadCategory
+    loadCategory,
+    logoutUser
 }
