@@ -1,14 +1,12 @@
 import {onThemeChange} from "./theme";
-import {createBlankToken, getLocalToken, loginUser, logoutUser} from "./user";
+import {loginUserAuto, loginUserByNamePass} from "./user";
 import {refreshNoteList} from "./note";
 import {loadCategory} from "./category";
 
 export default {
     onThemeChange,
-    getLocalToken,
-    createBlankToken,
-    loginUser,
     refreshNoteList,
     loadCategory,
-    logoutUser
+    loginUserAuto,
+    loginUserByNamePass
 }

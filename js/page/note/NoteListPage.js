@@ -76,6 +76,7 @@ class NoteListPage extends Component {
     }
 
     render() {
+        console.log(this.props)
         let statusBar={
             backgroundColor:this.props.theme.theme.THEME_COLOR,
             barStyle:'light-content'

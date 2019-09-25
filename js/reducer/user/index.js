@@ -1,9 +1,22 @@
 import Types from "../../action/types";
 
-const defaultState = {}
+const defaultState = {
+    isLogin: false
+}
 
 export default function onAction(state = defaultState, action) {
     switch (action.type) {
+        case Types.USER_LOGIN_TEST:
+            return {
+                ...state,
+                isLogin: true,
+                test: action.test
+            }
+        case Types.USER_LOGIN:
+            return {
+                ...state,
+                isLogin: true
+            }
         case Types.USER_LOCAL_TOKEN_SUCCESS:
             return {
                 ...state,

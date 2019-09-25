@@ -8,13 +8,16 @@ import actions from "../../../action";
 import {connect} from "react-redux";
 
 class MyAccount extends Component {
+    checkout() {
+        console.log('check out')
+    }
+
     render() {
         return (
             <View>
                 <TouchableOpacity
                     onPress={() => {
-                        const {logoutUser} = this.props
-                        logoutUser()
+                        this.checkout()
                     }}
                 >
                     <Text>
@@ -27,11 +30,10 @@ class MyAccount extends Component {
 }
 
 const mapStateToProps = state => ({
-    user: state.user
+    user: state.user,
+    theme: state.theme.theme
 })
 
-const mapDispatchToProps = dispatch => ({
-    logoutUser: () => dispatch(actions.logoutUser())
-})
+const mapDispatchToProps = dispatch => ({})
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyAccount)

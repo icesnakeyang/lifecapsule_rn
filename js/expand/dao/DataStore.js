@@ -97,6 +97,7 @@ export default class DataStore {
             return false
         })
         let item2=AsyncStorage.getItem(key)
+        console.log(item2)
         return true
     }
 
