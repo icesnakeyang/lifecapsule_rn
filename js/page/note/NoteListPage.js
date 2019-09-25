@@ -36,7 +36,7 @@ class NoteListPage extends Component {
         const requestBody = {
             pageIndex: 1,
             pageSize: 10
-        }+-
+        }
         console.log('load')
         console.log(this.props)
         if (!this.props.user.user) {

@@ -7,6 +7,7 @@ import {
 import NavigationUtil from "../navigator/NavigationUtil";
 import actions from "../action";
 import {connect} from "react-redux";
+import DeviceInfo from 'react-native-device-info'
 
 class WelcomePage extends Component {
     componentDidMount() {
@@ -23,8 +24,26 @@ class WelcomePage extends Component {
     }
 
     loadData() {
+        /**
+         * 读取device信息
+         * @type {{}}
+         */
+        let deviceId = null
+        const device = {};
+        device.DeviceID = DeviceInfo.getUniqueId()
+        device.DeviceID.then(res => {
+            console.log(res)
+            deviceId = res
+        })
+
+        // device.UserAgent = deviceInfo.getUserAgent();
+        // device.DeviceBrand = deviceInfo.getBrand();
+        // device.DeviceModel = deviceInfo.getModel();
+        // device.SystemVersion = deviceInfo.getSystemVersion();
+        // device.AppVersion = deviceInfo.getVersion();
+        // device.AppReadableVersion = deviceInfo.getReadableVersion();
         const {loginUserAuto} = this.props
-        loginUserAuto()
+        loginUserAuto(deviceId)
     }
 
     _store() {
@@ -55,7 +74,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    loginUserAuto: () => dispatch(actions.loginUserAuto())
+    loginUserAuto: (deviceId) => dispatch(actions.loginUserAuto(deviceId))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(WelcomePage)

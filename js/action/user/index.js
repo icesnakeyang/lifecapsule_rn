@@ -34,11 +34,11 @@ function removeLocalStorageToken() {
 /**
  * 创建一个临时新用户
  */
-function createBlankToken() {
+function createBlankToken(deviceId) {
     return new Promise((resolve, reject) => {
         const url = API.apiCreateNewUser
         let dataStore = new DataStore()
-        dataStore.fetchPostData(url, {})
+        dataStore.fetchPostData(url, {deviceId})
             .then((response) => {
                 if (response.code === 0) {
                     resolve(response)
@@ -59,7 +59,7 @@ function createBlankToken() {
  *      如果过期，就进行云端AI处理。（以后开发）
  * 如果没有token就创建一个新用户
  */
-export function loginUserAuto() {
+export function loginUserAuto(deviceId) {
     return dispatch => {
         dispatch({
             type: Types.USER_LOGIN
