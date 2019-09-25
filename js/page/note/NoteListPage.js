@@ -36,8 +36,14 @@ class NoteListPage extends Component {
         const requestBody = {
             pageIndex: 1,
             pageSize: 10
+        }+-
+        console.log('load')
+        console.log(this.props)
+        if (!this.props.user.user) {
+            return
         }
         const token = this.props.user.user.token
+        console.log(token)
         dataStore.fetchPostData(url, requestBody, token)
             .then((data) => {
                 this.setState({
@@ -54,19 +60,19 @@ class NoteListPage extends Component {
         )
     }
 
-    getRightButton(){
-        return(
+    getRightButton() {
+        return (
             <View>
                 <TouchableOpacity
-                    onPress={()=>{
+                    onPress={() => {
                         NavigationUtil.goPage({}, 'NewNotePage')
                     }}
                 >
-                    <View style={{padding:5, marginRight:8}}>
+                    <View style={{padding: 5, marginRight: 8}}>
                         <Feather
                             name={'plus'}
                             size={24}
-                            style={{color:'#ddd'}}
+                            style={{color: '#ddd'}}
                         >
                         </Feather>
                     </View>
@@ -75,19 +81,23 @@ class NoteListPage extends Component {
         )
     }
 
+    _data() {
+
+    }
+
     render() {
         console.log(this.props)
-        let statusBar={
-            backgroundColor:this.props.theme.theme.THEME_COLOR,
-            barStyle:'light-content'
+        let statusBar = {
+            backgroundColor: this.props.theme.theme.THEME_COLOR,
+            barStyle: 'light-content'
         }
-        let navigationBar=
+        let navigationBar =
             <NavigationBar
                 title={'Note'}
                 statusBar={statusBar}
                 style={{backgroundColor: this.props.theme.theme.THEME_COLOR}}
                 rightButton={this.getRightButton()}
-                />
+            />
         return (
             <View>
                 {navigationBar}
@@ -105,7 +115,7 @@ class NoteListPage extends Component {
 const mapStateToProps = state => ({
     user: state.user,
     note: state.note,
-    theme:state.theme
+    theme: state.theme
 })
 const mapDispatchToProps = dispatch => ({
     refreshNoteList: () => (actions.refreshNoteList())

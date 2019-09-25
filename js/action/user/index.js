@@ -65,9 +65,11 @@ export function loginUserAuto() {
             type: Types.USER_LOGIN
         })
         //获取本地token
+        console.log('读取本地token')
         getLocalStorageToken()
             .then((token) => {
                 if (token) {
+                    console.log('token：'+token)
                     //获取到本地token，用token来获取用户数据
                     loginUserByToken(token)
                         .then((response) => {
@@ -89,17 +91,22 @@ export function loginUserAuto() {
                             })
                         })
                 } else {
+                    console.log('没有token，创建一个用户')
                     //本地没有token，创建一个新用户
                     createBlankToken()
                         .then((response) => {
+                            console.log('新用户')
+                            console.log(response)
                             //把新用户的token保存到localstorage
                             saveLocalStorageToken(response.user.token)
+                            console.log('保存token:'+response.user.token)
                             dispatch({
                                 type: Types.USER_CREATE_BLANK_USER_SUCCESS,
                                 user: response.data.user
                             })
                         })
                         .catch((error) => {
+                            console.log(error)
                             dispatch({
                                 type: Types.USER_CREATE_BLANK_USER_FAIL,
                                 error: error
@@ -108,6 +115,7 @@ export function loginUserAuto() {
                 }
             })
             .catch((error) => {
+                console.log(error)
                 dispatch({
                     type: Types.USER_LOGIN_FAIL,
                     error: error
