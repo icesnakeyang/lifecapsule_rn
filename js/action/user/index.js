@@ -26,6 +26,11 @@ function saveLocalStorageToken(token) {
     dataStore.saveData(TOKEN_NAME, token, callback)
 }
 
+function removeLocalStorageToken() {
+    let dataStore = new DataStore()
+    dataStore.removeData(TOKEN_NAME)
+}
+
 /**
  * 创建一个临时新用户
  */
@@ -139,7 +144,7 @@ function loginUserByToken(token) {
  * @param password
  * @returns {Function}
  */
-export function loginUserByNamePass(username, password) {
+export function loginUserByNamePass(username, password, callBack) {
     return dispatch => {
         dispatch({
             type: Types.USER_LOGIN
@@ -152,20 +157,28 @@ export function loginUserByNamePass(username, password) {
         }
         let url = API.apiGetRSAKey
         dataStore.fetchNetData(url)
-            .then((response) => {
-                if (response.data.code === 0) {
+            .then((response, callBack) => {
+                if (response.code === 0) {
                     params.password = RSAencrypt(params.password, response.data.publicKey)
                     params.keyToken = response.data.keyToken
 
                     url = API.apiLoginUser
                     dataStore.fetchPostData(url, params)
-                        .then((response) => {
+                        .then((response, callBack) => {
                             if (response.code === 0) {
                                 dispatch({
                                     type: Types.USER_LOGIN_SUCCESS,
                                     user: response.data.user
                                 })
+                                if (typeof callBack === 'function') {
+                                    callBack(response)
+                                }
                             } else {
+                                console.log(response.code)
+                                console.log(callBack)
+                                if (typeof callBack === 'function') {
+                                    callBack('error')
+                                }
                                 dispatch({
                                     type: Types.USER_LOGIN_FAIL,
                                     error: response.code

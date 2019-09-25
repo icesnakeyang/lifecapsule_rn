@@ -13,6 +13,7 @@ import CategoryDetail from "../page/category/CategoryDetail";
 import TriggerPage from "../page/TriggerPage";
 import NewCategoryDetail from "../page/category/NewCategoryDetail";
 import MyAccount from "../page/settings/user/MyAccount";
+import LoginPage from "../page/settings/user/LoginPage";
 
 export const rootCam = 'Init'
 
@@ -65,6 +66,12 @@ const MainNavigator = createStackNavigator({
     },
     MyAccount: {
         screen: MyAccount,
+        navigationOptions: {
+            header: null
+        }
+    },
+    LoginPage: {
+        screen: LoginPage,
         navigationOptions: {
             header: null
         }

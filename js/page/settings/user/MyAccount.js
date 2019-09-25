@@ -6,10 +6,12 @@ import {
 } from 'react-native'
 import actions from "../../../action";
 import {connect} from "react-redux";
+import NavigationUtil from "../../../navigator/NavigationUtil";
 
 class MyAccount extends Component {
     checkout() {
         console.log('check out')
+        NavigationUtil.goPage({}, 'LoginPage')
     }
 
     render() {
@@ -21,7 +23,7 @@ class MyAccount extends Component {
                     }}
                 >
                     <Text>
-                        Sign out
+                        resign
                     </Text>
                 </TouchableOpacity>
             </View>
