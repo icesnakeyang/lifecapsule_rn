@@ -60,6 +60,7 @@ function createBlankToken(deviceId) {
  * 如果没有token就创建一个新用户
  */
 export function loginUserAuto(deviceId) {
+    console.log('设备id：' + deviceId)
     return dispatch => {
         dispatch({
             type: Types.USER_LOGIN
@@ -69,11 +70,13 @@ export function loginUserAuto(deviceId) {
         getLocalStorageToken()
             .then((token) => {
                 if (token) {
-                    console.log('token：'+token)
+                    console.log('token：' + token)
                     //获取到本地token，用token来获取用户数据
                     loginUserByToken(token)
                         .then((response) => {
+                            console.log(response)
                             if (response.code === 0) {
+                                console.log('成功获取用户数据')
                                 //token有效，把用户数据写进redux
                                 dispatch({
                                     type: Types.USER_LOGIN_SUCCESS,
@@ -85,6 +88,7 @@ export function loginUserAuto(deviceId) {
                             }
                         })
                         .catch((error) => {
+                            console.log(error)
                             dispatch({
                                 type: Types.USER_LOGIN_FAIL,
                                 error: error
@@ -99,7 +103,7 @@ export function loginUserAuto(deviceId) {
                             console.log(response)
                             //把新用户的token保存到localstorage
                             saveLocalStorageToken(response.user.token)
-                            console.log('保存token:'+response.user.token)
+                            console.log('保存token:' + response.user.token)
                             dispatch({
                                 type: Types.USER_CREATE_BLANK_USER_SUCCESS,
                                 user: response.data.user

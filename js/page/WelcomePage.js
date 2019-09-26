@@ -16,7 +16,7 @@ class WelcomePage extends Component {
             NavigationUtil.resetToHomePage({
                 navigation: this.props.navigation
             })
-        }, 500)
+        }, 5000)
     }
 
     componentWillUnmount() {
@@ -32,8 +32,9 @@ class WelcomePage extends Component {
         const device = {};
         device.DeviceID = DeviceInfo.getUniqueId()
         device.DeviceID.then(res => {
-            console.log(res)
             deviceId = res
+            const {loginUserAuto} = this.props
+            loginUserAuto(deviceId)
         })
 
         // device.UserAgent = deviceInfo.getUserAgent();
@@ -42,8 +43,7 @@ class WelcomePage extends Component {
         // device.SystemVersion = deviceInfo.getSystemVersion();
         // device.AppVersion = deviceInfo.getVersion();
         // device.AppReadableVersion = deviceInfo.getReadableVersion();
-        const {loginUserAuto} = this.props
-        loginUserAuto(deviceId)
+
     }
 
     _store() {

@@ -37,13 +37,10 @@ class NoteListPage extends Component {
             pageIndex: 1,
             pageSize: 10
         }
-        console.log('load')
-        console.log(this.props)
         if (!this.props.user.user) {
             return
         }
         const token = this.props.user.user.token
-        console.log(token)
         dataStore.fetchPostData(url, requestBody, token)
             .then((data) => {
                 this.setState({
@@ -86,7 +83,6 @@ class NoteListPage extends Component {
     }
 
     render() {
-        console.log(this.props)
         let statusBar = {
             backgroundColor: this.props.theme.theme.THEME_COLOR,
             barStyle: 'light-content'
