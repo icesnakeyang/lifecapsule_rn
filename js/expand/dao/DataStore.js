@@ -76,7 +76,6 @@ export default class DataStore {
                 }
                 throw new Error('Network response error')
             }).then((responseData) => {
-                this.saveData(url, responseData)
                 resolve(responseData)
             }).catch((error) => {
                 reject(error)
@@ -84,11 +83,11 @@ export default class DataStore {
         })
     }
 
-    saveData(key, data, callback) {
+    saveData(key, data) {
         if (!key || !data) {
             return
         }
-        AsyncStorage.setItem(key, JSON.stringify(this.wrapData(data)), callback)
+        AsyncStorage.setItem(key, JSON.stringify(this.wrapData(data)))
     }
 
     removeData(key) {

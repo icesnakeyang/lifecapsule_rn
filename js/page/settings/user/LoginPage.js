@@ -27,15 +27,11 @@ class LoginPage extends Component {
             oldToken: this.props.user.user.token
         })
         const {loginUserByNamePass} = this.props
-        loginUserByNamePass(this.state.txtLoginName, this.state.txtPassword)
-        setTimeout(()=>{
-            console.log(this.props)
-            const newToken=this.props.user.user.token
-            if(this.state.oldToken!==newToken){
-                DeviceEventEmitter.emit('Refresh_NoteList')
-                NavigationUtil.goPage({}, 'HomePage')
-            }
-        },500)
+        loginUserByNamePass(this.state.txtLoginName, this.state.txtPassword, (result) => {
+            console.log(result)
+            DeviceEventEmitter.emit('Refresh_NoteList')
+            NavigationUtil.goPage({}, 'HomePage')
+        })
     }
 
     render() {
@@ -75,7 +71,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    loginUserByNamePass: (username, password) => dispatch(actions.loginUserByNamePass(username, password))
+    loginUserByNamePass: (username, password, callback) => dispatch(actions.loginUserByNamePass(username, password, callback))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPage)

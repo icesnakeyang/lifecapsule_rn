@@ -23,7 +23,7 @@ function getLocalStorageToken() {
 
 function saveLocalStorageToken(token) {
     let dataStore = new DataStore()
-    dataStore.saveData(TOKEN_NAME, token, callback)
+    dataStore.saveData(TOKEN_NAME, token)
 }
 
 function removeLocalStorageToken() {
@@ -169,28 +169,25 @@ export function loginUserByNamePass(username, password, callBack) {
         }
         let url = API.apiGetRSAKey
         dataStore.fetchNetData(url)
-            .then((response, callBack) => {
+            .then((response) => {
                 if (response.code === 0) {
                     params.password = RSAencrypt(params.password, response.data.publicKey)
                     params.keyToken = response.data.keyToken
 
                     url = API.apiLoginUser
                     dataStore.fetchPostData(url, params)
-                        .then((response, callBack) => {
+                        .then((response) => {
                             if (response.code === 0) {
                                 dispatch({
                                     type: Types.USER_LOGIN_SUCCESS,
                                     user: response.data.user
                                 })
-                                if (typeof callBack === 'function') {
-                                    callBack(response)
-                                }
+                                console.log(1)
+                                saveLocalStorageToken(response.data.user.token)
+                                console.log(2)
+                                callBack(true)
                             } else {
                                 console.log(response.code)
-                                console.log(callBack)
-                                if (typeof callBack === 'function') {
-                                    callBack('error')
-                                }
                                 dispatch({
                                     type: Types.USER_LOGIN_FAIL,
                                     error: response.code
