@@ -31,14 +31,12 @@ class WelcomePage extends Component {
             const {loginUserAuto} = this.props
             loginUserAuto(deviceId, (result) => {
                 if (result) {
-                    console.log('test5')
                     this.timer=setTimeout(() => {
                         NavigationUtil.resetToHomePage({
                             navigation: this.props.navigation
                         })
                     },2000)
                 }else{
-                    console.log('login error')
                 }
             })
         })
@@ -57,7 +55,7 @@ class WelcomePage extends Component {
         let store = {}
         if (user.user) {
             store = {
-                name: user.user.nickName
+                name: user.user.nickname
             }
         }
         return store

@@ -15,7 +15,7 @@ class UserHeader extends Component {
     }
 
     render() {
-        const userNickName = this.props.user.user.nickName
+        const userNickName = this.props.user.user.nickname
         const createdTime = moment(this.props.user.user.createdTime).format('YYYY-MM-DD')
         return (
             <View style={{flexDirection: 'row', margin: 20}}>

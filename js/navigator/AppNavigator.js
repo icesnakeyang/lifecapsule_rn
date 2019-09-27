@@ -14,6 +14,7 @@ import TriggerPage from "../page/TriggerPage";
 import NewCategoryDetail from "../page/category/NewCategoryDetail";
 import MyAccount from "../page/settings/user/MyAccount";
 import LoginPage from "../page/settings/user/LoginPage";
+import NickNamePage from "../page/settings/user/NickNamePage";
 
 export const rootCam = 'Init'
 
@@ -72,6 +73,12 @@ const MainNavigator = createStackNavigator({
     },
     LoginPage: {
         screen: LoginPage,
+        navigationOptions: {
+            header: null
+        }
+    },
+    NickNamePage: {
+        screen: NickNamePage,
         navigationOptions: {
             header: null
         }

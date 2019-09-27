@@ -10,6 +10,8 @@ import {
 import {connect} from "react-redux";
 import actions from "../../../action";
 import NavigationUtil from "../../../navigator/NavigationUtil";
+import GetLeftButton from "../../../common/component/GetLeftButton";
+import NavigationBar from "../../../common/component/NavigationBar";
 
 class LoginPage extends Component {
     constructor(props) {
@@ -28,15 +30,33 @@ class LoginPage extends Component {
         })
         const {loginUserByNamePass} = this.props
         loginUserByNamePass(this.state.txtLoginName, this.state.txtPassword, (result) => {
-            console.log(result)
             DeviceEventEmitter.emit('Refresh_NoteList')
             NavigationUtil.goPage({}, 'HomePage')
         })
     }
 
+    getLeftButton() {
+        return (
+            <GetLeftButton {...this.props}></GetLeftButton>
+        )
+    }
+
     render() {
+        let statusBar = {
+            backgroundColor: this.props.theme.theme.THEME_COLOR,
+            barStyle: 'light-content'
+        }
+        let navigationBar = (
+            <NavigationBar
+                title={'Sign in'}
+                statusBar={statusBar}
+                style={{backgroundColor: this.props.theme.theme.THEME_COLOR}}
+                leftButton={this.getLeftButton()}
+            />
+        )
         return (
             <View>
+                {navigationBar}
                 <View style={{flexDirection: 'row', margin: 10}}>
                     <Text>Login Name: </Text>
                     <View style={{flex: 1}}>
@@ -55,7 +75,8 @@ class LoginPage extends Component {
                         />
                     </View>
                 </View>
-                < Button
+                <Button
+                    color={this.props.theme.theme.THEME_COLOR}
                     title={'Login'}
                     onPress={() => {
                         this.login()
@@ -67,7 +88,8 @@ class LoginPage extends Component {
 }
 
 const mapStateToProps = state => ({
-    user: state.user
+    user: state.user,
+    theme: state.theme
 })
 
 const mapDispatchToProps = dispatch => ({

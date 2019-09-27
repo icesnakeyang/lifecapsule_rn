@@ -33,7 +33,6 @@ export default function onAction(state = defaultState, action) {
                 user: action.user
             }
         case Types.USER_LOGIN_SUCCESS:
-            console.log(action)
             return {
                 ...state,
                 user: action.user
@@ -42,6 +41,11 @@ export default function onAction(state = defaultState, action) {
             return {
                 ...state,
                 user: {}
+            }
+        case Types.USER_NICKNAME_SAVE_SUCCESS:
+            return {
+                ...state,
+                user: action.user
             }
         default:
             return state

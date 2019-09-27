@@ -2,9 +2,6 @@ import {AsyncStorage} from "react-native";
 
 export default class DataStore {
     fetchPostData(url, requestBody, token) {
-        console.log(url)
-        console.log(requestBody)
-        console.log(token)
         return new Promise((resolve, reject) => {
             fetch(url, {
                 method: 'POST',
@@ -99,7 +96,6 @@ export default class DataStore {
             return false
         })
         let item2=AsyncStorage.getItem(key)
-        console.log(item2)
         return true
     }
 
