@@ -22,8 +22,12 @@ function getLocalStorageToken() {
 }
 
 function saveLocalStorageToken(token) {
+    console.log('t1')
     let dataStore = new DataStore()
+    console.log('t2')
+    console.log('save token')
     dataStore.saveData(TOKEN_NAME, token)
+    console.log('save token success')
 }
 
 function removeLocalStorageToken() {
@@ -35,11 +39,14 @@ function removeLocalStorageToken() {
  * 创建一个临时新用户
  */
 function createBlankToken(deviceId) {
+    console.log('create ' + deviceId)
     return new Promise((resolve, reject) => {
         const url = API.apiCreateNewUser
         let dataStore = new DataStore()
-        dataStore.fetchPostData(url, {deviceId})
+        console.log(url)
+        dataStore.fetchPostData(url, {deviceId:deviceId})
             .then((response) => {
+                console.log(response)
                 if (response.code === 0) {
                     resolve(response)
                 } else {
@@ -47,6 +54,7 @@ function createBlankToken(deviceId) {
                 }
             })
             .catch((error) => {
+                console.log(error)
                 reject(error)
             })
     })
@@ -59,7 +67,8 @@ function createBlankToken(deviceId) {
  *      如果过期，就进行云端AI处理。（以后开发）
  * 如果没有token就创建一个新用户
  */
-export function loginUserAuto(deviceId) {
+export function loginUserAuto(deviceId, callback) {
+    console.log(callback)
     console.log('设备id：' + deviceId)
     return dispatch => {
         dispatch({
@@ -82,6 +91,8 @@ export function loginUserAuto(deviceId) {
                                     type: Types.USER_LOGIN_SUCCESS,
                                     user: response.data.user
                                 })
+                                console.log(callback)
+                                callback(true)
                             } else {
                                 //token失效，让AI来处理
 
@@ -105,9 +116,10 @@ export function loginUserAuto(deviceId) {
                             saveLocalStorageToken(response.user.token)
                             console.log('保存token:' + response.user.token)
                             dispatch({
-                                type: Types.USER_CREATE_BLANK_USER_SUCCESS,
+                                type: Types.USER_LOGIN_SUCCESS,
                                 user: response.data.user
                             })
+                            callback(true)
                         })
                         .catch((error) => {
                             console.log(error)
@@ -119,11 +131,32 @@ export function loginUserAuto(deviceId) {
                 }
             })
             .catch((error) => {
+                console.log('读取本地tokgen失败')
                 console.log(error)
-                dispatch({
-                    type: Types.USER_LOGIN_FAIL,
-                    error: error
-                })
+                //创建一个新用户
+                console.log('创建新用户')
+                createBlankToken(deviceId)
+                    .then((response) => {
+                        console.log('创建了新用户')
+                        console.log(response)
+                        console.log('haha')
+                        console.log(response.data.user.token)
+                        saveLocalStorageToken(response.data.user.token)
+                        console.log('保存了新用户的token:' + response.data.user.token)
+                        dispatch({
+                            type: Types.USER_LOGIN_SUCCESS,
+                            user: response.data.user
+                        })
+                        callback(true)
+                    })
+                    .catch((error) => {
+                        console.log('创建新用户失败')
+                        console.log(error)
+                        dispatch({
+                            type: Types.USER_LOGIN_FAIL,
+                            error: error
+                        })
+                    })
             })
     }
 }

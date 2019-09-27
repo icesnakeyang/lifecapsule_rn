@@ -12,11 +12,6 @@ import DeviceInfo from 'react-native-device-info'
 class WelcomePage extends Component {
     componentDidMount() {
         this.loadData()
-        this.timer = setTimeout(() => {
-            NavigationUtil.resetToHomePage({
-                navigation: this.props.navigation
-            })
-        }, 5000)
     }
 
     componentWillUnmount() {
@@ -34,7 +29,18 @@ class WelcomePage extends Component {
         device.DeviceID.then(res => {
             deviceId = res
             const {loginUserAuto} = this.props
-            loginUserAuto(deviceId)
+            loginUserAuto(deviceId, (result) => {
+                if (result) {
+                    console.log('test5')
+                    this.timer=setTimeout(() => {
+                        NavigationUtil.resetToHomePage({
+                            navigation: this.props.navigation
+                        })
+                    },2000)
+                }else{
+                    console.log('login error')
+                }
+            })
         })
 
         // device.UserAgent = deviceInfo.getUserAgent();
@@ -74,7 +80,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    loginUserAuto: (deviceId) => dispatch(actions.loginUserAuto(deviceId))
+    loginUserAuto: (deviceId, callback) => dispatch(actions.loginUserAuto(deviceId, callback))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(WelcomePage)
