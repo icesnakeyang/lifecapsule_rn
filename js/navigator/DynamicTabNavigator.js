@@ -59,7 +59,6 @@ class DynamicTabNavigator extends Component {
     }
 
     _genBottomTab() {
-        console.log(I18nJs.locale)
         if (this.Tabs) {
             return this.Tabs
         }
@@ -96,8 +95,6 @@ class TabBarComponent extends Component {
     }
 
     render() {
-        console.log(this.props)
-        console.log(I18nJs.locale)
         return (
             <BottomTabBar
                 {...this.props}

@@ -3,6 +3,8 @@ export default {
     slogan:'让思想穿越到未来！',
     settings: {
         language: '语言',
+        zh:'中文',
+        en:'英文',
         settings:'设置'
     },
     bottomBar: {

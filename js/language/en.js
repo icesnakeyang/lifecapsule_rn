@@ -3,6 +3,8 @@ export default {
     slogan: 'Make your thoughts pass your future!',
     settings: {
         language: 'Language',
+        zh:'Chinese',
+        en:'English',
         settings: 'Settings'
     },
     bottomBar: {

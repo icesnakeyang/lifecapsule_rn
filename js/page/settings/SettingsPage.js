@@ -16,6 +16,9 @@ import NavigationUtil from "../../navigator/NavigationUtil";
 class SettingsPage extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            lan: 'en'
+        }
     }
 
 
@@ -52,6 +55,7 @@ class SettingsPage extends Component {
     }
 
     render() {
+
         let statusBar = {
             backgroundColor: this.props.theme.THEME_COLOR
         }
@@ -66,17 +70,7 @@ class SettingsPage extends Component {
             <View>
                 {navigationBar}
                 <UserHeader/>
-                <Button title={'change color'} onPress={() => {
-                    this.props.onThemeChange('#ff0000')
-                }}
-                />
-                <Button
-                    title={'test storage'}
-                    onPress={() => {
-                        this.loadData()
-                    }}
-                />
-                <View>
+                <View style={{marginTop: 20}}>
                     <TouchableOpacity
                         style={styles.touch_row_container}
                         onPress={() => {
@@ -89,7 +83,7 @@ class SettingsPage extends Component {
                         <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end'}}>
                             <Text
                                 style={{marginRight: 20}}
-                            >{this.props.user.user.nickname}</Text>
+                            >{I18nJs.t(`settings.${I18nJs.locale}`)}</Text>
                             <View
                                 style={{marginRight: 20}}
                             >
@@ -101,7 +95,6 @@ class SettingsPage extends Component {
                         </View>
                     </TouchableOpacity>
                 </View>
-                <Text>{I18nJs.t('settings.language')}</Text>
             </View>
         )
     }
@@ -109,7 +102,8 @@ class SettingsPage extends Component {
 
 const mapStateToProps = state => ({
     theme: state.theme.theme,
-    user: state.user
+    user: state.user,
+    language: state.language
 })
 
 export default connect(mapStateToProps)(SettingsPage)
@@ -117,7 +111,7 @@ export default connect(mapStateToProps)(SettingsPage)
 const styles = StyleSheet.create({
     touch_row_container: {
         flexDirection: 'row',
-        backgroundColor: '#faf4f4',
+        backgroundColor: '#d3d5d7',
         height: 50,
         justifyContent: 'flex-start',
         alignItems: 'center'

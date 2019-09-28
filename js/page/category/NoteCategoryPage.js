@@ -45,12 +45,13 @@ class NoteCategoryPage extends Component {
         const {loadCategory} = this.props
         loadCategory(this.state.pageIndex, this.state.pageSize, this.props.user.user.token, (result) => {
             if (result) {
-                console.log(this.props)
-                this.setState({
-                    categoryList: this.props.category.categoryList.categoryList
-                })
+                if (this.props)
+                    this.setState({
+                        categoryList: this.props.category.categoryList.categoryList
+                    })
             }
         })
+        console.log(this.state)
     }
 
     renderItem(data) {
