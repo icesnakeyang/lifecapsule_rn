@@ -9,7 +9,6 @@ import NavigationUtil from "../../navigator/NavigationUtil";
 
 export default class CategoryListItem extends Component {
     render() {
-        console.log(this.props)
         const {item} = this.props
         return (
             <TouchableOpacity

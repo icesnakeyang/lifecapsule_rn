@@ -2,6 +2,7 @@ import {onThemeChange} from "./theme";
 import {loginUserAuto, loginUserByNamePass, saveNickName} from "./user";
 import {refreshNoteList} from "./note";
 import {loadCategory} from "./category";
+import {changeLanguage, loadLanguage} from "./language";
 
 export default {
     onThemeChange,
@@ -9,5 +10,7 @@ export default {
     loadCategory,
     loginUserAuto,
     loginUserByNamePass,
-    saveNickName
+    saveNickName,
+    changeLanguage,
+    loadLanguage
 }

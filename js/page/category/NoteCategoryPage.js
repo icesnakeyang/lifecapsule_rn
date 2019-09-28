@@ -10,12 +10,11 @@ import {
 
 import actions from "../../action";
 import {connect} from "react-redux";
-import DataStore from "../../expand/dao/DataStore";
-import {API} from "../../api/api";
 import NavigationUtil from "../../navigator/NavigationUtil";
 import CategoryListItem from "../../common/component/CategoryListItem";
 import Feather from 'react-native-vector-icons/Feather'
 import NavigationBar from "../../common/component/NavigationBar";
+import {I18nJs} from "../../language/I18n";
 
 class NoteCategoryPage extends Component {
     constructor(props) {
@@ -42,16 +41,11 @@ class NoteCategoryPage extends Component {
         if (!this.props.user.user) {
             return
         }
-        const data = {
-            pageIndex: 1,
-            pageSize: 10
-        }
 
         const {loadCategory} = this.props
         loadCategory(this.state.pageIndex, this.state.pageSize, this.props.user.user.token, (result) => {
-            console.log(result)
-            console.log(this.props)
             if (result) {
+                console.log(this.props)
                 this.setState({
                     categoryList: this.props.category.categoryList.categoryList
                 })
@@ -60,7 +54,6 @@ class NoteCategoryPage extends Component {
     }
 
     renderItem(data) {
-        console.log(data)
         const item = data.item
         return (
             <CategoryListItem item={data}></CategoryListItem>
@@ -107,7 +100,7 @@ class NoteCategoryPage extends Component {
         }
         let navigationBar =
             <NavigationBar
-                title={'Category'}
+                title={I18nJs.t('category.category')}
                 statusBar={statusBar}
                 style={{backgroundColor: this.props.theme.theme.THEME_COLOR}}
                 rightButton={this.getRightButton()}

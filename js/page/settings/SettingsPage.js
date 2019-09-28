@@ -11,13 +11,11 @@ import NavigationBar from "../../common/component/NavigationBar";
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import UserHeader from "./components/UserHeader";
 import {I18nJs} from '../../language/I18n'
+import NavigationUtil from "../../navigator/NavigationUtil";
 
 class SettingsPage extends Component {
     constructor(props) {
         super(props);
-        console.log(I18nJs.locale)
-        I18nJs.locale = 'zh'
-        console.log(I18nJs.locale)
     }
 
 
@@ -59,7 +57,7 @@ class SettingsPage extends Component {
         }
         let navigationBar =
             <NavigationBar
-                title={'Settings'}
+                title={I18nJs.t('settings.settings')}
                 statusBar={statusBar}
                 style={{backgroundColor: this.props.theme.THEME_COLOR}}
                 rightButton={this.getRightButton()}
@@ -78,7 +76,32 @@ class SettingsPage extends Component {
                         this.loadData()
                     }}
                 />
-                <Text>{I18nJs.t('note')}</Text>
+                <View>
+                    <TouchableOpacity
+                        style={styles.touch_row_container}
+                        onPress={() => {
+                            NavigationUtil.goPage({...this.props}, 'LanguagePage')
+                        }}
+                    >
+                        <Text
+                            style={{marginLeft: 20, fontSize: 18}}
+                        >{I18nJs.t('settings.language')}</Text>
+                        <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end'}}>
+                            <Text
+                                style={{marginRight: 20}}
+                            >{this.props.user.user.nickname}</Text>
+                            <View
+                                style={{marginRight: 20}}
+                            >
+                                <Ionicons
+                                    name={'ios-arrow-forward'}
+                                    size={20}
+                                />
+                            </View>
+                        </View>
+                    </TouchableOpacity>
+                </View>
+                <Text>{I18nJs.t('settings.language')}</Text>
             </View>
         )
     }
@@ -90,3 +113,13 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps)(SettingsPage)
+
+const styles = StyleSheet.create({
+    touch_row_container: {
+        flexDirection: 'row',
+        backgroundColor: '#faf4f4',
+        height: 50,
+        justifyContent: 'flex-start',
+        alignItems: 'center'
+    }
+})

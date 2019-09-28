@@ -2,16 +2,34 @@ import React, {Component} from 'react'
 import {
     View,
     Text,
-    StyleSheet
+    StyleSheet,
+    Image,
+    Dimensions, default as PixelRatio
 } from 'react-native'
 import NavigationUtil from "../navigator/NavigationUtil";
 import actions from "../action";
 import {connect} from "react-redux";
 import DeviceInfo from 'react-native-device-info'
+import {I18nJs} from "../language/I18n";
 
 class WelcomePage extends Component {
+    constructor(props) {
+        super(props);
+        // I18nJs.locale = 'zh'
+        let {height, width} = Dimensions.get('window')
+        this.state = {
+            width: width,
+            height: height
+        }
+    }
+
     componentDidMount() {
         this.loadData()
+        const {loadLanguage} = this.props
+        loadLanguage((result) => {
+            I18nJs.locale = result
+        })
+
     }
 
     componentWillUnmount() {
@@ -31,23 +49,15 @@ class WelcomePage extends Component {
             const {loginUserAuto} = this.props
             loginUserAuto(deviceId, (result) => {
                 if (result) {
-                    this.timer=setTimeout(() => {
+                    this.timer = setTimeout(() => {
                         NavigationUtil.resetToHomePage({
                             navigation: this.props.navigation
                         })
-                    },2000)
-                }else{
+                    }, 5000)
+                } else {
                 }
             })
         })
-
-        // device.UserAgent = deviceInfo.getUserAgent();
-        // device.DeviceBrand = deviceInfo.getBrand();
-        // device.DeviceModel = deviceInfo.getModel();
-        // device.SystemVersion = deviceInfo.getSystemVersion();
-        // device.AppVersion = deviceInfo.getVersion();
-        // device.AppReadableVersion = deviceInfo.getReadableVersion();
-
     }
 
     _store() {
@@ -61,12 +71,36 @@ class WelcomePage extends Component {
         return store
     }
 
+    _init() {
+        screen = {
+            width: 0,
+            height: 0
+        }
+        if (this.state.width) {
+            screen.width = this.state.width
+        }
+        if (this.state.height) {
+            screen.height = this.state.height
+        }
+        return screen
+    }
+
     render() {
         let store = this._store()
         return (
             <View style={styles.container}>
-                <Text style={styles.welcome}>Welcome LefeCapsule</Text>
-                <Text style={styles.user_name}>{store.name}</Text>
+                <View style={styles.img_view}>
+                    <Image source={require('../static/imgs/page1image5566720.png')}
+                        // style={{width: this.state.width, height: this.state.height}}
+                           style={{width: this.state.width, height: 300}}
+                           resizeMode="cover"
+                    />
+                </View>
+                <View style={{flex: 1, alignItems: 'center'}}>
+                    <Text style={styles.welcome}>{I18nJs.t('title')}</Text>
+                    <Text style={{fontSize: 18, color: '#ddd', paddingTop: 20}}>{I18nJs.t('slogan')}</Text>
+                    <Text style={styles.user_name}>{store.name}</Text>
+                </View>
             </View>
         )
     }
@@ -74,11 +108,13 @@ class WelcomePage extends Component {
 
 const mapStateToProps = state => ({
     user: state.user,
-    theme: state.theme
+    theme: state.theme,
+    language: state.language
 })
 
 const mapDispatchToProps = dispatch => ({
-    loginUserAuto: (deviceId, callback) => dispatch(actions.loginUserAuto(deviceId, callback))
+    loginUserAuto: (deviceId, callback) => dispatch(actions.loginUserAuto(deviceId, callback)),
+    loadLanguage: (callback) => dispatch(actions.loadLanguage(callback))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(WelcomePage)
@@ -88,14 +124,19 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#008871'
+        backgroundColor: '#000000'
     },
     welcome: {
         fontSize: 26,
-        color: '#ddd'
+        color: '#ddd',
+        paddingTop: 20,
     },
     user_name: {
-        fontSize: 20,
-        color: '#ddd'
+        fontSize: 16,
+        color: '#ddd',
+        paddingTop: 20
+    },
+    img_view: {
+        flex: 1
     }
 })

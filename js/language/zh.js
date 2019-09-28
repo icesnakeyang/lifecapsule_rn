@@ -1,8 +1,19 @@
 export default {
-    english:'英语',
-    chinese:'中文',
-    changeToEnglish:'切换到英语',
-    changeToChinese:'切换到中文',
-    changeToSystem:'切换到系统语言',
-    note:'时空笔记'
+    title:'时空笔记',
+    slogan:'让思想穿越到未来！',
+    settings: {
+        language: '语言',
+        settings:'设置'
+    },
+    bottomBar: {
+        recent: '最近',
+        category: '目录',
+        settings: '设置'
+    },
+    category: {
+        category: '目录'
+    },
+    noteList:{
+        headerName:'时空笔记'
+    }
 }

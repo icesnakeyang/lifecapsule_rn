@@ -90,7 +90,7 @@ class NoteListPage extends Component {
         }
         let navigationBar =
             <NavigationBar
-                title={I18nJs.t('note')}
+                title={I18nJs.t('noteList.headerName')}
                 statusBar={statusBar}
                 style={{backgroundColor: this.props.theme.theme.THEME_COLOR}}
                 rightButton={this.getRightButton()}
