@@ -10,8 +10,16 @@ import {connect} from "react-redux";
 import NavigationBar from "../../common/component/NavigationBar";
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import UserHeader from "./components/UserHeader";
+import {I18nJs} from '../../language/I18n'
 
 class SettingsPage extends Component {
+    constructor(props) {
+        super(props);
+        console.log(I18nJs.locale)
+        I18nJs.locale = 'zh'
+        console.log(I18nJs.locale)
+    }
+
 
     getRightButton() {
         return (
@@ -70,6 +78,7 @@ class SettingsPage extends Component {
                         this.loadData()
                     }}
                 />
+                <Text>{I18nJs.t('note')}</Text>
             </View>
         )
     }

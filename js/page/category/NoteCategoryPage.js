@@ -22,7 +22,9 @@ class NoteCategoryPage extends Component {
         super(props)
         this.state = {
             text: 'init',
-            categoryList: []
+            categoryList: [],
+            pageIndex: 1,
+            pageSize: 10
         }
     }
 
@@ -37,39 +39,28 @@ class NoteCategoryPage extends Component {
     }
 
     loadData() {
+        if (!this.props.user.user) {
+            return
+        }
         const data = {
             pageIndex: 1,
             pageSize: 10
         }
 
-        const url = API.apiListCategory
-        const token = '3e75b1bb-d664-4949-9a22-d86bd5645bae'
-
-        const postParams = {
-            method: 'POST',
-            // mode: 'cors',
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': "application/json;charset=UTF-8",
-                token: token
+        const {loadCategory} = this.props
+        loadCategory(this.state.pageIndex, this.state.pageSize, this.props.user.user.token, (result) => {
+            console.log(result)
+            console.log(this.props)
+            if (result) {
+                this.setState({
+                    categoryList: this.props.category.categoryList.categoryList
+                })
             }
-        }
-
-        let ds = new DataStore()
-        ds.fetchPostData(url, data, token)
-            .then((response) => {
-                if (response.code === 0) {
-                    this.setState({
-                        categoryList: response.data.categoryList
-                    })
-                }
-            })
-            .catch((error) => {
-            })
-
+        })
     }
 
     renderItem(data) {
+        console.log(data)
         const item = data.item
         return (
             <CategoryListItem item={data}></CategoryListItem>
@@ -89,19 +80,19 @@ class NoteCategoryPage extends Component {
         )
     }
 
-    getRightButton(){
-        return(
+    getRightButton() {
+        return (
             <View>
                 <TouchableOpacity
-                    onPress={()=>{
-                        NavigationUtil.goPage({},'NewCategoryDetail')
+                    onPress={() => {
+                        NavigationUtil.goPage({}, 'NewCategoryDetail')
                     }}
                 >
-                    <View style={{padding:5, marginRight:8}}>
+                    <View style={{padding: 5, marginRight: 8}}>
                         <Feather
                             name={'plus'}
                             size={24}
-                            style={{color:'#ddd'}}
+                            style={{color: '#ddd'}}
                         />
                     </View>
                 </TouchableOpacity>
@@ -110,11 +101,11 @@ class NoteCategoryPage extends Component {
     }
 
     render() {
-        let statusBar={
+        let statusBar = {
             backgroundColor: this.props.theme.theme.THEME_COLOR,
-            barStyle:'light-content'
+            barStyle: 'light-content'
         }
-        let navigationBar=
+        let navigationBar =
             <NavigationBar
                 title={'Category'}
                 statusBar={statusBar}
@@ -140,12 +131,13 @@ class NoteCategoryPage extends Component {
 
 const mapStateToProps = state => ({
     category: state.category,
-    theme:state.theme
+    theme: state.theme,
+    user: state.user
 })
 
 const mapDispatchToProps = dispatch => ({
     onThemeChange: theme => dispatch(actions.onThemeChange(theme)),
-    loadCategory: () => dispatch(actions.loadCategory())
+    loadCategory: (pageIndex, pageSize, token, callback) => dispatch(actions.loadCategory(pageIndex, pageSize, token, callback))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(NoteCategoryPage)
@@ -154,8 +146,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1
     },
-    row_container:{
-        backgroundColor:'#ddd',
+    row_container: {
+        backgroundColor: '#ddd',
 
     }
 })

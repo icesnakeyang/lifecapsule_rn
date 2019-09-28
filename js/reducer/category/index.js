@@ -1,7 +1,7 @@
 import Types from "../../action/types";
 
 const defaultState = {
-    data:{}
+    data: {}
 }
 
 export default function onAction(state = defaultState, action) {
@@ -9,9 +9,7 @@ export default function onAction(state = defaultState, action) {
         case Types.CATEGORY_LOAD_SUCCESS:
             return {
                 ...state,
-                data: {
-                    t1:'init3'
-                }
+                categoryList: action.categoryList
             }
         default:
             return state

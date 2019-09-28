@@ -9,14 +9,16 @@ import NavigationUtil from "../../navigator/NavigationUtil";
 
 export default class CategoryListItem extends Component {
     render() {
+        console.log(this.props)
         const {item} = this.props
         return (
             <TouchableOpacity
                 style={styles.row}
-                onPress={()=>{
+                onPress={() => {
                     NavigationUtil.goPage({
                         item: item
-                    }, 'CategoryDetail')}}
+                    }, 'CategoryDetail')
+                }}
             >
                 <Text style={styles.title}>{item.categoryName}</Text>
             </TouchableOpacity>

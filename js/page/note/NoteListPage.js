@@ -14,6 +14,7 @@ import actions from "../../action";
 import Feather from 'react-native-vector-icons/Feather'
 import NavigationBar from "../../common/component/NavigationBar";
 import NavigationUtil from "../../navigator/NavigationUtil";
+import {I18nJs} from "../../language/I18n";
 
 class NoteListPage extends Component {
     constructor(props) {
@@ -89,7 +90,7 @@ class NoteListPage extends Component {
         }
         let navigationBar =
             <NavigationBar
-                title={'Note'}
+                title={I18nJs.t('note')}
                 statusBar={statusBar}
                 style={{backgroundColor: this.props.theme.theme.THEME_COLOR}}
                 rightButton={this.getRightButton()}
