@@ -94,6 +94,28 @@ class SettingsPage extends Component {
                         </View>
                     </TouchableOpacity>
                 </View>
+                <View style={{marginTop: 20}}>
+                    <TouchableOpacity
+                        style={styles.touch_row_container}
+                        onPress={() => {
+                            NavigationUtil.goPage({...this.props}, 'LanguagePage')
+                        }}
+                    >
+                        <Text
+                            style={{marginLeft: 20, fontSize: 18}}
+                        >{I18nJs.t('security.security')}</Text>
+                        <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end'}}>
+                            <View
+                                style={{marginRight: 20}}
+                            >
+                                <Ionicons
+                                    name={'ios-arrow-forward'}
+                                    size={20}
+                                />
+                            </View>
+                        </View>
+                    </TouchableOpacity>
+                </View>
             </View>
         )
     }

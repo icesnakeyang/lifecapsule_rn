@@ -14,6 +14,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import {connect} from "react-redux";
 import NavigationUtil from "../../navigator/NavigationUtil";
 import actions from "../../action";
+import {I18nJs} from "../../language/I18n";
 
 class NewNotePage extends Component {
     constructor(props) {
@@ -86,14 +87,14 @@ class NewNotePage extends Component {
 
     render() {
         let statusBar = {
-            backgroundColor: '#678',
+            backgroundColor: this.props.theme.THEME_COLOR,
             barStyle: 'light-content'
         }
         let navigationBar =
             <NavigationBar
-                title={'Note'}
+                title={I18nJs.t('note.newNote')}
                 statusBar={statusBar}
-                style={{backgroundColor: '#678'}}
+                style={{backgroundColor: this.props.theme.THEME_COLOR}}
                 rightButton={this.getRightButton()}
             />
         return (

@@ -7,6 +7,9 @@ export default {
         en:'英文',
         settings:'设置'
     },
+    security:{
+        security:'安全'
+    },
     bottomBar: {
         recent: '最近',
         category: '目录',
@@ -17,5 +20,9 @@ export default {
     },
     noteList:{
         headerName:'时空笔记'
+    },
+    note:{
+        selectCategory:'笔记分类',
+        newNote:'新增笔记'
     }
 }

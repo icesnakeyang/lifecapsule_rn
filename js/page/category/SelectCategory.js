@@ -9,10 +9,8 @@ import {connect} from "react-redux";
 import GetLeftButton from "../../common/component/GetLeftButton";
 import NavigationBar from "../../common/component/NavigationBar";
 import NavigationUtil from "../../navigator/NavigationUtil";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import Feather from "react-native-vector-icons/Feather";
 import actions from "../../action";
-import CategoryListItem from "../../common/component/CategoryListItem";
+import I18nJs from "react-native-i18n";
 
 class SelectCategory extends Component {
     constructor(props) {
@@ -78,7 +76,7 @@ class SelectCategory extends Component {
         }
         let navigationBar = (
             <NavigationBar
-                title={'Note'}
+                title={I18nJs.t('note.selectCategory')}
                 statusBar={statusBar}
                 style={{backgroundColor: this.state.theme_color}}
                 leftButton={this.getLeftButton()}

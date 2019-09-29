@@ -7,6 +7,9 @@ export default {
         en:'English',
         settings: 'Settings'
     },
+    security:{
+        security:'Security'
+    },
     bottomBar: {
         recent: 'Recent',
         category: 'Category',
@@ -17,5 +20,9 @@ export default {
     },
     noteList: {
         headerName: 'New Notes'
+    },
+    note:{
+        selectCategory:'Category',
+        newNote:'New Note'
     }
 }

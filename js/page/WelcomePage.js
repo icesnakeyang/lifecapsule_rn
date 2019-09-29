@@ -53,7 +53,7 @@ class WelcomePage extends Component {
                         NavigationUtil.resetToHomePage({
                             navigation: this.props.navigation
                         })
-                    }, 5000)
+                    }, 500)
                 } else {
                 }
             })
