@@ -2,6 +2,8 @@ import Types from "../types";
 import {API} from "../../api/api";
 import DataStore from "../../expand/dao/DataStore";
 
+const CATEGORY_KEY = 'category_id'
+
 export function loadCategory(pageIndex, pageSize, token, callback) {
     return dispatch => {
         let url = API.apiListCategory
@@ -20,5 +22,19 @@ export function loadCategory(pageIndex, pageSize, token, callback) {
                     callback(true)
                 }
             })
+    }
+}
+
+export function setCategory(categoryId, callback) {
+    return dispatch => {
+        setTimeout(() => {
+            let dataStore = new DataStore()
+            dataStore.saveData(CATEGORY_KEY, categoryId)
+            dispatch({
+                type: Types.CATEGORY_SET_SUCCESS,
+                categoryId: categoryId
+            })
+            callback(true)
+        }, 0)
     }
 }

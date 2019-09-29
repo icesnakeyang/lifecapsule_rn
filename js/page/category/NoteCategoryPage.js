@@ -12,7 +12,7 @@ import actions from "../../action";
 import {connect} from "react-redux";
 import NavigationUtil from "../../navigator/NavigationUtil";
 import CategoryListItem from "../../common/component/CategoryListItem";
-import Feather from 'react-native-vector-icons/Feather'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 import NavigationBar from "../../common/component/NavigationBar";
 import {I18nJs} from "../../language/I18n";
 
@@ -51,7 +51,6 @@ class NoteCategoryPage extends Component {
                     })
             }
         })
-        console.log(this.state)
     }
 
     renderItem(data) {
@@ -76,15 +75,15 @@ class NoteCategoryPage extends Component {
 
     getRightButton() {
         return (
-            <View>
+            <View style={{flex:1,flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
                 <TouchableOpacity
                     onPress={() => {
                         NavigationUtil.goPage({}, 'NewCategoryDetail')
                     }}
                 >
                     <View style={{padding: 5, marginRight: 8}}>
-                        <Feather
-                            name={'plus'}
+                        <Ionicons
+                            name={'md-add'}
                             size={24}
                             style={{color: '#ddd'}}
                         />

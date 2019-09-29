@@ -4,7 +4,7 @@ import {
     Text,
     StyleSheet,
     Image,
-    Dimensions, default as PixelRatio
+    Dimensions,
 } from 'react-native'
 import NavigationUtil from "../navigator/NavigationUtil";
 import actions from "../action";
@@ -21,6 +21,7 @@ class WelcomePage extends Component {
             width: width,
             height: height
         }
+        I18nJs.locale = 'en'
     }
 
     componentDidMount() {
@@ -29,7 +30,6 @@ class WelcomePage extends Component {
         loadLanguage((result) => {
             I18nJs.locale = result
         })
-
     }
 
     componentWillUnmount() {
@@ -53,7 +53,7 @@ class WelcomePage extends Component {
                         NavigationUtil.resetToHomePage({
                             navigation: this.props.navigation
                         })
-                    }, 500)
+                    }, 5000)
                 } else {
                 }
             })

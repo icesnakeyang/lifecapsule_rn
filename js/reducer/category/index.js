@@ -1,7 +1,7 @@
 import Types from "../../action/types";
 
 const defaultState = {
-    data: {}
+    categoryId: null
 }
 
 export default function onAction(state = defaultState, action) {
@@ -10,6 +10,11 @@ export default function onAction(state = defaultState, action) {
             return {
                 ...state,
                 categoryList: action.categoryList
+            }
+        case Types.CATEGORY_SET_SUCCESS:
+            return {
+                ...state,
+                categoryId: action.categoryId
             }
         default:
             return state

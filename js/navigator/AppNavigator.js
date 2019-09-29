@@ -16,6 +16,7 @@ import MyAccount from "../page/settings/user/MyAccount";
 import LoginPage from "../page/settings/user/LoginPage";
 import NickNamePage from "../page/settings/user/NickNamePage";
 import LanguagePage from "../page/settings/language/LanguagePage";
+import SelectCategory from "../page/category/SelectCategory";
 
 export const rootCam = 'Init'
 
@@ -86,6 +87,12 @@ const MainNavigator = createStackNavigator({
     },
     LanguagePage: {
         screen: LanguagePage,
+        navigationOptions: {
+            header: null
+        }
+    },
+    SelectCategory: {
+        screen: SelectCategory,
         navigationOptions: {
             header: null
         }

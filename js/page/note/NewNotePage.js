@@ -4,25 +4,28 @@ import {
     Text,
     StyleSheet,
     TouchableOpacity,
-    TextInput, DeviceEventEmitter
+    TextInput,
+    DeviceEventEmitter,
+    Dimensions
 } from 'react-native'
 import Textarea from 'react-native-textarea'
 import NavigationBar from "../../common/component/NavigationBar";
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import {connect} from "react-redux";
-import {Encrypt, GenerateKey, RSAencrypt} from "../../common/encoder/crypto";
-import {API} from "../../api/api";
-import DataStore from "../../expand/dao/DataStore";
-import CryptoJS from 'crypto-js'
 import NavigationUtil from "../../navigator/NavigationUtil";
+import actions from "../../action";
 
 class NewNotePage extends Component {
     constructor(props) {
         super(props);
+        let {height, width} = Dimensions.get('window')
         this.state = {
             editDetail: '',
-            editTitle: ''
+            editTitle: '',
+            height: height,
+            width: width
         }
+
     }
 
     getRightButton() {
@@ -62,41 +65,23 @@ class NewNotePage extends Component {
     }
 
     saveNote() {
-        const uuid = GenerateKey()
-        const keyAES = CryptoJS.SHA256(uuid)
-        const keyAESBase64 = CryptoJS.enc.Base64.stringify(keyAES)
-        const categoryId = ''
+        const {saveNote} = this.props
         const token = this.props.user.user.token
-        let params = {
+        const categoryId = this.props.category.categoryId
+
+        const params = {
             title: this.state.editTitle,
-            detail: Encrypt(this.state.editDetail, keyAESBase64, keyAESBase64),
-            encryptKey: keyAESBase64,
+            detail: this.state.editDetail,
+            token: token,
             categoryId: categoryId
         }
-        let url = API.apiGetRSAKey
-        let dataStore = new DataStore()
-        dataStore.fetchNetData(url)
-            .then((response) => {
-                if (response.code === 0) {
-                    params.encryptKey = RSAencrypt(params.encryptKey, response.data.publicKey)
-                    params.keyToken = response.data.keyToken
-                    this.saving = true
-                    url = API.apiCreateNote
-                    dataStore.fetchPostData(url, params, token)
-                        .then((response) => {
-                            if (response.code === 0) {
-                                DeviceEventEmitter.emit('Refresh_NoteList')
-                                NavigationUtil.goBack(this.props.navigation)
-                            } else {
-                            }
-                        })
-                        .catch((error) => {
-                        })
-                } else {
-                }
-            })
-            .catch((error) => {
-            })
+
+        saveNote(params, (result) => {
+            if (result) {
+                DeviceEventEmitter.emit('Refresh_NoteList')
+                NavigationUtil.goBack(this.props.navigation)
+            }
+        })
     }
 
     render() {
@@ -112,17 +97,17 @@ class NewNotePage extends Component {
                 rightButton={this.getRightButton()}
             />
         return (
-            <View style={{flex: 1}}>
+            <View style={styles.container}>
                 {navigationBar}
-                <View style={{borderBottomWidth: 0.5}}>
+                <View style={styles.title_view}>
                     <TextInput
-                        style={{margin: 10}}
+                        style={styles.title_text}
                         onChangeText={(editTitle) => this.setState({editTitle})}
                     />
                 </View>
-                <View style={{borderTopWidth: 0.5}}>
+                <View style={{height: this.state.height}}>
                     <Textarea
-                        containerStyle={{margin: 10}}
+                        containerStyle={styles.detail_text}
                         onChangeText={(editDetail) => this.setState({editDetail})}
                     />
                 </View>
@@ -132,6 +117,32 @@ class NewNotePage extends Component {
 }
 
 const mapStateToProps = state => ({
-    user: state.user
+    user: state.user,
+    theme: state.theme.theme,
+    category: state.category
 })
-export default connect(mapStateToProps)(NewNotePage)
+const mapDispatchToProps = dispatch => ({
+    saveNote: (params, callback) => dispatch(actions.saveNote(params, callback))
+})
+export default connect(mapStateToProps, mapDispatchToProps)(NewNotePage)
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1
+    },
+    title_view: {
+        marginTop: 20,
+        borderBottomWidth: 0.5,
+        borderColor: '#111111'
+    },
+    title_text: {
+        fontSize: 24,
+        paddingLeft: 10,
+        paddingRight: 10
+    },
+    detail_text: {
+        fontSize: 20,
+        paddingLeft: 10,
+        paddingRight: 10
+    }
+})
