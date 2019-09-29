@@ -18,6 +18,7 @@ import actions from "../../action";
 import NavigationBar from "../../common/component/NavigationBar";
 import GetLeftButton from "../../common/component/GetLeftButton";
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import {I18nJs} from "../../language/I18n";
 
 class EditNotePage extends Component {
     constructor(props) {
@@ -176,7 +177,7 @@ class EditNotePage extends Component {
         }
         let navigationBar =
             <NavigationBar
-                title={'Note'}
+                title={I18nJs.t('note.editNote')}
                 statusBar={statusBar}
                 style={{backgroundColor: this.props.theme.theme.THEME_COLOR}}
                 leftButton={this.getLeftButton()}

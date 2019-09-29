@@ -23,6 +23,7 @@ export default {
     },
     note:{
         selectCategory:'Category',
-        newNote:'New Note'
+        newNote:'New Note',
+        editNote:'Edit Note'
     }
 }

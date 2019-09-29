@@ -23,6 +23,7 @@ export default {
     },
     note:{
         selectCategory:'笔记分类',
-        newNote:'新增笔记'
+        newNote:'新增',
+        editNote:'编辑'
     }
 }

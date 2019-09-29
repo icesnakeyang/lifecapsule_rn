@@ -15,6 +15,7 @@ import {connect} from "react-redux";
 import NavigationUtil from "../../navigator/NavigationUtil";
 import actions from "../../action";
 import {I18nJs} from "../../language/I18n";
+import GetLeftButton from "../../common/component/GetLeftButton";
 
 class NewNotePage extends Component {
     constructor(props) {
@@ -27,6 +28,12 @@ class NewNotePage extends Component {
             width: width
         }
 
+    }
+
+    getLeftButton() {
+        return (
+            <GetLeftButton {...this.props}></GetLeftButton>
+        )
     }
 
     getRightButton() {
@@ -95,6 +102,7 @@ class NewNotePage extends Component {
                 title={I18nJs.t('note.newNote')}
                 statusBar={statusBar}
                 style={{backgroundColor: this.props.theme.THEME_COLOR}}
+                leftButton={this.getLeftButton()}
                 rightButton={this.getRightButton()}
             />
         return (
