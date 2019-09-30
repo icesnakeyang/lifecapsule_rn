@@ -34,6 +34,9 @@ export default {
         newNote: '新增',
         editNote: '编辑'
     },
+    trigger:{
+        trigger:'触发条件'
+    },
     syserr:{
         '10002':'用户名或密码错误'
     }

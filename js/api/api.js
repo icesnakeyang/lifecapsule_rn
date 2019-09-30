@@ -1,5 +1,5 @@
-// const host = 'http://192.168.1.247:8088'
-const host = 'http://192.168.0.104:8088'
+const host = 'http://192.168.1.247:8088'
+// const host = 'http://192.168.0.104:8088'
 // const host = 'http://gogorpg.com:8088'
 
 export const API = {

@@ -34,6 +34,9 @@ export default {
         newNote: 'New Note',
         editNote: 'Edit Note'
     },
+    trigger:{
+        trigger:'触发条件'
+    },
     syserr:{
         '10002':'Username and password error'
     }

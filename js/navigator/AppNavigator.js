@@ -10,13 +10,13 @@ import {connect} from "react-redux";
 import NewNotePage from "../page/note/NewNotePage";
 import EditNotePage from "../page/note/EditNotePage";
 import CategoryDetail from "../page/category/CategoryDetail";
-import TriggerPage from "../page/TriggerPage";
 import NewCategoryDetail from "../page/category/NewCategoryDetail";
 import MyAccount from "../page/settings/user/MyAccount";
 import LoginPage from "../page/settings/user/LoginPage";
 import NickNamePage from "../page/settings/user/NickNamePage";
 import LanguagePage from "../page/settings/language/LanguagePage";
 import SelectCategory from "../page/category/SelectCategory";
+import TriggerPage from "../page/trigger/TriggerPage";
 
 export const rootCam = 'Init'
 
@@ -54,13 +54,6 @@ const MainNavigator = createStackNavigator({
             header: null
         }
     },
-    TriggerPage: {
-        screen: TriggerPage,
-        navigationOptions: {
-            title: 'Trigger',
-            header: null
-        }
-    },
     NewCategoryDetail: {
         screen: NewCategoryDetail,
         navigationOptions: {
@@ -93,6 +86,12 @@ const MainNavigator = createStackNavigator({
     },
     SelectCategory: {
         screen: SelectCategory,
+        navigationOptions: {
+            header: null
+        }
+    },
+    TriggerPage: {
+        screen: TriggerPage,
         navigationOptions: {
             header: null
         }

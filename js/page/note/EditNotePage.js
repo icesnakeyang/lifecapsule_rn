@@ -155,6 +155,23 @@ class EditNotePage extends Component {
             <View style={{flexDirection: 'row'}}>
                 <TouchableOpacity
                     onPress={() => {
+                        /**
+                         * 先保存note，获取noteId，再进入trigger页面
+                         * 把note保存到AsyncStorage，再进入trigger页面。保存trigger时，一起保存note
+                         */
+                        NavigationUtil.goPage({...this.props}, 'TriggerPage')
+                    }}
+                >
+                    <View style={{padding: 5, marginRight: 13}}>
+                        <Ionicons
+                            name={'md-stopwatch'}
+                            size={26}
+                            style={{color: '#ddd'}}
+                        />
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => {
                         this.saveNote()
                     }}
                 >
