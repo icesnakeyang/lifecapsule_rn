@@ -104,15 +104,6 @@ class LoginPage extends Component {
                         }}
                     />
                 </View>
-                <View style={{marginTop: 20}}>
-                    <Button
-                        color={this.props.theme.theme.THEME_COLOR}
-                        title={I18nJs.t('myAccount.login')}
-                        onPress={() => {
-                            this.refs.toast.show('hello world!');
-                        }}
-                    />
-                </View>
                 <Toast ref={'toast'}
                        position={'center'}
                 />
