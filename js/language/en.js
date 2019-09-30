@@ -34,10 +34,13 @@ export default {
         newNote: 'New Note',
         editNote: 'Edit Note'
     },
-    trigger:{
-        trigger:'触发条件'
+    trigger: {
+        trigger: 'Trigger',
+        tip1: 'Set a trigger to trigger. When the time come, the AI will send this note to the specified user who specified by yourself.',
+        triggerName: 'Trigger name',
+        triggerRemark: 'Trigger remark'
     },
-    syserr:{
-        '10002':'Username and password error'
+    syserr: {
+        '10002': 'Username and password error'
     }
 }
