@@ -176,7 +176,6 @@ export function loginUserByNamePass(username, password, callBack) {
                 if (response.code === 0) {
                     params.password = RSAencrypt(params.password, response.data.publicKey)
                     params.keyToken = response.data.keyToken
-
                     url = API.apiLoginUser
                     dataStore.fetchPostData(url, params)
                         .then((response) => {
@@ -192,12 +191,14 @@ export function loginUserByNamePass(username, password, callBack) {
                                     type: Types.USER_LOGIN_FAIL,
                                     error: response.code
                                 })
+                                callBack(false)
                             }
                         }).catch((error) => {
                         dispatch({
                             type: Types.USER_LOGIN_FAIL,
                             error: error
                         })
+                        callBack(false)
                     })
                 }
             })
@@ -224,18 +225,18 @@ export function saveNickName(nickname, token, callback) {
                                     user: res.data.user
                                 })
                                 callback(true)
-                            }else {
+                            } else {
                                 callback(false)
                             }
                         })
-                        .catch((error)=>{
+                        .catch((error) => {
                             callback(false)
                         })
-                }else{
+                } else {
                     callback(false)
                 }
             })
-            .catch((error)=>{
+            .catch((error) => {
                 callback(false)
             })
     }

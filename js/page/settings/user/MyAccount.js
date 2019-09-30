@@ -13,6 +13,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import NavigationBar from "../../../common/component/NavigationBar";
 import GetLeftButton from "../../../common/component/GetLeftButton";
 import UserHeader from "../components/UserHeader";
+import {I18nJs} from "../../../language/I18n";
 
 class MyAccount extends Component {
     checkout() {
@@ -31,7 +32,7 @@ class MyAccount extends Component {
         }
         let navigationBar =
             <NavigationBar
-                title={'My Account'}
+                title={I18nJs.t('myAccount.myAccount')}
                 statusBar={statusBar}
                 style={{backgroundColor: this.props.theme.THEME_COLOR}}
                 leftButton={this.getLeftButton()}
@@ -49,7 +50,7 @@ class MyAccount extends Component {
                     >
                         <Text
                             style={{marginLeft: 20, fontSize: 18}}
-                        >Nick Name</Text>
+                        >{I18nJs.t('myAccount.nickname')}</Text>
                         <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end'}}>
                             <Text
                                 style={{marginRight: 20}}
@@ -68,7 +69,7 @@ class MyAccount extends Component {
                 <View style={{flex: 1, marginTop: 20}}>
                     <Button
                         color={this.props.theme.THEME_COLOR}
-                        title={'Change User'}
+                        title={I18nJs.t('myAccount.changeUser')}
                         onPress={() => {
                             this.checkout()
                         }}

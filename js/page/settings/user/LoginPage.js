@@ -12,6 +12,8 @@ import actions from "../../../action";
 import NavigationUtil from "../../../navigator/NavigationUtil";
 import GetLeftButton from "../../../common/component/GetLeftButton";
 import NavigationBar from "../../../common/component/NavigationBar";
+import {I18nJs} from "../../../language/I18n";
+import Toast from "react-native-easy-toast";
 
 class LoginPage extends Component {
     constructor(props) {
@@ -30,8 +32,12 @@ class LoginPage extends Component {
         })
         const {loginUserByNamePass} = this.props
         loginUserByNamePass(this.state.txtLoginName, this.state.txtPassword, (result) => {
-            DeviceEventEmitter.emit('Refresh_NoteList')
-            NavigationUtil.goPage({}, 'HomePage')
+            if (result) {
+                DeviceEventEmitter.emit('Refresh_NoteList')
+                NavigationUtil.goPage({}, 'HomePage')
+            } else {
+                this.refs.toast.show(I18nJs.t('syserr.' + this.props.user.error));
+            }
         })
     }
 
@@ -48,7 +54,7 @@ class LoginPage extends Component {
         }
         let navigationBar = (
             <NavigationBar
-                title={'Sign in'}
+                title={I18nJs.t('myAccount.login')}
                 statusBar={statusBar}
                 style={{backgroundColor: this.props.theme.theme.THEME_COLOR}}
                 leftButton={this.getLeftButton()}
@@ -57,30 +63,58 @@ class LoginPage extends Component {
         return (
             <View>
                 {navigationBar}
-                <View style={{flexDirection: 'row', margin: 10}}>
-                    <Text>Login Name: </Text>
-                    <View style={{flex: 1}}>
+                <View style={{
+                    flexDirection: 'row',
+                    margin: 10,
+                    marginTop: 20,
+                    justifyContent: 'center',
+                    alignItems: 'flex-end'
+                }}>
+                    <Text style={{paddingBottom: 3}}>{I18nJs.t('myAccount.loginName')}</Text>
+                    <View style={{flex: 1, marginLeft: 20}}>
                         <TextInput
-                            style={{borderWidth: 1}}
+                            style={{borderBottomWidth: 0.5, padding: 0}}
                             onChangeText={(txtLoginName) => this.setState({txtLoginName})}
                         />
                     </View>
                 </View>
-                <View style={{flexDirection: 'row', margin: 10}}>
-                    <Text>Password: </Text>
-                    <View style={{flex: 1}}>
+                <View style={{
+                    flexDirection: 'row',
+                    margin: 10,
+                    justifyContent: 'center',
+                    alignItems: 'flex-end'
+                }}>
+                    <Text style={{paddingBottom: 3}}>{I18nJs.t('myAccount.password')}</Text>
+                    <View style={{
+                        flex: 1,
+                        marginLeft: 20,
+                    }}>
                         <TextInput
-                            style={{borderWidth: 1}}
+                            style={{borderBottomWidth: 0.5, padding: 0}}
                             onChangeText={(txtPassword) => this.setState({txtPassword})}
                         />
                     </View>
                 </View>
-                <Button
-                    color={this.props.theme.theme.THEME_COLOR}
-                    title={'Login'}
-                    onPress={() => {
-                        this.login()
-                    }}
+                <View style={{marginTop: 20}}>
+                    <Button
+                        color={this.props.theme.theme.THEME_COLOR}
+                        title={I18nJs.t('myAccount.login')}
+                        onPress={() => {
+                            this.login()
+                        }}
+                    />
+                </View>
+                <View style={{marginTop: 20}}>
+                    <Button
+                        color={this.props.theme.theme.THEME_COLOR}
+                        title={I18nJs.t('myAccount.login')}
+                        onPress={() => {
+                            this.refs.toast.show('hello world!');
+                        }}
+                    />
+                </View>
+                <Toast ref={'toast'}
+                       position={'center'}
                 />
             </View>
         )

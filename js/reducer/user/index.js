@@ -37,6 +37,11 @@ export default function onAction(state = defaultState, action) {
                 ...state,
                 user: action.user
             }
+        case Types.USER_LOGIN_FAIL:
+            return {
+                ...state,
+                error: action.error
+            }
         case Types.USER_LOGOUT_SUCCESS:
             return {
                 ...state,
