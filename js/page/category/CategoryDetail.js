@@ -34,7 +34,7 @@ class CategoryDetail extends Component {
         //读取分类信息详情
         const url = API.apiGetCategory
         const requestBody = {
-            categoryId: this.props.navigation.state.params.item.categoryId
+            categoryId: this.props.navigation.state.params.categoryId
         }
         const token = this.props.user.user.token
         dataStore.fetchPostData(url, requestBody, token)
@@ -111,7 +111,7 @@ class CategoryDetail extends Component {
             <View style={{flex: 1}}>
                 {navigationBar}
                 <TextInput
-                    style={{borderWidth: .5, margin: 10}}
+                    style={{borderBottomWidth: .5, margin: 10}}
                     defaultValue={this.state.category.categoryName}
                     onChangeText={(editCategoryName) => this.setState({editCategoryName})}
                 ></TextInput>

@@ -20,7 +20,6 @@ class SettingsPage extends Component {
         }
     }
 
-
     getRightButton() {
         return (
             <View style={{flexDirection: 'row'}}>
@@ -101,8 +100,7 @@ class SettingsPage extends Component {
                             NavigationUtil.goPage({...this.props}, 'LanguagePage')
                         }}
                     >
-                        <Text
-                            style={{marginLeft: 20, fontSize: 18}}
+                        <Text style={{marginLeft: 20, fontSize: 18}}
                         >{I18nJs.t('security.security')}</Text>
                         <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end'}}>
                             <View

@@ -12,13 +12,17 @@ import NavigationBar from "../../common/component/NavigationBar";
 import {I18nJs} from "../../language/I18n";
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import NavigationUtil from "../../navigator/NavigationUtil";
+import InputRow from "../../common/component/InputRow";
+
+import lifeStyles from '../../common/styles/lifestyles'
 
 class TriggerPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
             triggerTitle: 'aa',
-            editTriggerTittle: ''
+            editTriggerTittle: '',
+            triggerRemark: '说明'
         }
     }
 
@@ -65,88 +69,24 @@ class TriggerPage extends Component {
         return (
             <View style={styles.page_container}>
                 {navigationBar}
-                <View style={styles.tip_view}>
-                    <Text style={styles.tip_text}>{I18nJs.t('trigger.tip1')}</Text>
+                <View style={lifeStyles.tip_view}>
+                    <Text style={lifeStyles.tip_text}>{I18nJs.t('trigger.tip1')}</Text>
                 </View>
-                <View style={styles.trigger_view}>
-                    <View style={styles.trigger_view_cell_view}>
-                        <View style={{width: 80}}>
-                            <Text style={styles.trigger_view_cell_label_text}>{I18nJs.t('trigger.triggerName')}</Text>
-                        </View>
-                        <View style={{flex: 1}}>
-                            <TextInput
-                                style={{backgroundColor: '#ddd', padding: 0, paddingLeft: 10, marginLeft: 10}}
-                                defaultValue={this.state.triggerTitle}
-                                onChangeText={(editTriggerTittle) => this.setState(editTriggerTittle)}
-                            />
-                        </View>
-                    </View>
-                    <View style={styles.trigger_view_cell_view}>
-                        <View style={{width: 80}}>
-                            <Text style={styles.trigger_view_cell_label_text}>{I18nJs.t('trigger.triggerRemark')}</Text>
-                        </View>
-                        <View style={{flex: 1}}>
-                            <TextInput
-                                style={{backgroundColor: '#ddd', padding: 0, paddingLeft: 10, marginLeft: 10}}
-                                defaultValue={this.state.triggerTitle}
-                                onChangeText={(editTriggerTittle) => this.setState(editTriggerTittle)}
-                            />
-                        </View>
-                    </View>
-                </View>
-                <View
-                    style={styles.condition_view}>
-                    < Text> condition
-                        content </Text>
-                </View>
+                <InputRow
+                    label={I18nJs.t('trigger.triggerName')}
+                    showLabel={true}
+                    content={this.state.triggerTitle}
+                    touchFunction={()=>{
+                        console.log('touch')
+                    }}
+                />
+                <InputRow
+                    label={I18nJs.t('trigger.triggerRemark')}
+                    showLabel={true}
+                    content={this.state.triggerRemark}
+                />
                 <View style={styles.recipient_view}>
                     <Text>recipient content</Text>
-                </View>
-                <View style={{marginTop: 10}}>
-                    <TouchableOpacity
-                        style={styles.touch_row_container}
-                        onPress={() => {
-                            NavigationUtil.goPage({...this.props}, 'LanguagePage')
-                        }}
-                    >
-                        <Text style={styles.trigger_view_cell_label_text}>{I18nJs.t('trigger.triggerName')}</Text>
-                        <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end'}}>
-                            <View
-                                style={{marginRight: 20}}
-                            >
-                                <Ionicons
-                                    name={'ios-arrow-forward'}
-                                    size={20}
-                                    style={{color: '#777'}}
-                                />
-                            </View>
-                        </View>
-                    </TouchableOpacity>
-                </View>
-                <View>
-                    <TouchableOpacity
-                        style={styles.touch_row_container}
-                        onPress={() => {
-                            NavigationUtil.goPage({...this.props}, 'LanguagePage')
-                        }}
-                    >
-                        <Text style={styles.trigger_view_cell_label_text}>{I18nJs.t('trigger.triggerRemark')}</Text>
-                        <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end'}}>
-                            <Text style={{ marginRight: 10}}>
-                                刘洋，是个疯子。他这天999岁
-                            </Text>
-
-                            <View
-                                style={{marginRight: 20}}
-                            >
-                                <Ionicons
-                                    name={'ios-arrow-forward'}
-                                    size={20}
-                                    style={{color: '#777'}}
-                                />
-                            </View>
-                        </View>
-                    </TouchableOpacity>
                 </View>
             </View>
         )
@@ -164,42 +104,5 @@ export default connect(mapStateToProps)(TriggerPage)
 const styles = StyleSheet.create({
     page_container: {
         flex: 1
-    },
-    touch_row_container: {
-        marginTop: 10,
-        flexDirection: 'row',
-        backgroundColor: '#d3d5d7',
-        height: 50,
-        justifyContent: 'flex-start',
-        alignItems: 'center'
-    },
-    tip_view: {
-        margin: 10
-    },
-    tip_text: {
-        fontSize: 14,
-        padding: 3,
-        backgroundColor: '#ddd',
-        borderWidth: 0.5,
-        borderColor: '#aaa'
-    },
-    trigger_view: {
-        backgroundColor: '#ff0000'
-    },
-    trigger_view_cell_view: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginTop: 10,
-        backgroundColor: '#00ffff'
-    },
-    trigger_view_cell_label_text: {
-        fontSize: 14,
-        marginLeft: 10
-    },
-    trigger_view_cell_content_text: {
-        fontSize: 12,
-        backgroundColor: '#999'
-    },
-    condition_view: {},
-    recipient_view: {}
+    }
 })

@@ -8,7 +8,6 @@ import NavigationUtil from "../../navigator/NavigationUtil";
 
 export function listNoteRecent(params, callback) {
     return dispatch => {
-        console.log('refresh')
         dispatch({
             type: Types.NOTE_LIST_REFRESHING,
             noteList: null,

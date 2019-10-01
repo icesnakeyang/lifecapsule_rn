@@ -32,7 +32,6 @@ class NoteListPage extends Component {
     }
 
     loadData() {
-        console.log(this.props.note)
         if (this.props.category.categoryId) {
             //有category，读取分类笔记
             const params = {
@@ -60,12 +59,10 @@ class NoteListPage extends Component {
             }
             listNoteRecent(params, (result) => {
                 if (result) {
-                    console.log(this.props)
                     this.setState({
                         noteList: this.props.note.noteList,
                         refreshing: this.props.note.refreshing
                     })
-                    console.log(this.state)
                 }
             })
         }

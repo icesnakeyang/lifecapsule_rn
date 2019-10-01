@@ -16,6 +16,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import NavigationBar from "../../common/component/NavigationBar";
 import {I18nJs} from "../../language/I18n";
 import InputRow from "../../common/component/InputRow";
+import PropTypes from "prop-types";
 
 class NoteCategoryPage extends Component {
     constructor(props) {
@@ -55,22 +56,15 @@ class NoteCategoryPage extends Component {
     }
 
     renderItem(data) {
-        const item = data.item
+        let func = () => {
+            NavigationUtil.goPage({...data}, 'CategoryDetail')
+        }
         return (
-            <CategoryListItem item={data}></CategoryListItem>
-        )
-        return (
-            <View>
-                <TouchableOpacity
-                    onPress={() => {
-                        NavigationUtil.goPage({
-                            item: item
-                        }, 'CategoryDetail')
-                    }}
-                >
-                    <Text>{item.categoryName}</Text>
-                </TouchableOpacity>
-            </View>
+            <InputRow
+                optionalFunc={func}
+                content={data.categoryName}
+                showLabel={false}
+            />
         )
     }
 
@@ -107,13 +101,10 @@ class NoteCategoryPage extends Component {
                 rightButton={this.getRightButton()}
             />
         )
-        let func = () => {
-            console.log('haha')
-        }
         return (
             <View style={styles.container}>
                 {navigationBar}
-                <View style={styles.row_container}>
+                <View>
                     <FlatList
                         keyExtractor={item => '' + item.ids}
                         data={this.state.categoryList}
@@ -122,12 +113,6 @@ class NoteCategoryPage extends Component {
                         )}
                     />
                 </View>
-                <InputRow
-                    optionalFunc={func}
-                    label={I18nJs.t('category.category')}
-                    content={'我是你爹'}
-                    showLabel={true}
-                />
             </View>
         )
     }
@@ -149,9 +134,5 @@ export default connect(mapStateToProps, mapDispatchToProps)(NoteCategoryPage)
 const styles = StyleSheet.create({
     container: {
         flex: 1
-    },
-    row_container: {
-        backgroundColor: '#ddd',
-
     }
 })
