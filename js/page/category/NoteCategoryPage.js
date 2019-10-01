@@ -15,6 +15,7 @@ import CategoryListItem from "../../common/component/CategoryListItem";
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import NavigationBar from "../../common/component/NavigationBar";
 import {I18nJs} from "../../language/I18n";
+import InputRow from "../../common/component/InputRow";
 
 class NoteCategoryPage extends Component {
     constructor(props) {
@@ -75,7 +76,7 @@ class NoteCategoryPage extends Component {
 
     getRightButton() {
         return (
-            <View style={{flex:1,flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
+            <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
                 <TouchableOpacity
                     onPress={() => {
                         NavigationUtil.goPage({}, 'NewCategoryDetail')
@@ -98,13 +99,17 @@ class NoteCategoryPage extends Component {
             backgroundColor: this.props.theme.theme.THEME_COLOR,
             barStyle: 'light-content'
         }
-        let navigationBar =
+        let navigationBar = (
             <NavigationBar
                 title={I18nJs.t('category.category')}
                 statusBar={statusBar}
                 style={{backgroundColor: this.props.theme.theme.THEME_COLOR}}
                 rightButton={this.getRightButton()}
             />
+        )
+        let func = () => {
+            console.log('haha')
+        }
         return (
             <View style={styles.container}>
                 {navigationBar}
@@ -117,6 +122,12 @@ class NoteCategoryPage extends Component {
                         )}
                     />
                 </View>
+                <InputRow
+                    optionalFunc={func}
+                    label={I18nJs.t('category.category')}
+                    content={'我是你爹'}
+                    showLabel={true}
+                />
             </View>
         )
     }

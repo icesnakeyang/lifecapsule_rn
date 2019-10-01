@@ -20,11 +20,11 @@ export default {
     },
     bottomBar: {
         recent: '最近',
-        category: '目录',
+        category: '分类',
         settings: '设置'
     },
     category: {
-        category: '目录'
+        category: '分类'
     },
     noteList: {
         headerName: '时空笔记'
