@@ -4,7 +4,8 @@ import {
     Text,
     TouchableOpacity,
     StyleSheet,
-    TextInput
+    TextInput,
+    Image
 } from 'react-native'
 import {connect} from "react-redux";
 import GetLeftButton from "../../common/component/GetLeftButton";
@@ -54,6 +55,7 @@ class TriggerPage extends Component {
     }
 
     render() {
+        console.log(this.props)
         let statusBar = {
             backgroundColor: this.props.theme.THEME_COLOR
         }
@@ -73,21 +75,41 @@ class TriggerPage extends Component {
                     <Text style={lifeStyles.tip_text}>{I18nJs.t('trigger.tip1')}</Text>
                 </View>
                 <InputRow
-                    label={I18nJs.t('trigger.triggerName')}
+                    label={'指定日期触发'}
                     showLabel={true}
-                    content={this.state.triggerTitle}
-                    touchFunction={()=>{
-                        console.log('touch')
+                    content={'2019-10-13 12:00:00'}
+                    touchFunction={() => {
+                        NavigationUtil.goPage({...this.props}, 'KeyPlaza')
                     }}
                 />
-                <InputRow
-                    label={I18nJs.t('trigger.triggerRemark')}
-                    showLabel={true}
-                    content={this.state.triggerRemark}
-                />
-                <View style={styles.recipient_view}>
-                    <Text>recipient content</Text>
-                </View>
+                <TouchableOpacity
+                    style={{
+                        flexDirection: 'row',
+                        backgroundColor: this.props.theme.THEME_ROW_COLOR,
+                        height: 50,
+                        justifyContent: 'flex-start',
+                        alignItems: 'center',
+                        marginTop: 10
+                    }}
+                    onPress={this.props.touchFunction}
+                >
+                    <Text style={{marginLeft: 10}}>{I18nJs.t('trigger.recipient')}</Text>
+                    <View
+                        style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end'}}>
+                        <View style={{marginRight: 10}}>
+                            <Image
+                                style={{width: 24, height: 24}}
+                                source={{uri: 'https://img.yeitu.com/2017/0727/20170727040504430.jpg'}}/>
+                        </View>
+                        <View style={{marginRight: 20}}>
+                            <Ionicons
+                                name={'ios-arrow-forward'}
+                                size={20}
+                                style={{color: this.props.theme.THEME_ROW_ICON}}
+                            />
+                        </View>
+                    </View>
+                </TouchableOpacity>
             </View>
         )
     }

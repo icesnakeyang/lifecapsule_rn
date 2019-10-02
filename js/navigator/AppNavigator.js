@@ -17,6 +17,8 @@ import NickNamePage from "../page/settings/user/NickNamePage";
 import LanguagePage from "../page/settings/language/LanguagePage";
 import SelectCategory from "../page/category/SelectCategory";
 import TriggerPage from "../page/trigger/TriggerPage";
+import KeyPlaza from "../page/trigger/KeyPlaza";
+import KeyDetail from "../page/trigger/KeyDetail";
 
 export const rootCam = 'Init'
 
@@ -92,6 +94,18 @@ const MainNavigator = createStackNavigator({
     },
     TriggerPage: {
         screen: TriggerPage,
+        navigationOptions: {
+            header: null
+        }
+    },
+    KeyPlaza: {
+        screen: KeyPlaza,
+        navigationOptions: {
+            header: null
+        }
+    },
+    KeyDetail: {
+        screen: KeyDetail,
         navigationOptions: {
             header: null
         }

@@ -38,7 +38,8 @@ export default {
         trigger: '触发条件',
         tip1: '设定一个触发条件，当条件满足时，系统会自动把该笔记发送给指定用户',
         triggerName: '触发器标题',
-        triggerRemark: '触发器说明'
+        triggerRemark: '触发器说明',
+        recipient:'接收人'
     },
     syserr: {
         '10002': '用户名或密码错误'

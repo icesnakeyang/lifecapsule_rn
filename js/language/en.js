@@ -38,7 +38,8 @@ export default {
         trigger: 'Trigger',
         tip1: 'Set a trigger to trigger. When the time come, the AI will send this note to the specified user who specified by yourself.',
         triggerName: 'Trigger name',
-        triggerRemark: 'Trigger remark'
+        triggerRemark: 'Trigger remark',
+        recipient: 'Recipient'
     },
     syserr: {
         '10002': 'Username and password error'
