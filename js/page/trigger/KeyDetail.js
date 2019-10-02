@@ -3,8 +3,9 @@ import {
     View,
     Text
 } from 'react-native'
+import {connect} from "react-redux";
 
-export default class KeyDetail extends Component {
+class KeyDetail extends Component {
     render() {
         console.log(this.props)
         return (
@@ -14,3 +15,9 @@ export default class KeyDetail extends Component {
         )
     }
 }
+
+const mapStateToProps = state => ({
+    note: state.note
+})
+
+export default connect(mapStateToProps)(KeyDetail)

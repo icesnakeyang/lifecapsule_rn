@@ -22,6 +22,11 @@ export default function onAction(state = defaultState, action) {
                 noteList: null,
                 refreshing: action.refreshing
             }
+        case Types.NOTE_GET_SUCCESS:
+            return {
+                ...state,
+                note:action.note
+            }
         default:
             return state
     }

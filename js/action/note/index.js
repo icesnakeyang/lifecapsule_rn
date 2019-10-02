@@ -1,7 +1,7 @@
 import Types from "../types";
 import DataStore from "../../expand/dao/DataStore";
 import {API} from "../../api/api";
-import {Encrypt, GenerateKey, RSAencrypt} from "../../common/encoder/crypto";
+import {Decrypt, Decrypt2, Encrypt, GenerateKey, GenerateRandomString16, RSAencrypt} from "../../common/encoder/crypto";
 import CryptoJS from "crypto-js";
 import {DeviceEventEmitter} from "react-native";
 import NavigationUtil from "../../navigator/NavigationUtil";
@@ -103,5 +103,47 @@ export function saveNote(params, callback) {
             })
             .catch((error) => {
             })
+    }
+}
+
+export function getNoteByNoteId(params, callback) {
+    return dispatch=> {
+        let url = API.apiGetRSAKey
+        let RSA = null
+        let dataStore = new DataStore()
+        dataStore.fetchNetData(url)
+            .then((data) => {
+                RSA = data.data
+                const keyAES_1 = GenerateRandomString16();
+                if (RSA) {
+                    const publicKey = RSA.publicKey
+                    const keyToken = RSA.keyToken
+
+                    params.encryptKey = RSAencrypt(keyAES_1, publicKey)
+                    params.keyToken = keyToken
+                    const url = API.apiGetNoteDetailByNoteId
+                    dataStore.fetchPostData(url, params, params.token)
+                        .then((responseData) => {
+                            if (responseData.code === 0) {
+                                let note = responseData.data.note
+                                let strKey = note.userEncodeKey
+                                strKey = Decrypt2(strKey, keyAES_1)
+                                note.detail = Decrypt(note.detail, strKey, strKey)
+                                dispatch({
+                                    type: Types.NOTE_GET_SUCCESS,
+                                    note: responseData.data.note
+                                })
+                                callback(true)
+                            } else {
+                                callback(false)
+                            }
+                        })
+                        .catch((error) => {
+                            callback(false)
+                        })
+                }
+            }).catch((error) => {
+            callback(false)
+        })
     }
 }

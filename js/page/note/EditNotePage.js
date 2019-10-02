@@ -35,40 +35,24 @@ class EditNotePage extends Component {
     }
 
     loadData() {
+        console.log(this.props)
         const noteId = this.props.navigation.state.params.note.noteId
         const token = this.props.user.user.token
-
-        let url = API.apiGetRSAKey
-        let RSA = null
-        let dataStore = new DataStore()
-        dataStore.fetchNetData(url).then((data) => {
-            RSA = data.data
-            let params = {
-                noteId: noteId,
+        const params={
+            noteId:noteId,
+            token:token
+        }
+        console.log(params)
+        const {getNoteByNoteId}=this.props
+        getNoteByNoteId(params, (result)=>{
+            console.log(result)
+            if(result){
+                console.log(this.props)
+                this.setState({
+                    note:this.props.note.note
+                })
+                console.log(this.state)
             }
-            const keyAES_1 = GenerateRandomString16();
-            if (RSA) {
-                const publicKey = RSA.publicKey
-                const keyToken = RSA.keyToken
-
-                params.encryptKey = RSAencrypt(keyAES_1, publicKey)
-                params.keyToken = keyToken
-
-                const url = API.apiGetNoteDetailByNoteId
-                dataStore.fetchPostData(url, params, token)
-                    .then((responseData) => {
-                        if (responseData.code === 0) {
-                            let note = responseData.data.note
-                            let strKey = note.userEncodeKey
-                            strKey = Decrypt2(strKey, keyAES_1)
-                            note.detail = Decrypt(note.detail, strKey, strKey)
-                            this.setState({
-                                note: responseData.data.note
-                            })
-                        }
-                    })
-            }
-        }).catch((error) => {
         })
     }
 
@@ -239,11 +223,13 @@ class EditNotePage extends Component {
 
 const mapStateToProps = state => ({
     user: state.user,
-    theme: state.theme
+    theme: state.theme,
+    note:state.note
 })
 
 const mapDispatchToProps = dispatch => ({
-    refreshNoteList: (params) => dispatch(actions.refreshNoteList(params))
+    refreshNoteList: (params) => dispatch(actions.refreshNoteList(params)),
+    getNoteByNoteId:(params, callback)=>dispatch(actions.getNoteByNoteId(params, callback))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditNotePage)
