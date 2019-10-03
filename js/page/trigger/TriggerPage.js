@@ -55,7 +55,6 @@ class TriggerPage extends Component {
     }
 
     render() {
-        console.log(this.props)
         let statusBar = {
             backgroundColor: this.props.theme.THEME_COLOR
         }

@@ -37,6 +37,7 @@ export default {
     trigger: {
         trigger: 'Trigger',
         tip1: 'Set a trigger to trigger. When the time come, the AI will send this note to the specified user who specified by yourself.',
+        tip2:'Please select a trigger condition',
         triggerName: 'Trigger name',
         triggerRemark: 'Trigger remark',
         recipient: 'Recipient'

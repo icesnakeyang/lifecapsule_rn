@@ -95,14 +95,14 @@ class CategoryDetail extends Component {
 
     render() {
         let statusBar = {
-            backgroundColor: this.props.theme.theme.THEME_COLOR,
+            backgroundColor: this.props.theme.THEME_COLOR,
             barStyle: 'light-content'
         }
         let navigationBar = (
             <NavigationBar
                 title={'Category'}
                 statusBar={statusBar}
-                style={{backgroundColor: this.props.theme.theme.THEME_COLOR}}
+                style={{backgroundColor: this.props.theme.THEME_COLOR}}
                 leftButton={this.getLeftButton()}
                 rightButton={this.getRightButton()}
             />
@@ -122,7 +122,7 @@ class CategoryDetail extends Component {
 
 const mapStateToProps = state => ({
     user: state.user,
-    theme: state.theme
+    theme: state.theme.theme
 })
 
 export default connect(mapStateToProps)(CategoryDetail)

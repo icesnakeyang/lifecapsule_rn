@@ -1,5 +1,5 @@
-const host = 'http://192.168.1.247:8088'
-// const host = 'http://192.168.0.105:8088'
+// const host = 'http://192.168.1.247:8088'
+const host = 'http://192.168.0.105:8088'
 // const host = 'http://gogorpg.com:8088'
 // const host = 'http://192.168.31.242:8088'
 
@@ -18,5 +18,6 @@ export const API = {
     apiResignUserToken: `${host}/user/resignUserToken`,
     apiLoginBlankUser: `${host}/user/loginBlankUser`,
     apiLoginUser: `${host}/user/loginUser`,
-    apiSaveNickname: `${host}/user/saveNickname`
+    apiSaveNickname: `${host}/user/saveNickname`,
+    apiListGogoPublicKey:`${host}/admin/gogokey/listGogoPublicKey`
 }

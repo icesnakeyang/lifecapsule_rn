@@ -3,6 +3,7 @@ import {loginUserAuto, loginUserByNamePass, saveNickName} from "./user";
 import {getNoteByNoteId, listNoteByCategory, listNoteRecent, refreshNoteList, saveNote} from "./note";
 import {loadCategory, setCategory} from "./category";
 import {changeLanguage, loadLanguage} from "./language";
+import {listPublicKey} from "./trigger";
 
 export default {
     onThemeChange,
@@ -17,5 +18,6 @@ export default {
     setCategory,
     listNoteRecent,
     saveNote,
-    getNoteByNoteId
+    getNoteByNoteId,
+    listPublicKey
 }

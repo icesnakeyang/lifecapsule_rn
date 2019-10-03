@@ -4,6 +4,7 @@ import theme from './theme'
 import user from './user'
 import note from './note'
 import category from './category'
+import trigger from './trigger'
 
 const navState = RootNavigator.router.getStateForAction(
     RootNavigator.router.getActionForPathAndParams(rootCam)
@@ -19,7 +20,8 @@ const index = combineReducers({
     theme,
     user,
     note,
-    category
+    category,
+    trigger
 })
 
 export default index

@@ -35,23 +35,18 @@ class EditNotePage extends Component {
     }
 
     loadData() {
-        console.log(this.props)
         const noteId = this.props.navigation.state.params.note.noteId
         const token = this.props.user.user.token
         const params={
             noteId:noteId,
             token:token
         }
-        console.log(params)
         const {getNoteByNoteId}=this.props
         getNoteByNoteId(params, (result)=>{
-            console.log(result)
             if(result){
-                console.log(this.props)
                 this.setState({
                     note:this.props.note.note
                 })
-                console.log(this.state)
             }
         })
     }
