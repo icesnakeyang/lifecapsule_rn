@@ -50,7 +50,8 @@ class KeyPlaza extends Component {
         let func = () => {
             const params = {
                 id: '1',
-                name: '2'
+                name: '2',
+                newTrigger:true
             }
             NavigationUtil.goPage({...params}, 'KeyDetail')
         }
