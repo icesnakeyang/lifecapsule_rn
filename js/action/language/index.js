@@ -26,7 +26,6 @@ export function loadLanguage(callback) {
                 callback(response.data)
             })
             .catch((error) => {
-                console.log(error)
             })
     }
 }

@@ -37,15 +37,15 @@ class EditNotePage extends Component {
     loadData() {
         const noteId = this.props.navigation.state.params.note.noteId
         const token = this.props.user.user.token
-        const params={
-            noteId:noteId,
-            token:token
+        const params = {
+            noteId: noteId,
+            token: token
         }
-        const {getNoteByNoteId}=this.props
-        getNoteByNoteId(params, (result)=>{
-            if(result){
+        const {getNoteByNoteId} = this.props
+        getNoteByNoteId(params, (result) => {
+            if (result) {
                 this.setState({
-                    note:this.props.note.note
+                    note: this.props.note.note
                 })
             }
         })
@@ -219,12 +219,12 @@ class EditNotePage extends Component {
 const mapStateToProps = state => ({
     user: state.user,
     theme: state.theme,
-    note:state.note
+    note: state.note
 })
 
 const mapDispatchToProps = dispatch => ({
     refreshNoteList: (params) => dispatch(actions.refreshNoteList(params)),
-    getNoteByNoteId:(params, callback)=>dispatch(actions.getNoteByNoteId(params, callback))
+    getNoteByNoteId: (params, callback) => dispatch(actions.getNoteByNoteId(params, callback))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditNotePage)

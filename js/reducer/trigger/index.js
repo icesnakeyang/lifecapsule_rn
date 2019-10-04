@@ -9,6 +9,11 @@ export default function onAction(state = defaultStatus, action) {
                 ...state,
                 gogoPublickKeyList: action.gogoPublickKeyList
             }
+        case Types.TRIGGER_GET_SUCCESS:
+            return {
+                ...state,
+                trigger: action.trigger
+            }
         default:
             return state
     }

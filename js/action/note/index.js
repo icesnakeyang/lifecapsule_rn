@@ -107,7 +107,7 @@ export function saveNote(params, callback) {
 }
 
 export function getNoteByNoteId(params, callback) {
-    return dispatch=> {
+    return dispatch => {
         let url = API.apiGetRSAKey
         let RSA = null
         let dataStore = new DataStore()
@@ -133,7 +133,9 @@ export function getNoteByNoteId(params, callback) {
                                     type: Types.NOTE_GET_SUCCESS,
                                     note: responseData.data.note
                                 })
-                                callback(true)
+                                setTimeout(() => {
+                                    callback(true)
+                                }, 1)
                             } else {
                                 callback(false)
                             }

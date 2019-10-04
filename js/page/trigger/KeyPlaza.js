@@ -48,7 +48,11 @@ class KeyPlaza extends Component {
 
     renderItem(data) {
         let func = () => {
-            NavigationUtil.goPage({...data}, 'KeyDetail')
+            const params = {
+                id: '1',
+                name: '2'
+            }
+            NavigationUtil.goPage({...params}, 'KeyDetail')
         }
         return (
             <InputRow

@@ -27,6 +27,17 @@ class TriggerPage extends Component {
         }
     }
 
+    componentDidMount() {
+        this.loadAllData()
+    }
+
+    loadAllData() {
+        if (this.props.trigger.trigger) {
+            console.log('有设置触发')
+        } else {
+            console.log('没有触发')
+        }
+    }
 
     getLeftButton() {
         return (
@@ -78,7 +89,7 @@ class TriggerPage extends Component {
                     showLabel={true}
                     content={'2019-10-13 12:00:00'}
                     touchFunction={() => {
-                        NavigationUtil.goPage({...this.props}, 'KeyPlaza')
+                        NavigationUtil.goPage({...this.props}, 'KeyDetail')
                     }}
                 />
                 <TouchableOpacity
@@ -117,7 +128,8 @@ class TriggerPage extends Component {
 const mapStateToProps = state => ({
     user: state.user,
     theme: state.theme.theme,
-    note: state.note
+    note: state.note,
+    trigger: state.trigger
 })
 
 export default connect(mapStateToProps)(TriggerPage)

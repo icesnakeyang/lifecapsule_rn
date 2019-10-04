@@ -15,7 +15,9 @@ export function listPublicKey(params, callback) {
                         type: Types.TRIGGER_LOAD_PUBLICKEY_SUCCESS,
                         gogoPublickKeyList: response.data.gogoPublicKeyList
                     })
-                    callback(true)
+                    setTimeout(() => {
+                        callback(true)
+                    }, 1)
                 } else {
                     callback(false)
                 }
