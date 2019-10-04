@@ -17,7 +17,13 @@ export default function onAction(state = defaultStatus, action) {
         case Types.TRIGGER_PUBLICKEY_GET_SUCCESS:
             return {
                 ...state,
-                publicKey: action.publicKey
+                publicKey: action.publicKey,
+                status:action.status
+            }
+        case Types.TRIGGER_GET:
+            return {
+                ...state,
+                status:action.status
             }
         default:
             return state

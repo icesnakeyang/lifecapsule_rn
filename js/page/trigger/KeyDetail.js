@@ -18,6 +18,10 @@ class KeyDetail extends Component {
     constructor(props) {
         super(props);
 
+        this.state={
+            gogoKey:{}
+        }
+
     }
 
     componentDidMount() {
@@ -34,7 +38,14 @@ class KeyDetail extends Component {
          * 3、用户从gogoKeyPlaza选择了trigger返回，此时trigger为空，但应该要显示gogoKey的模板
          */
         if (this.props.trigger.trigger) {
+            console.log('有gogoKey')
         } else {
+            console.log('没有gogoKey')
+        }
+        if(this.props.trigger.publicKey){
+            console.log('有publicKey')
+        }else{
+            console.log('没有publicKey')
         }
     }
 

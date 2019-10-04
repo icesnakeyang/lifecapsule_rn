@@ -43,7 +43,8 @@ export function getGogoPublicKey(params, callback) {
                     console.log(response)
                     dispatch({
                         type:Types.TRIGGER_PUBLICKEY_GET_SUCCESS,
-                        publicKey:response.data.key
+                        publicKey:response.data.key,
+                        status:'SETTING_GOGOKEY'
                     })
                     setTimeout(()=>{
                         callback(true)
@@ -56,6 +57,10 @@ export function getGogoPublicKey(params, callback) {
 
 export function getGogoKey(params, callback) {
     return dispatch=>{
+        dispatch({
+            type:Types.TRIGGER_GET,
+            status:'GETTING_TRIGGER'
+        })
         let url=API.apiGetTriggerByNoteId
         let noteId=params.noteId
         let token=params.token
@@ -68,7 +73,8 @@ export function getGogoKey(params, callback) {
                 if(response.code===0){
                     dispatch({
                         type:Types.TRIGGER_GET_SUCCESS,
-                        trigger:response.data.trigger
+                        trigger:response.data.trigger,
+                        isSetting: false
                     })
                     setTimeout(()=>{
                         callback(true)
