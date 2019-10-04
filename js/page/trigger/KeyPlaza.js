@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {
     View,
     Text,
-    FlatList
+    FlatList, DeviceEventEmitter
 } from 'react-native'
 import {connect} from "react-redux";
 import InputRow from "../../common/component/InputRow";
@@ -39,7 +39,6 @@ class KeyPlaza extends Component {
         })
     }
 
-
     getLeftButton() {
         return (
             <GetLeftButton {...this.props}></GetLeftButton>
@@ -48,13 +47,24 @@ class KeyPlaza extends Component {
 
     renderItem(data) {
         let func = () => {
+            const token=this.props.user.user.token
+            const gogoKeyId=data.gogoKeyId
             const params = {
-                id: '1',
-                name: '2',
-                newTrigger:true
+                gogoKeyId:gogoKeyId,
+                token:token
             }
-            NavigationUtil.goPage({...params}, 'KeyDetail')
+            let {getGogoPublicKey}=this.props
+            console.log(1)
+            getGogoPublicKey(params, (result)=>{
+                console.log(result)
+                if(result) {
+                    console.log(this.props)
+                    DeviceEventEmitter.emit('refresh_trigger_detail')
+                    NavigationUtil.goPage({...params}, 'KeyDetail')
+                }
+            })
         }
+
         return (
             <InputRow
                 touchFunction={func}
@@ -103,7 +113,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    listPublicKey: (params, callback) => dispatch(actions.listPublicKey(params, callback))
+    listPublicKey: (params, callback) => dispatch(actions.listPublicKey(params, callback)),
+    getGogoPublicKey:(params, callback)=>dispatch(actions.getGogoPublicKey(params,callback))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(KeyPlaza)

@@ -4,7 +4,7 @@ const defaultStatus = {}
 
 export default function onAction(state = defaultStatus, action) {
     switch (action.type) {
-        case Types.TRIGGER_LOAD_PUBLICKEY_SUCCESS:
+        case Types.TRIGGER_LIST_PUBLICKEY_SUCCESS:
             return {
                 ...state,
                 gogoPublickKeyList: action.gogoPublickKeyList
@@ -13,6 +13,11 @@ export default function onAction(state = defaultStatus, action) {
             return {
                 ...state,
                 trigger: action.trigger
+            }
+        case Types.TRIGGER_PUBLICKEY_GET_SUCCESS:
+            return {
+                ...state,
+                publicKey: action.publicKey
             }
         default:
             return state

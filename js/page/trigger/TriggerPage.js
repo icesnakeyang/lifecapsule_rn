@@ -16,6 +16,7 @@ import NavigationUtil from "../../navigator/NavigationUtil";
 import InputRow from "../../common/component/InputRow";
 
 import lifeStyles from '../../common/styles/lifestyles'
+import actions from "../../action";
 
 class TriggerPage extends Component {
     constructor(props) {
@@ -32,10 +33,30 @@ class TriggerPage extends Component {
     }
 
     loadAllData() {
+        if(!(this.props.user && this.props.user.user)){
+            return
+        }
+        const token=this.props.user.user.token
+        if(!(this.props.note && this.props.note.note)){
+            return
+        }
+        const noteId=this.props.note.note.noteId
+        const {getGogoKey}=this.props
+        const params={
+            noteId:noteId,
+            token:token
+        }
+        getGogoKey(params, (result)=>{
+            console.log(result)
+            console.log(this.props)
+            if(result){
+
+            }
+        })
         if (this.props.trigger.trigger) {
-            console.log('有设置触发')
+
         } else {
-            console.log('没有触发')
+
         }
     }
 
@@ -132,7 +153,11 @@ const mapStateToProps = state => ({
     trigger: state.trigger
 })
 
-export default connect(mapStateToProps)(TriggerPage)
+const mapDispatchToProps=dispatch=>({
+    getGogoKey:(params, callback)=>dispatch(actions.getGogoKey(params, callback))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(TriggerPage)
 
 const styles = StyleSheet.create({
     page_container: {

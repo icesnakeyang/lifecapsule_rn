@@ -3,7 +3,8 @@ import {
     View,
     Text,
     TouchableOpacity,
-    Button
+    Button,
+    DeviceEventEmitter
 } from 'react-native'
 import {connect} from "react-redux";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -21,6 +22,9 @@ class KeyDetail extends Component {
 
     componentDidMount() {
         this.loadAllData()
+        DeviceEventEmitter.addListener('refresh_trigger_detail', (params) => {
+            this.loadAllData()
+        })
     }
 
     loadAllData() {
@@ -29,13 +33,9 @@ class KeyDetail extends Component {
          * 2、如果用户没有设置trigger，读取的是空
          * 3、用户从gogoKeyPlaza选择了trigger返回，此时trigger为空，但应该要显示gogoKey的模板
          */
-        console.log(this.props)
         if (this.props.trigger.trigger) {
-            console.log('有trigger')
         } else {
-            console.log('没有trigger')
         }
-        console.log(this.props.navigation.state)
     }
 
     GetLeftButton() {
@@ -78,9 +78,7 @@ class KeyDetail extends Component {
     }
 
     render() {
-        console.log(this.props.navigation.state.params)
         if (!this.props.trigger.trigger) {
-            console.log('no trigger')
         }
         let statusBar = {
             backgroundColor: this.props.theme.THEME_COLOR
