@@ -4,7 +4,8 @@ import {
     Text,
     TouchableOpacity,
     Button,
-    DeviceEventEmitter
+    DeviceEventEmitter,
+    FlatList
 } from 'react-native'
 import {connect} from "react-redux";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -13,15 +14,14 @@ import GetLeftButton from "../../common/component/GetLeftButton";
 import lifestyles from '../../common/styles/lifestyles'
 import InputRow from "../../common/component/InputRow";
 import NavigationUtil from "../../navigator/NavigationUtil";
+import {I18nJs} from "../../language/I18n";
 
 class KeyDetail extends Component {
     constructor(props) {
         super(props);
-
-        this.state={
-            gogoKey:{}
+        this.state = {
+            gogoKey: {}
         }
-
     }
 
     componentDidMount() {
@@ -37,15 +37,11 @@ class KeyDetail extends Component {
          * 2、如果用户没有设置trigger，读取的是空
          * 3、用户从gogoKeyPlaza选择了trigger返回，此时trigger为空，但应该要显示gogoKey的模板
          */
-        if (this.props.trigger.trigger) {
-            console.log('有gogoKey')
+        if (this.props.trigger.status === 'SETTING_GOGOKEY') {
+            this.setState({
+                gogoKey: this.props.trigger.publicKey
+            })
         } else {
-            console.log('没有gogoKey')
-        }
-        if(this.props.trigger.publicKey){
-            console.log('有publicKey')
-        }else{
-            console.log('没有publicKey')
         }
     }
 
@@ -88,6 +84,19 @@ class KeyDetail extends Component {
         )
     }
 
+    renderItem(data) {
+        return (
+            <InputRow
+                touchFunction={() => {
+
+                }}
+                label={data.param}
+                content={data.value}
+                showLabel={true}
+            />
+        )
+    }
+
     render() {
         if (!this.props.trigger.trigger) {
         }
@@ -107,33 +116,31 @@ class KeyDetail extends Component {
             <View>
                 {navigationBar}
                 <View style={lifestyles.tip_view}>
-                    <Text style={lifestyles.tip_text}>页面说明</Text>
+                    <Text style={lifestyles.tip_text}>{I18nJs.t('trigger.tip2')}</Text>
                 </View>
                 <View style={lifestyles.tip_view2}>
-                    <Text style={lifestyles.tip_text2}>触发器标题</Text>
+                    <Text style={lifestyles.tip_text2}>{this.state.gogoKey.title}</Text>
                 </View>
                 <View style={lifestyles.tip_view2}>
-                    <Text style={lifestyles.tip_text2}>触发器说明</Text>
+                    <Text style={lifestyles.tip_text2}>{this.state.gogoKey.description}</Text>
                 </View>
-                <InputRow
-                    touchFunction={() => {
-
-                    }}
-                    label={'触发时间'}
-                    content={'2019-9-9'}
-                    showLabel={true}
+                <FlatList
+                    data={this.state.gogoKey.keyParams}
+                    renderItem={({item}) => (
+                        this.renderItem(item)
+                    )}
                 />
                 <InputRow
                     touchFunction={() => {
-
+                        NavigationUtil.goPage({}, 'KeyUserRemark')
                     }}
-                    label={'用户说明'}
+                    label={I18nJs.t('trigger.userRemark')}
                     content={'给刘子辰18岁生日的一封信'}
                     showLabel={true}
                 />
                 <View style={{marginTop: 30}}>
                     <Button
-                        title={'设置触发器'}
+                        title={I18nJs.t('trigger.selectPublicKey')}
                         onPress={() => {
                             NavigationUtil.goPage({}, 'KeyPlaza')
                         }}

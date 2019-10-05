@@ -37,10 +37,12 @@ export default {
     trigger: {
         trigger: '触发条件',
         tip1: '设定一个触发条件，当条件满足时，系统会自动把该笔记发送给指定用户',
-        tip2:'请选择一个触发条件',
+        tip2:'请选择触发条件，并设置触发条件的值，所有条件满足，任务即被触发',
         triggerName: '触发器标题',
         triggerRemark: '触发器说明',
-        recipient:'接收人'
+        recipient:'接收人',
+        selectPublicKey:'选择触发器模板',
+        userRemark:'用户备注'
     },
     syserr: {
         '10002': '用户名或密码错误'

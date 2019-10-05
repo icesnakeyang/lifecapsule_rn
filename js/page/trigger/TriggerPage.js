@@ -47,8 +47,6 @@ class TriggerPage extends Component {
             token:token
         }
         getGogoKey(params, (result)=>{
-            console.log(result)
-            console.log(this.props)
             if(result){
 
             }

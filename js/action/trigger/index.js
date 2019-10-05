@@ -40,7 +40,6 @@ export function getGogoPublicKey(params, callback) {
         dataStore.fetchPostData(url, body,token)
             .then((response)=>{
                 if(response.code===0){
-                    console.log(response)
                     dispatch({
                         type:Types.TRIGGER_PUBLICKEY_GET_SUCCESS,
                         publicKey:response.data.key,

@@ -19,6 +19,7 @@ import SelectCategory from "../page/category/SelectCategory";
 import TriggerPage from "../page/trigger/TriggerPage";
 import KeyPlaza from "../page/trigger/KeyPlaza";
 import KeyDetail from "../page/trigger/KeyDetail";
+import KeyUserRemark from "../page/trigger/KeyUserRemark";
 
 export const rootCam = 'Init'
 
@@ -106,6 +107,12 @@ const MainNavigator = createStackNavigator({
     },
     KeyDetail: {
         screen: KeyDetail,
+        navigationOptions: {
+            header: null
+        }
+    },
+    KeyUserRemark: {
+        screen: KeyUserRemark,
         navigationOptions: {
             header: null
         }

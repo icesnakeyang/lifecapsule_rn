@@ -54,11 +54,8 @@ class KeyPlaza extends Component {
                 token:token
             }
             let {getGogoPublicKey}=this.props
-            console.log(1)
             getGogoPublicKey(params, (result)=>{
-                console.log(result)
                 if(result) {
-                    console.log(this.props)
                     DeviceEventEmitter.emit('refresh_trigger_detail')
                     NavigationUtil.goPage({...params}, 'KeyDetail')
                 }
