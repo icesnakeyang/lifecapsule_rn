@@ -25,6 +25,11 @@ export default function onAction(state = defaultStatus, action) {
                 ...state,
                 status:action.status
             }
+        case Types.TRIGGER_SAVE_USER_REMARK_SUCCESS:
+            return {
+                ...state,
+                userRemark:action.userRemark
+            }
         default:
             return state
     }

@@ -3,13 +3,15 @@ import {
     View,
     Text,
     TouchableOpacity,
-    TextInput
+    TextInput, DeviceEventEmitter
 } from 'react-native'
 import {connect} from "react-redux";
 import GetLeftButton from "../../common/component/GetLeftButton";
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import NavigationBar from "../../common/component/NavigationBar";
 import {I18nJs} from "../../language/I18n";
+import actions from "../../action";
+import NavigationUtil from "../../navigator/NavigationUtil";
 
 class KeyUserRemark extends Component {
     constructor(props) {
@@ -60,12 +62,20 @@ class KeyUserRemark extends Component {
     }
 
     saveRemark() {
-        console.log(this.state)
+        const {saveUserRemark}=this.props
+        const params={
+            userRemark:this.state.editRemark
+        }
+        saveUserRemark(params, (result)=>{
+            if(result){
+                DeviceEventEmitter.emit('refresh_trigger_detail')
+                NavigationUtil.goPage({...params}, 'KeyDetail')
+            }
+        })
     }
 
 
     render() {
-        console.log(this.props)
         let statusBar = {
             backgroundColor: this.props.theme.THEME_COLOR
         }
@@ -97,6 +107,8 @@ const mapStateToProps = state => ({
     trigger: state.trigger
 })
 
-const mapDispatchToProps = dispatch => ({})
+const mapDispatchToProps = dispatch => ({
+    saveUserRemark:(params, callback)=>dispatch(actions.saveUserRemark(params, callback))
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(KeyUserRemark)

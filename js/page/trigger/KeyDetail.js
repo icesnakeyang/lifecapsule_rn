@@ -20,7 +20,8 @@ class KeyDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            gogoKey: {}
+            gogoKey: {},
+            userRemark:''
         }
     }
 
@@ -39,8 +40,10 @@ class KeyDetail extends Component {
          */
         if (this.props.trigger.status === 'SETTING_GOGOKEY') {
             this.setState({
-                gogoKey: this.props.trigger.publicKey
+                gogoKey: this.props.trigger.publicKey,
+                userRemark:this.props.trigger.userRemark
             })
+            console.log(this.state)
         } else {
         }
     }
@@ -135,7 +138,7 @@ class KeyDetail extends Component {
                         NavigationUtil.goPage({}, 'KeyUserRemark')
                     }}
                     label={I18nJs.t('trigger.userRemark')}
-                    content={'给刘子辰18岁生日的一封信'}
+                    content={this.state.userRemark}
                     showLabel={true}
                 />
                 <View style={{marginTop: 30}}>

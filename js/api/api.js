@@ -1,5 +1,5 @@
-// const host = 'http://192.168.1.247:8088'
-const host = 'http://192.168.0.105:8088'
+const host = 'http://192.168.1.247:8088'
+// const host = 'http://192.168.0.105:8088'
 // const host = 'http://gogorpg.com:8088'
 // const host = 'http://192.168.31.242:8088'
 

@@ -83,3 +83,16 @@ export function getGogoKey(params, callback) {
     }
 
 }
+
+export function saveUserRemark(params, callback) {
+    return dispatch=>{
+        dispatch({
+            type:Types.TRIGGER_SAVE_USER_REMARK_SUCCESS,
+            userRemark:params.userRemark
+        })
+        setTimeout(()=>{
+            callback(true)
+        },1)
+    }
+
+}
