@@ -21,11 +21,16 @@ class KeyUserRemark extends Component {
     }
 
     componentDidMount() {
-
+        this.loadAllData()
     }
 
     loadAllData() {
-
+        console.log(this.props)
+        if (this.props.trigger.gogoKey) {
+            this.setState({
+                remark: this.props.trigger.gogoKey.remark
+            })
+        }
     }
 
     getLeftButton() {
@@ -39,7 +44,7 @@ class KeyUserRemark extends Component {
             <View>
                 <TouchableOpacity
                     onPress={() => {
-                        console.log(this.state)
+                        this.saveRemark()
                     }}
                     style={{margin: 8, marginRight: 13}}>
                     <View>
@@ -53,6 +58,11 @@ class KeyUserRemark extends Component {
             </View>
         )
     }
+
+    saveRemark() {
+        console.log(this.state)
+    }
+
 
     render() {
         console.log(this.props)
@@ -73,8 +83,8 @@ class KeyUserRemark extends Component {
                 {navigationBar}
                 <View>
                     <TextInput
-                        defaultValue={}
-                        onChangeText={(editRemark) => this.setState(editRemark)}
+                        defaultValue={this.state.remark}
+                        onChangeText={(editRemark) => this.setState({editRemark})}
                     />
                 </View>
             </View>
@@ -83,7 +93,8 @@ class KeyUserRemark extends Component {
 }
 
 const mapStateToProps = state => ({
-    theme: state.theme.theme
+    theme: state.theme.theme,
+    trigger: state.trigger
 })
 
 const mapDispatchToProps = dispatch => ({})
