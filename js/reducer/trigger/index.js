@@ -30,10 +30,10 @@ export default function onAction(state = defaultStatus, action) {
                 ...state,
                 userRemark: action.userRemark
             }
-        case Types.TRIGGER_SET_DATETIME_SUCCESS:
+        case Types.TRIGGER_SAVE_PARAM_SUCCESS:
             return {
                 ...state,
-                datetime: action.datetime
+                params: action.params
             }
         default:
             return state

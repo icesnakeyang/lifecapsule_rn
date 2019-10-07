@@ -1,7 +1,10 @@
 import React, {Component} from 'react'
 import {
     View,
-    Dimensions, TouchableOpacity, DeviceEventEmitter
+    Text,
+    Dimensions,
+    TouchableOpacity,
+    DeviceEventEmitter
 } from 'react-native'
 import DatePicker from "react-native-datepicker";
 
@@ -17,10 +20,24 @@ class DateTimePickerPage extends Component {
         super(props);
         let {height, width} = Dimensions.get('window')
         this.state = {
-            date: '2019-10-10 11:22',
+            param: '',
+            value: '',
             width: width
         }
     }
+
+    componentDidMount() {
+        this.loadAllData()
+    }
+
+    loadAllData() {
+        console.log(this.props.navigation.state.params)
+        this.setState({
+            param: this.props.navigation.state.params.param,
+            value: this.props.navigation.state.params.value
+        })
+    }
+
 
     getLeftButton() {
         return (
@@ -36,12 +53,13 @@ class DateTimePickerPage extends Component {
                         onPress={() => {
                             console.log(1)
                             console.log(this.state)
-                            const {saveDateTime}=this.props
-                            const params={
-                                datetime:this.state.date
+                            const {saveParam} = this.props
+                            const params = {
+                                param: this.state.param,
+                                value: this.state.value
                             }
-                            saveDateTime(params,(result)=>{
-                                if(result){
+                            saveParam(params, (result) => {
+                                if (result) {
                                     DeviceEventEmitter.emit('refresh_trigger_detail')
                                     NavigationUtil.goBack(this.props.navigation)
                                 }
@@ -76,16 +94,17 @@ class DateTimePickerPage extends Component {
             <View>
                 {navigationBar}
                 <View style={{marginTop: 20, margin: 10}}>
+                    <Text>{this.state.param}</Text>
                     <DatePicker
                         style={{width: this.state.width}}
-                        date={this.state.date}
+                        date={this.state.value}
                         mode='datetime'
                         placeholder="select date"
                         format="YYYY-MM-DD HH:mm"
                         confirmBtnText="confirm"
                         cancelBtnText="cancel"
-                        onDateChange={(date) => {
-                            this.setState({date: date})
+                        onDateChange={(value) => {
+                            this.setState({value})
                         }}
                     />
                 </View>
@@ -100,7 +119,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    saveDateTime: (params, callback) => dispatch(actions.saveDateTime(params, callback))
+    saveParam: (params, callback) => dispatch(actions.saveParam(params, callback))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(DateTimePickerPage)

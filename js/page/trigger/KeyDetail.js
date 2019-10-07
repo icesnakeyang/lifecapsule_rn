@@ -47,15 +47,39 @@ class KeyDetail extends Component {
             })
             console.log(this.state)
             console.log(this.props)
-            if (this.state.gogoKey) {
-                this.state.gogoKey.keyParams.forEach((item, index) => {
-                    console.log(item)
-                    if (item.type === 'datetime') {
-                        console.log(item.param)
-                        item.value = this.state.datetime
+
+            if (this.props.trigger.params && this.state.gogoKey && this.state.gogoKey.keyParams) {
+                const tmpData = this.state.gogoKey
+                tmpData.keyParams.map((item1, index1) => {
+                    console.log(index1)
+                    console.log(item1)
+                    if (item1.type === 'datetime') {
+                        if (item1.param === this.props.trigger.params.param) {
+                            console.log(index1)
+                            item1.value = this.props.trigger.params.value
+                            this.setState(Object.assign({}, this.state, {
+                                gogoKey: tmpData
+                            }))
+                            console.log(this.state)
+                        }
                     }
                 })
             }
+
+            // this.setState(Object.assign({}, this.state, {
+            //     dataArray: newlist
+            // }));
+
+            console.log(this.state)
+            // if (this.state.gogoKey) {
+            //     this.state.gogoKey.keyParams.forEach((item, index) => {
+            //         console.log(item)
+            //         if (item.type === 'datetime') {
+            //             console.log(item.param)
+            //             item.value = this.state.datetime
+            //         }
+            //     })
+            // }
         } else {
         }
     }
@@ -100,10 +124,14 @@ class KeyDetail extends Component {
     }
 
     renderItem(data) {
+        console.log(data)
         return (
             <InputRow
                 touchFunction={() => {
-                    NavigationUtil.goPage({...this.props}, 'DateTimePickerPage')
+                    console.log(data)
+                    if (data.type === 'datetime') {
+                        NavigationUtil.goPage({...data}, 'DateTimePickerPage')
+                    }
                 }}
                 label={data.param}
                 content={data.value}

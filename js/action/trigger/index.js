@@ -96,11 +96,11 @@ export function saveUserRemark(params, callback) {
     }
 }
 
-export function saveDateTime(params, callback) {
+export function saveParam(params, callback) {
     return dispatch => {
         dispatch({
-            type: Types.TRIGGER_SET_DATETIME_SUCCESS,
-            datetime: params.datetime
+            type: Types.TRIGGER_SAVE_PARAM_SUCCESS,
+            params: params
         })
         setTimeout(() => {
             callback(true)
