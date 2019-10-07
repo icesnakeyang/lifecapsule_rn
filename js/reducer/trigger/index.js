@@ -18,17 +18,22 @@ export default function onAction(state = defaultStatus, action) {
             return {
                 ...state,
                 publicKey: action.publicKey,
-                status:action.status
+                status: action.status
             }
         case Types.TRIGGER_GET:
             return {
                 ...state,
-                status:action.status
+                status: action.status
             }
         case Types.TRIGGER_SAVE_USER_REMARK_SUCCESS:
             return {
                 ...state,
-                userRemark:action.userRemark
+                userRemark: action.userRemark
+            }
+        case Types.TRIGGER_SET_DATETIME_SUCCESS:
+            return {
+                ...state,
+                datetime: action.datetime
             }
         default:
             return state

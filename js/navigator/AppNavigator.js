@@ -20,6 +20,7 @@ import TriggerPage from "../page/trigger/TriggerPage";
 import KeyPlaza from "../page/trigger/KeyPlaza";
 import KeyDetail from "../page/trigger/KeyDetail";
 import KeyUserRemark from "../page/trigger/KeyUserRemark";
+import DateTimePickerPage from "../page/trigger/DateTimePickerPage";
 
 export const rootCam = 'Init'
 
@@ -113,6 +114,12 @@ const MainNavigator = createStackNavigator({
     },
     KeyUserRemark: {
         screen: KeyUserRemark,
+        navigationOptions: {
+            header: null
+        }
+    },
+    DateTimePickerPage: {
+        screen: DateTimePickerPage,
         navigationOptions: {
             header: null
         }

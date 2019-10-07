@@ -21,7 +21,8 @@ class KeyDetail extends Component {
         super(props);
         this.state = {
             gogoKey: {},
-            userRemark:''
+            userRemark: '',
+            datetime: ''
         }
     }
 
@@ -41,9 +42,20 @@ class KeyDetail extends Component {
         if (this.props.trigger.status === 'SETTING_GOGOKEY') {
             this.setState({
                 gogoKey: this.props.trigger.publicKey,
-                userRemark:this.props.trigger.userRemark
+                userRemark: this.props.trigger.userRemark,
+                datetime: this.props.trigger.datetime
             })
             console.log(this.state)
+            console.log(this.props)
+            if (this.state.gogoKey) {
+                this.state.gogoKey.keyParams.forEach((item, index) => {
+                    console.log(item)
+                    if (item.type === 'datetime') {
+                        console.log(item.param)
+                        item.value = this.state.datetime
+                    }
+                })
+            }
         } else {
         }
     }
@@ -91,7 +103,7 @@ class KeyDetail extends Component {
         return (
             <InputRow
                 touchFunction={() => {
-
+                    NavigationUtil.goPage({...this.props}, 'DateTimePickerPage')
                 }}
                 label={data.param}
                 content={data.value}

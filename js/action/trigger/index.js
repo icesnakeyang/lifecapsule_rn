@@ -29,25 +29,25 @@ export function listPublicKey(params, callback) {
 }
 
 export function getGogoPublicKey(params, callback) {
-    return dispatch=>{
-        let url=API.apiGetGogoPublicKey
-        let gogoKeyId=params.gogoKeyId
-        let token=params.token
-        let dataStore=new DataStore()
-        const body={
-            gogoKeyId:gogoKeyId
+    return dispatch => {
+        let url = API.apiGetGogoPublicKey
+        let gogoKeyId = params.gogoKeyId
+        let token = params.token
+        let dataStore = new DataStore()
+        const body = {
+            gogoKeyId: gogoKeyId
         }
-        dataStore.fetchPostData(url, body,token)
-            .then((response)=>{
-                if(response.code===0){
+        dataStore.fetchPostData(url, body, token)
+            .then((response) => {
+                if (response.code === 0) {
                     dispatch({
-                        type:Types.TRIGGER_PUBLICKEY_GET_SUCCESS,
-                        publicKey:response.data.key,
-                        status:'SETTING_GOGOKEY'
+                        type: Types.TRIGGER_PUBLICKEY_GET_SUCCESS,
+                        publicKey: response.data.key,
+                        status: 'SETTING_GOGOKEY'
                     })
-                    setTimeout(()=>{
+                    setTimeout(() => {
                         callback(true)
-                    },1)
+                    }, 1)
                 }
             })
     }
@@ -55,29 +55,29 @@ export function getGogoPublicKey(params, callback) {
 }
 
 export function getGogoKey(params, callback) {
-    return dispatch=>{
+    return dispatch => {
         dispatch({
-            type:Types.TRIGGER_GET,
-            status:'GETTING_TRIGGER'
+            type: Types.TRIGGER_GET,
+            status: 'GETTING_TRIGGER'
         })
-        let url=API.apiGetTriggerByNoteId
-        let noteId=params.noteId
-        let token=params.token
-        let dataStore=new DataStore()
-        const body={
-            noteId:noteId
+        let url = API.apiGetTriggerByNoteId
+        let noteId = params.noteId
+        let token = params.token
+        let dataStore = new DataStore()
+        const body = {
+            noteId: noteId
         }
-        dataStore.fetchPostData(url, body,token)
-            .then((response)=>{
-                if(response.code===0){
+        dataStore.fetchPostData(url, body, token)
+            .then((response) => {
+                if (response.code === 0) {
                     dispatch({
-                        type:Types.TRIGGER_GET_SUCCESS,
-                        trigger:response.data.trigger,
+                        type: Types.TRIGGER_GET_SUCCESS,
+                        trigger: response.data.trigger,
                         isSetting: false
                     })
-                    setTimeout(()=>{
+                    setTimeout(() => {
                         callback(true)
-                    },1)
+                    }, 1)
                 }
             })
     }
@@ -85,14 +85,26 @@ export function getGogoKey(params, callback) {
 }
 
 export function saveUserRemark(params, callback) {
-    return dispatch=>{
+    return dispatch => {
         dispatch({
-            type:Types.TRIGGER_SAVE_USER_REMARK_SUCCESS,
-            userRemark:params.userRemark
+            type: Types.TRIGGER_SAVE_USER_REMARK_SUCCESS,
+            userRemark: params.userRemark
         })
-        setTimeout(()=>{
+        setTimeout(() => {
             callback(true)
-        },1)
+        }, 1)
+    }
+}
+
+export function saveDateTime(params, callback) {
+    return dispatch => {
+        dispatch({
+            type: Types.TRIGGER_SET_DATETIME_SUCCESS,
+            datetime: params.datetime
+        })
+        setTimeout(() => {
+            callback(true)
+        }, 1)
     }
 
 }
