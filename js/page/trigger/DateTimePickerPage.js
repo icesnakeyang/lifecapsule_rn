@@ -31,7 +31,6 @@ class DateTimePickerPage extends Component {
     }
 
     loadAllData() {
-        console.log(this.props.navigation.state.params)
         this.setState({
             param: this.props.navigation.state.params.param,
             value: this.props.navigation.state.params.value
@@ -51,8 +50,6 @@ class DateTimePickerPage extends Component {
                 <View style={{padding: 5, paddingRight: 8}}>
                     <TouchableOpacity
                         onPress={() => {
-                            console.log(1)
-                            console.log(this.state)
                             const {saveParam} = this.props
                             const params = {
                                 param: this.state.param,

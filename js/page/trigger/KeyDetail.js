@@ -34,6 +34,7 @@ class KeyDetail extends Component {
     }
 
     loadAllData() {
+        console.log(this.state)
         /**
          * 1、用户已经设置了trigger，读取的是用户设置的trigger
          * 2、如果用户没有设置trigger，读取的是空
@@ -45,22 +46,16 @@ class KeyDetail extends Component {
                 userRemark: this.props.trigger.userRemark,
                 datetime: this.props.trigger.datetime
             })
-            console.log(this.state)
-            console.log(this.props)
 
             if (this.props.trigger.params && this.state.gogoKey && this.state.gogoKey.keyParams) {
                 const tmpData = this.state.gogoKey
                 tmpData.keyParams.map((item1, index1) => {
-                    console.log(index1)
-                    console.log(item1)
                     if (item1.type === 'datetime') {
                         if (item1.param === this.props.trigger.params.param) {
-                            console.log(index1)
                             item1.value = this.props.trigger.params.value
                             this.setState(Object.assign({}, this.state, {
                                 gogoKey: tmpData
                             }))
-                            console.log(this.state)
                         }
                     }
                 })
@@ -70,7 +65,6 @@ class KeyDetail extends Component {
             //     dataArray: newlist
             // }));
 
-            console.log(this.state)
             // if (this.state.gogoKey) {
             //     this.state.gogoKey.keyParams.forEach((item, index) => {
             //         console.log(item)
@@ -124,11 +118,9 @@ class KeyDetail extends Component {
     }
 
     renderItem(data) {
-        console.log(data)
         return (
             <InputRow
                 touchFunction={() => {
-                    console.log(data)
                     if (data.type === 'datetime') {
                         NavigationUtil.goPage({...data}, 'DateTimePickerPage')
                     }

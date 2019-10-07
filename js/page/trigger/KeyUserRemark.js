@@ -27,7 +27,6 @@ class KeyUserRemark extends Component {
     }
 
     loadAllData() {
-        console.log(this.props)
         if (this.props.trigger.gogoKey) {
             this.setState({
                 remark: this.props.trigger.gogoKey.remark
