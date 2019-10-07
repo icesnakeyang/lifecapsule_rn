@@ -34,7 +34,6 @@ class KeyDetail extends Component {
     }
 
     loadAllData() {
-        console.log(this.state)
         /**
          * 1、用户已经设置了trigger，读取的是用户设置的trigger
          * 2、如果用户没有设置trigger，读取的是空
@@ -48,32 +47,21 @@ class KeyDetail extends Component {
             })
 
             if (this.props.trigger.params && this.state.gogoKey && this.state.gogoKey.keyParams) {
-                const tmpData = this.state.gogoKey
-                tmpData.keyParams.map((item1, index1) => {
+                let tmpData = []
+                tmpData = tmpData.concat(this.state.gogoKey.keyParams)
+                tmpData.map((item1, index1) => {
                     if (item1.type === 'datetime') {
                         if (item1.param === this.props.trigger.params.param) {
                             item1.value = this.props.trigger.params.value
-                            this.setState(Object.assign({}, this.state, {
-                                gogoKey: tmpData
-                            }))
                         }
                     }
                 })
+                this.setState({
+                    gogoKey: {
+                        keyParams: tmpData
+                    }
+                })
             }
-
-            // this.setState(Object.assign({}, this.state, {
-            //     dataArray: newlist
-            // }));
-
-            // if (this.state.gogoKey) {
-            //     this.state.gogoKey.keyParams.forEach((item, index) => {
-            //         console.log(item)
-            //         if (item.type === 'datetime') {
-            //             console.log(item.param)
-            //             item.value = this.state.datetime
-            //         }
-            //     })
-            // }
         } else {
         }
     }
@@ -90,7 +78,7 @@ class KeyDetail extends Component {
                 <View style={{padding: 5, paddingRight: 13}}>
                     <TouchableOpacity
                         onPress={() => {
-
+                            this.saveKeyDetail()
                         }}
                     >
                         <Ionicons
@@ -115,6 +103,32 @@ class KeyDetail extends Component {
                 </View>
             </View>
         )
+    }
+
+    saveKeyDetail() {
+        console.log('save key')
+        console.log(this.state)
+        console.log(this.props)
+        let token=this.props.user.user.token
+        let triggerId=null
+        if(this.props.trigger.trigger){
+            triggerId=this.props.trigger.trigger.triggerId
+        }
+
+        const params={
+            token:this.props.user.user.token,
+
+        }
+        //       token
+        //  triggerId
+        // keyParams
+        //  gogoKeyId
+        //  triggerName
+        //  noteId
+        //  triggerRemark
+        //  title
+        // description
+        NavigationUtil.goPage({}, 'TriggerPage')
     }
 
     renderItem(data) {
@@ -189,7 +203,8 @@ class KeyDetail extends Component {
 const mapStateToProps = state => ({
     note: state.note,
     theme: state.theme.theme,
-    trigger: state.trigger
+    trigger: state.trigger,
+    user: state.user
 })
 
 export default connect(mapStateToProps)(KeyDetail)

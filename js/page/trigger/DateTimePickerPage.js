@@ -58,7 +58,7 @@ class DateTimePickerPage extends Component {
                             saveParam(params, (result) => {
                                 if (result) {
                                     DeviceEventEmitter.emit('refresh_trigger_detail')
-                                    NavigationUtil.goBack(this.props.navigation)
+                                    NavigationUtil.goPage({}, 'KeyDetail')
                                 }
                             })
                         }}

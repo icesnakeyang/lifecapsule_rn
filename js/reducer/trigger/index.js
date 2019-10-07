@@ -25,15 +25,10 @@ export default function onAction(state = defaultStatus, action) {
                 ...state,
                 status: action.status
             }
-        case Types.TRIGGER_SAVE_USER_REMARK_SUCCESS:
+        case Types.TRIGGER_EDITKEY_SAVE_SUCCESS:
             return {
                 ...state,
-                userRemark: action.userRemark
-            }
-        case Types.TRIGGER_SAVE_PARAM_SUCCESS:
-            return {
-                ...state,
-                params: action.params
+                editKey: action.editKey
             }
         default:
             return state

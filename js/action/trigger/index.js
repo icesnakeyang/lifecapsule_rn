@@ -84,11 +84,11 @@ export function getGogoKey(params, callback) {
 
 }
 
-export function saveUserRemark(params, callback) {
+export function saveEditKey(params, callback) {
     return dispatch => {
         dispatch({
-            type: Types.TRIGGER_SAVE_USER_REMARK_SUCCESS,
-            userRemark: params.userRemark
+            type: Types.TRIGGER_EDITKEY_SAVE_SUCCESS,
+            editKey: params
         })
         setTimeout(() => {
             callback(true)
@@ -96,15 +96,21 @@ export function saveUserRemark(params, callback) {
     }
 }
 
-export function saveParam(params, callback) {
+export function saveGogoKey(params, callback) {
     return dispatch => {
-        dispatch({
-            type: Types.TRIGGER_SAVE_PARAM_SUCCESS,
-            params: params
-        })
-        setTimeout(() => {
-            callback(true)
-        }, 1)
-    }
+        let url = API.apiSaveGogoKey
+        let body = {
+            //       token
+            //  triggerId
+            // keyParams
+            //  gogoKeyId
+            //  triggerName
+            //  noteId
+            //  triggerRemark
+            //  title
+            // description
 
+        }
+
+    }
 }
