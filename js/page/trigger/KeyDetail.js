@@ -38,16 +38,13 @@ class KeyDetail extends Component {
          * 2、如果用户没有设置trigger，读取的是空
          * 3、用户从gogoKeyPlaza选择了trigger返回，此时trigger为空，但应该要显示gogoKey的模板
          */
-        if (this.props.trigger) {
-
-        }
         if (this.props.trigger.trigger && this.props.trigger.trigger.gogoKey) {
             //把props里的gogokey赋值给state
             this.setState({
                 gogoKey: this.props.trigger.trigger.gogoKey
             })
             //赋值后页面不会刷新，拷贝出来，清空，再赋值一次就可以刷新了
-            const tmpData = this.state.gogoKey
+            const tmpData = this.props.trigger.trigger.gogoKey
             this.setState({
                 gogoKey: {}
             })

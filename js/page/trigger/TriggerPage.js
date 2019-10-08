@@ -48,7 +48,7 @@ class TriggerPage extends Component {
         }
         getTrigger(params, (result)=>{
             if(result){
-
+                console.log(this.props)
             }
         })
         if (this.props.trigger.trigger) {
@@ -85,6 +85,7 @@ class TriggerPage extends Component {
     }
 
     render() {
+        console.log(this.props.trigger)
         let statusBar = {
             backgroundColor: this.props.theme.THEME_COLOR
         }

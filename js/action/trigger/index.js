@@ -70,14 +70,38 @@ export function getTrigger(params, callback) {
         dataStore.fetchPostData(url, body, token)
             .then((response) => {
                 if (response.code === 0) {
+                    console.log(response.data)
+                    let trigger = null
+                    if (response.data.trigger) {
+                        trigger = response.data.trigger
+                    }
                     dispatch({
                         type: Types.TRIGGER_GET_SUCCESS,
-                        trigger: response.data.trigger
+                        trigger: trigger
                     })
                     setTimeout(() => {
                         callback(true)
                     }, 1)
+                } else {
+                    dispatch({
+                        type: Types.TRIGGER_GET_FAIL,
+                        trigger: {},
+                        error: response.code
+                    })
+                    setTimeout(() => {
+                        callback(false)
+                    }, 1)
                 }
+            })
+            .catch((error) => {
+                dispatch({
+                    type: Types.TRIGGER_GET_FAIL,
+                    trigger: {},
+                    error: error
+                })
+                setTimeout(() => {
+                    callback(false)
+                }, 1)
             })
     }
 }

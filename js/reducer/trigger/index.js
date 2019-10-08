@@ -19,10 +19,12 @@ export default function onAction(state = defaultStatus, action) {
                 ...state,
                 trigger: action.trigger
             }
-        case Types.TRIGGER_GET:
+        case Types.TRIGGER_GET_FAIL:
+            console.log(action)
             return {
                 ...state,
-                status: action.status
+                trigger: action.trigger,
+                error: action.error
             }
         case Types.TRIGGER_SAVE_SUCCESS:
             return {
