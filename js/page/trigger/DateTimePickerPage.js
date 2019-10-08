@@ -14,6 +14,7 @@ import NavigationBar from "../../common/component/NavigationBar";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import actions from "../../action";
 import NavigationUtil from "../../navigator/NavigationUtil";
+import {saveTrigger} from "../../action/trigger";
 
 class DateTimePickerPage extends Component {
     constructor(props) {
@@ -50,17 +51,7 @@ class DateTimePickerPage extends Component {
                 <View style={{padding: 5, paddingRight: 8}}>
                     <TouchableOpacity
                         onPress={() => {
-                            const {saveParam} = this.props
-                            const params = {
-                                param: this.state.param,
-                                value: this.state.value
-                            }
-                            saveParam(params, (result) => {
-                                if (result) {
-                                    DeviceEventEmitter.emit('refresh_trigger_detail')
-                                    NavigationUtil.goPage({}, 'KeyDetail')
-                                }
-                            })
+                            this.saveTheTrigger()
                         }}
                     >
                         <Ionicons
@@ -72,6 +63,33 @@ class DateTimePickerPage extends Component {
                 </View>
             </View>
         )
+    }
+
+    saveTheTrigger() {
+        console.log(1)
+        const {saveTrigger} = this.props
+        let trigger = this.props.trigger.trigger
+        if (trigger.keyParams.length > 0) {
+            trigger.keyParams.forEach((item, index) => {
+                if (item.param === this.state.param) {
+                    item.value = this.state.value
+                }
+            })
+        } else {
+            trigger.keyParams = [
+                {
+                    param: this.state.param,
+                    value: this.state.value
+                }
+            ]
+        }
+
+        saveTrigger(trigger, (result) => {
+            if (result) {
+                DeviceEventEmitter.emit('refresh_trigger_detail')
+                NavigationUtil.goPage({}, 'KeyDetail')
+            }
+        })
     }
 
     render() {
@@ -116,7 +134,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    saveParam: (params, callback) => dispatch(actions.saveParam(params, callback))
+    saveTrigger: (params, callback) => dispatch(actions.saveTrigger(params, callback))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(DateTimePickerPage)

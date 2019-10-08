@@ -42,8 +42,7 @@ export function getGogoPublicKey(params, callback) {
                 if (response.code === 0) {
                     dispatch({
                         type: Types.TRIGGER_PUBLICKEY_GET_SUCCESS,
-                        publicKey: response.data.key,
-                        status: 'SETTING_GOGOKEY'
+                        gogoKey: response.data.key
                     })
                     setTimeout(() => {
                         callback(true)
@@ -54,12 +53,8 @@ export function getGogoPublicKey(params, callback) {
 
 }
 
-export function getGogoKey(params, callback) {
+export function getTrigger(params, callback) {
     return dispatch => {
-        dispatch({
-            type: Types.TRIGGER_GET,
-            status: 'GETTING_TRIGGER'
-        })
         let url = API.apiGetTriggerByNoteId
         let noteId = params.noteId
         let token = params.token
@@ -72,8 +67,7 @@ export function getGogoKey(params, callback) {
                 if (response.code === 0) {
                     dispatch({
                         type: Types.TRIGGER_GET_SUCCESS,
-                        trigger: response.data.trigger,
-                        isSetting: false
+                        trigger: response.data.trigger
                     })
                     setTimeout(() => {
                         callback(true)
@@ -81,14 +75,13 @@ export function getGogoKey(params, callback) {
                 }
             })
     }
-
 }
 
-export function saveEditKey(params, callback) {
+export function saveTrigger(params, callback) {
     return dispatch => {
         dispatch({
-            type: Types.TRIGGER_EDITKEY_SAVE_SUCCESS,
-            editKey: params
+            type: Types.TRIGGER_SAVE_SUCCESS,
+            trigger:params
         })
         setTimeout(() => {
             callback(true)

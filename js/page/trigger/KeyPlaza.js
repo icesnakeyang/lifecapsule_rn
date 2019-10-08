@@ -47,15 +47,16 @@ class KeyPlaza extends Component {
 
     renderItem(data) {
         let func = () => {
-            const token=this.props.user.user.token
-            const gogoKeyId=data.gogoKeyId
+            const token = this.props.user.user.token
+            const gogoKeyId = data.gogoKeyId
             const params = {
-                gogoKeyId:gogoKeyId,
-                token:token
+                gogoKeyId: gogoKeyId,
+                token: token
             }
-            let {getGogoPublicKey}=this.props
-            getGogoPublicKey(params, (result)=>{
-                if(result) {
+            let {getGogoPublicKey} = this.props
+            console.log(params)
+            getGogoPublicKey(params, (result) => {
+                if (result) {
                     DeviceEventEmitter.emit('refresh_trigger_detail')
                     NavigationUtil.goPage({...params}, 'KeyDetail')
                 }
@@ -111,7 +112,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     listPublicKey: (params, callback) => dispatch(actions.listPublicKey(params, callback)),
-    getGogoPublicKey:(params, callback)=>dispatch(actions.getGogoPublicKey(params,callback))
+    getGogoPublicKey: (params, callback) => dispatch(actions.getGogoPublicKey(params, callback))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(KeyPlaza)

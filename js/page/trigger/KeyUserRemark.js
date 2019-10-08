@@ -61,12 +61,15 @@ class KeyUserRemark extends Component {
     }
 
     saveRemark() {
-        const {saveUserRemark}=this.props
-        const params={
-            userRemark:this.state.editRemark
+        const {saveEditKey} = this.props
+        let params = {}
+        if (this.props.trigger.editKey) {
+            params = this.props.trigger.editKey
         }
-        saveUserRemark(params, (result)=>{
-            if(result){
+        params.userRemark = this.state.editRemark
+
+        saveEditKey(params, (result) => {
+            if (result) {
                 DeviceEventEmitter.emit('refresh_trigger_detail')
                 NavigationUtil.goPage({...params}, 'KeyDetail')
             }
@@ -107,7 +110,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    saveUserRemark:(params, callback)=>dispatch(actions.saveUserRemark(params, callback))
+    saveEditKey: (params, callback) => dispatch(actions.saveEditKey(params, callback))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(KeyUserRemark)

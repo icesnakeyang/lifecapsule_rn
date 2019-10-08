@@ -41,12 +41,12 @@ class TriggerPage extends Component {
             return
         }
         const noteId=this.props.note.note.noteId
-        const {getGogoKey}=this.props
+        const {getTrigger}=this.props
         const params={
             noteId:noteId,
             token:token
         }
-        getGogoKey(params, (result)=>{
+        getTrigger(params, (result)=>{
             if(result){
 
             }
@@ -152,7 +152,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps=dispatch=>({
-    getGogoKey:(params, callback)=>dispatch(actions.getGogoKey(params, callback))
+    getTrigger:(params, callback)=>dispatch(actions.getTrigger(params, callback))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(TriggerPage)

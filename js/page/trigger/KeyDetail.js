@@ -39,30 +39,30 @@ class KeyDetail extends Component {
          * 2、如果用户没有设置trigger，读取的是空
          * 3、用户从gogoKeyPlaza选择了trigger返回，此时trigger为空，但应该要显示gogoKey的模板
          */
-        if (this.props.trigger.status === 'SETTING_GOGOKEY') {
+        console.log(this.props)
+        if (this.props.trigger.gogoKey) {
             this.setState({
-                gogoKey: this.props.trigger.publicKey,
-                userRemark: this.props.trigger.userRemark,
-                datetime: this.props.trigger.datetime
+                gogoKey: this.props.trigger.gogoKey
             })
 
-            if (this.props.trigger.params && this.state.gogoKey && this.state.gogoKey.keyParams) {
-                let tmpData = []
-                tmpData = tmpData.concat(this.state.gogoKey.keyParams)
-                tmpData.map((item1, index1) => {
-                    if (item1.type === 'datetime') {
-                        if (item1.param === this.props.trigger.params.param) {
-                            item1.value = this.props.trigger.params.value
-                        }
-                    }
-                })
-                this.setState({
-                    gogoKey: {
-                        keyParams: tmpData
-                    }
-                })
-            }
-        } else {
+            //     if (this.props.trigger.editKey && this.state.gogoKey && this.state.gogoKey.keyParams) {
+            //         let tmpData = []
+            //         tmpData = tmpData.concat(this.state.gogoKey.keyParams)
+            //         tmpData.map((item1, index1) => {
+            //             if (item1.type === 'datetime') {
+            //                 if (item1.param === this.props.trigger.editKey.param) {
+            //                     item1.value = this.props.trigger.editKey.value
+            //                 }
+            //             }
+            //         })
+            //         this.setState({
+            //             gogoKey: {
+            //                 keyParams: tmpData
+            //             }
+            //         })
+            //     }
+            // } else {
+            // }
         }
     }
 
@@ -109,14 +109,14 @@ class KeyDetail extends Component {
         console.log('save key')
         console.log(this.state)
         console.log(this.props)
-        let token=this.props.user.user.token
-        let triggerId=null
-        if(this.props.trigger.trigger){
-            triggerId=this.props.trigger.trigger.triggerId
+        let token = this.props.user.user.token
+        let triggerId = null
+        if (this.props.trigger.trigger) {
+            triggerId = this.props.trigger.trigger.triggerId
         }
 
-        const params={
-            token:this.props.user.user.token,
+        const params = {
+            token: this.props.user.user.token,
 
         }
         //       token
