@@ -139,6 +139,14 @@ class TriggerPage extends Component {
                         </View>
                     </View>
                 </TouchableOpacity>
+                <InputRow
+                    touchFunction={() => {
+                        NavigationUtil.goPage({}, 'KeyUserRemark')
+                    }}
+                    label={I18nJs.t('trigger.userRemark')}
+                    content={this.state.userRemark}
+                    showLabel={true}
+                />
             </View>
         )
     }

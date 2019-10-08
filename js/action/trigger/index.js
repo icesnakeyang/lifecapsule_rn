@@ -31,22 +31,20 @@ export function listPublicKey(params, callback) {
 export function getGogoPublicKey(params, callback) {
     return dispatch => {
         let url = API.apiGetGogoPublicKey
-        let gogoKeyId = params.gogoKeyId
+        let publicKeyId = params.publicKeyId
         let token = params.token
         let dataStore = new DataStore()
         const body = {
-            gogoKeyId: gogoKeyId
+            gogoKeyId: publicKeyId
         }
         dataStore.fetchPostData(url, body, token)
             .then((response) => {
                 if (response.code === 0) {
                     let newTrigger = {}
-                    console.log(params)
                     if (params.trigger) {
                         newTrigger = params.trigger
                     }
                     newTrigger.gogoKey = response.data.key
-                    console.log(newTrigger)
                     dispatch({
                         type: Types.TRIGGER_PUBLICKEY_GET_SUCCESS,
                         trigger: newTrigger
@@ -85,7 +83,6 @@ export function getTrigger(params, callback) {
 }
 
 export function saveTrigger(params, callback) {
-    console.log(params)
     return dispatch => {
         dispatch({
             type: Types.TRIGGER_SAVE_SUCCESS,

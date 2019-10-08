@@ -66,17 +66,16 @@ class DateTimePickerPage extends Component {
     }
 
     saveTheTrigger() {
-        console.log(1)
         const {saveTrigger} = this.props
         let trigger = this.props.trigger.trigger
-        if (trigger.keyParams.length > 0) {
-            trigger.keyParams.forEach((item, index) => {
+        if (trigger.gogoKey.keyParams.length > 0) {
+            trigger.gogoKey.keyParams.forEach((item, index) => {
                 if (item.param === this.state.param) {
                     item.value = this.state.value
                 }
             })
         } else {
-            trigger.keyParams = [
+            trigger.gogoKey.keyParams = [
                 {
                     param: this.state.param,
                     value: this.state.value

@@ -48,16 +48,15 @@ class KeyPlaza extends Component {
     renderItem(data) {
         let func = () => {
             const token = this.props.user.user.token
-            const gogoKeyId = data.gogoKeyId
+            const publicKeyId = data.publicKeyId
             const params = {
-                gogoKeyId: gogoKeyId,
+                publicKeyId: publicKeyId,
                 token: token
             }
             if (this.props.trigger.trigger) {
                 params.trigger = this.props.trigger.trigger
             }
             let {getGogoPublicKey} = this.props
-            console.log(params)
             getGogoPublicKey(params, (result) => {
                 if (result) {
                     DeviceEventEmitter.emit('refresh_trigger_detail')

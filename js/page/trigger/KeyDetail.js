@@ -21,8 +21,7 @@ class KeyDetail extends Component {
         super(props);
         this.state = {
             gogoKey: {},
-            userRemark: '',
-            datetime: ''
+            remark: '',
         }
     }
 
@@ -39,30 +38,22 @@ class KeyDetail extends Component {
          * 2、如果用户没有设置trigger，读取的是空
          * 3、用户从gogoKeyPlaza选择了trigger返回，此时trigger为空，但应该要显示gogoKey的模板
          */
-        console.log(this.props)
+        if (this.props.trigger) {
+
+        }
         if (this.props.trigger.trigger && this.props.trigger.trigger.gogoKey) {
+            //把props里的gogokey赋值给state
             this.setState({
                 gogoKey: this.props.trigger.trigger.gogoKey
             })
-
-            //     if (this.props.trigger.editKey && this.state.gogoKey && this.state.gogoKey.keyParams) {
-            //         let tmpData = []
-            //         tmpData = tmpData.concat(this.state.gogoKey.keyParams)
-            //         tmpData.map((item1, index1) => {
-            //             if (item1.type === 'datetime') {
-            //                 if (item1.param === this.props.trigger.editKey.param) {
-            //                     item1.value = this.props.trigger.editKey.value
-            //                 }
-            //             }
-            //         })
-            //         this.setState({
-            //             gogoKey: {
-            //                 keyParams: tmpData
-            //             }
-            //         })
-            //     }
-            // } else {
-            // }
+            //赋值后页面不会刷新，拷贝出来，清空，再赋值一次就可以刷新了
+            const tmpData = this.state.gogoKey
+            this.setState({
+                gogoKey: {}
+            })
+            this.setState({
+                gogoKey: tmpData
+            })
         }
     }
 
@@ -106,23 +97,42 @@ class KeyDetail extends Component {
     }
 
     saveKeyDetail() {
-        console.log('save key')
         console.log(this.state)
         console.log(this.props)
-        let token = this.props.user.user.token
-        let triggerId = null
+        let params = {}
+        params.token = this.props.user.user.token
+        if (this.props.note.note.noteId) {
+            params.noteId = this.props.note.note.noteId
+        }
         if (this.props.trigger.trigger) {
-            triggerId = this.props.trigger.trigger.triggerId
+            if (this.props.trigger.trigger.triggerId) {
+                params.triggerId = this.props.trigger.trigger.triggerId
+            }
+            if (this.props.trigger.trigger.triggerName) {
+                params.triggerName = this.props.trigger.trigger.triggerName
+            }
+            if (this.props.trigger.trigger.triggerRemark) {
+                params.triggerRemark = this.props.trigger.trigger.triggerRemark
+            }
+            if (this.props.trigger.trigger && this.props.trigger.trigger.gogoKey) {
+                if (this.props.trigger.trigger.gogoKey.gogoKeyId) {
+                    params.gogoKeyId = this.props.trigger.trigger.gogoKey
+                }
+                if (this.props.trigger.trigger.gogoKey.keyParams) {
+                    params.keyParams = this.props.trigger.trigger.gogoKey.keyParams
+                }
+                if (this.props.trigger.trigger.gogoKey.title) {
+                    params.title = this.props.trigger.trigger.gogoKey.title
+                }
+                if (this.props.trigger.trigger.gogoKey.description) {
+                    params.description = this.props.trigger.trigger.gogoKey.description
+                }
+            }
         }
 
-        const params = {
-            token: this.props.user.user.token,
+        console.log(params)
+        return
 
-        }
-        //       token
-        //  triggerId
-        // keyParams
-        //  gogoKeyId
         //  triggerName
         //  noteId
         //  triggerRemark
@@ -178,14 +188,6 @@ class KeyDetail extends Component {
                     renderItem={({item}) => (
                         this.renderItem(item)
                     )}
-                />
-                <InputRow
-                    touchFunction={() => {
-                        NavigationUtil.goPage({}, 'KeyUserRemark')
-                    }}
-                    label={I18nJs.t('trigger.userRemark')}
-                    content={this.state.userRemark}
-                    showLabel={true}
                 />
                 <View style={{marginTop: 30}}>
                     <Button
