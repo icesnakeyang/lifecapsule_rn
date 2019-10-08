@@ -40,9 +40,16 @@ export function getGogoPublicKey(params, callback) {
         dataStore.fetchPostData(url, body, token)
             .then((response) => {
                 if (response.code === 0) {
+                    let newTrigger = {}
+                    console.log(params)
+                    if (params.trigger) {
+                        newTrigger = params.trigger
+                    }
+                    newTrigger.gogoKey = response.data.key
+                    console.log(newTrigger)
                     dispatch({
                         type: Types.TRIGGER_PUBLICKEY_GET_SUCCESS,
-                        gogoKey: response.data.key
+                        trigger: newTrigger
                     })
                     setTimeout(() => {
                         callback(true)
@@ -78,10 +85,11 @@ export function getTrigger(params, callback) {
 }
 
 export function saveTrigger(params, callback) {
+    console.log(params)
     return dispatch => {
         dispatch({
             type: Types.TRIGGER_SAVE_SUCCESS,
-            trigger:params
+            trigger: params
         })
         setTimeout(() => {
             callback(true)

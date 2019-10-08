@@ -40,9 +40,9 @@ class KeyDetail extends Component {
          * 3、用户从gogoKeyPlaza选择了trigger返回，此时trigger为空，但应该要显示gogoKey的模板
          */
         console.log(this.props)
-        if (this.props.trigger.gogoKey) {
+        if (this.props.trigger.trigger && this.props.trigger.trigger.gogoKey) {
             this.setState({
-                gogoKey: this.props.trigger.gogoKey
+                gogoKey: this.props.trigger.trigger.gogoKey
             })
 
             //     if (this.props.trigger.editKey && this.state.gogoKey && this.state.gogoKey.keyParams) {

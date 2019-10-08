@@ -17,7 +17,7 @@ export default function onAction(state = defaultStatus, action) {
         case Types.TRIGGER_PUBLICKEY_GET_SUCCESS:
             return {
                 ...state,
-                gogoKey: action.gogoKey
+                trigger: action.trigger
             }
         case Types.TRIGGER_GET:
             return {
