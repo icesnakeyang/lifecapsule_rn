@@ -70,7 +70,6 @@ export function getTrigger(params, callback) {
         dataStore.fetchPostData(url, body, token)
             .then((response) => {
                 if (response.code === 0) {
-                    console.log(response.data)
                     let trigger = null
                     if (response.data.trigger) {
                         trigger = response.data.trigger
@@ -118,6 +117,32 @@ export function saveTrigger(params, callback) {
     }
 }
 
+export function saveTriggerToServer(params, callback) {
+    return dispatch => {
+        let url = API.apiSaveTrigger
+        let body = {
+            triggerId: params.triggerId,
+            remark: params.remark,
+            noteId: params.noteId,
+            gogoKey: params.gogoKey
+        }
+        let dataStore = new DataStore()
+        dataStore.fetchPostData(url, body, params.token)
+            .then((response) => {
+                console.log(response)
+                if (response.code === 0) {
+                    dispatch({
+                        type: Types.TRIGGER_SAVE_SERVER_SUCCESS,
+                        trigger: params
+                    })
+                    setTimeout(() => {
+                        callback(true)
+                    }, 1)
+                }
+            })
+    }
+}
+
 export function saveGogoKey(params, callback) {
     return dispatch => {
         let url = API.apiSaveGogoKey
@@ -134,5 +159,26 @@ export function saveGogoKey(params, callback) {
 
         }
 
+    }
+}
+
+export function clearTrigger() {
+    return dispatch => {
+        dispatch({
+            type: Types.TRIGGER_CLEAR_SUCCESS,
+            trigger: null
+        })
+    }
+}
+
+export function saveTriggerRemark(params, callback) {
+    return dispatch => {
+        dispatch({
+            type: Types.TRIGGER_SAVE_REMARK_SUCCESS,
+            remark: params.remark
+        })
+        setTimeout(() => {
+            callback(true)
+        }, 1)
     }
 }

@@ -5,7 +5,7 @@ import {
     TouchableOpacity,
     StyleSheet,
     TextInput,
-    Image
+    Image, DeviceEventEmitter
 } from 'react-native'
 import {connect} from "react-redux";
 import GetLeftButton from "../../common/component/GetLeftButton";
@@ -22,39 +22,54 @@ class TriggerPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            triggerTitle: 'aa',
-            editTriggerTittle: '',
-            triggerRemark: '说明'
+            editTrigger: ''
         }
     }
 
     componentDidMount() {
         this.loadAllData()
+        DeviceEventEmitter.addListener('Refresh_TriggerPage', (params) => {
+            console.log('refresh')
+            this.loadAllData()
+        })
     }
 
     loadAllData() {
-        if(!(this.props.user && this.props.user.user)){
-            return
-        }
-        const token=this.props.user.user.token
-        if(!(this.props.note && this.props.note.note)){
-            return
-        }
-        const noteId=this.props.note.note.noteId
-        const {getTrigger}=this.props
-        const params={
-            noteId:noteId,
-            token:token
-        }
-        getTrigger(params, (result)=>{
-            if(result){
-                console.log(this.props)
+        /**
+         * 首先检查editTrigger是否存在。存在即表示已经读取了数据，并处于修改状态。
+         * 如果不存在就读取服务器数据，然后复制给editTrigger。
+         * 页面显示的数据，绑定在editTrigger
+         * 保存时，直接保存editTrigger
+         */
+        console.log(this.props)
+        if (!this.props.trigger.trigger) {
+            if (!(this.props.user && this.props.user.user)) {
+                return
             }
-        })
-        if (this.props.trigger.trigger) {
-
+            const token = this.props.user.user.token
+            if (!(this.props.note && this.props.note.note)) {
+                return
+            }
+            const noteId = this.props.note.note.noteId
+            const {getTrigger} = this.props
+            const params = {
+                noteId: noteId,
+                token: token
+            }
+            getTrigger(params, (result) => {
+                if (result) {
+                    console.log(this.props)
+                    this.setState({
+                        editTrigger: this.props.trigger.trigger
+                    })
+                }
+            })
         } else {
-
+            console.log(this.props)
+            this.setState({
+                editTrigger: this.props.trigger.trigger
+            })
+            console.log(this.state)
         }
     }
 
@@ -66,7 +81,20 @@ class TriggerPage extends Component {
 
     getRightButton() {
         return (
-            <View>
+            <View style={{flexDirection: 'row'}}>
+                <View style={{padding: 5, paddingRight: 13}}>
+                    <TouchableOpacity
+                        onPress={() => {
+                            this.saveTrigger()
+                        }}
+                    >
+                        <Ionicons
+                            name={'md-checkmark'}
+                            size={26}
+                            style={{color: this.props.theme.THEME_ICON_COLOR}}
+                        />
+                    </TouchableOpacity>
+                </View>
                 <View style={{padding: 5, paddingRight: 8}}>
                     <TouchableOpacity
                         onPress={() => {
@@ -84,8 +112,52 @@ class TriggerPage extends Component {
         )
     }
 
+    saveTrigger() {
+        console.log(this.props)
+        console.log(this.state)
+        const {saveTriggerToServer} = this.props
+        let params = {}
+        params.token = this.props.user.user.token
+        if (this.props.note.note.noteId) {
+            params.noteId = this.props.note.note.noteId
+        }
+        if (this.props.trigger.trigger) {
+            if (this.props.trigger.trigger.triggerId) {
+                params.triggerId = this.props.trigger.trigger.triggerId
+            }
+            if (this.props.trigger.trigger.remark) {
+                params.remark = this.props.trigger.trigger.remark
+            }
+            if (this.props.trigger.trigger && this.props.trigger.trigger.gogoKey) {
+                params.gogoKey = this.props.trigger.trigger.gogoKey
+            }
+        }
+
+        saveTriggerToServer(params, (result) => {
+            console.log(result)
+        })
+
+    }
+
+    _formatData() {
+        let showData = {
+            gogoKeyTitle: I18nJs.t('trigger.gogoKeyHolder'),
+            gogoKeyDscription: '',
+            userRemark: ''
+        }
+        if (this.props.trigger.trigger && this.props.trigger.trigger.gogoKey) {
+            showData.gogoKeyTitle = this.props.trigger.trigger.gogoKey.title
+            showData.gogoKeyDscription = this.props.trigger.trigger.gogoKey.description
+        }
+        if (this.props.trigger.remark) {
+            showData.userRemark = this.props.trigger.remark
+        }
+        console.log(showData)
+        return showData
+    }
+
     render() {
-        console.log(this.props.trigger)
+        const showData = this._formatData()
         let statusBar = {
             backgroundColor: this.props.theme.THEME_COLOR
         }
@@ -105,9 +177,9 @@ class TriggerPage extends Component {
                     <Text style={lifeStyles.tip_text}>{I18nJs.t('trigger.tip1')}</Text>
                 </View>
                 <InputRow
-                    label={'指定日期触发'}
+                    label={showData.gogoKeyTitle}
                     showLabel={true}
-                    content={'2019-10-13 12:00:00'}
+                    content={showData.gogoKeyDscription}
                     touchFunction={() => {
                         NavigationUtil.goPage({...this.props}, 'KeyDetail')
                     }}
@@ -145,7 +217,7 @@ class TriggerPage extends Component {
                         NavigationUtil.goPage({}, 'KeyUserRemark')
                     }}
                     label={I18nJs.t('trigger.userRemark')}
-                    content={this.state.userRemark}
+                    content={showData.userRemark}
                     showLabel={true}
                 />
             </View>
@@ -160,8 +232,9 @@ const mapStateToProps = state => ({
     trigger: state.trigger
 })
 
-const mapDispatchToProps=dispatch=>({
-    getTrigger:(params, callback)=>dispatch(actions.getTrigger(params, callback))
+const mapDispatchToProps = dispatch => ({
+    getTrigger: (params, callback) => dispatch(actions.getTrigger(params, callback)),
+    saveTriggerToServer: (params, callback) => dispatch(actions.saveTriggerToServer(params, callback))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(TriggerPage)

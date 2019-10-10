@@ -3,7 +3,15 @@ import {loginUserAuto, loginUserByNamePass, saveNickName} from "./user";
 import {getNoteByNoteId, listNoteByCategory, listNoteRecent, refreshNoteList, saveNote} from "./note";
 import {loadCategory, setCategory} from "./category";
 import {changeLanguage, loadLanguage} from "./language";
-import {getTrigger, getGogoPublicKey, listPublicKey, saveTrigger} from "./trigger";
+import {
+    getTrigger,
+    getGogoPublicKey,
+    listPublicKey,
+    saveTrigger,
+    clearTrigger,
+    saveTriggerToServer,
+    saveTriggerRemark
+} from "./trigger";
 
 export default {
     onThemeChange,
@@ -22,5 +30,8 @@ export default {
     listPublicKey,
     getTrigger,
     getGogoPublicKey,
-    saveTrigger
+    saveTrigger,
+    clearTrigger,
+    saveTriggerToServer,
+    saveTriggerRemark
 }

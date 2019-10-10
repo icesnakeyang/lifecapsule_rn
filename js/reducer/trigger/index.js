@@ -1,4 +1,5 @@
 import Types from "../../action/types";
+import {Type} from "react-native/ReactCommon/hermes/inspector/tools/msggen/src/Type";
 
 const defaultStatus = {}
 
@@ -20,7 +21,6 @@ export default function onAction(state = defaultStatus, action) {
                 trigger: action.trigger
             }
         case Types.TRIGGER_GET_FAIL:
-            console.log(action)
             return {
                 ...state,
                 trigger: action.trigger,
@@ -30,6 +30,20 @@ export default function onAction(state = defaultStatus, action) {
             return {
                 ...state,
                 trigger: action.trigger
+            }
+        case Types.TRIGGER_CLEAR_SUCCESS:
+            return {
+                ...state,
+                trigger: action.trigger
+            }
+        case Types.TRIGGER_SAVE_SERVER_SUCCESS:
+            return {
+                ...state
+            }
+        case Types.TRIGGER_SAVE_REMARK_SUCCESS:
+            return {
+                ...state,
+                remark: action.remark
             }
         default:
             return state

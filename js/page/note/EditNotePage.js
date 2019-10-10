@@ -135,9 +135,10 @@ class EditNotePage extends Component {
                 <TouchableOpacity
                     onPress={() => {
                         /**
-                         * 先保存note，获取noteId，再进入trigger页面
-                         * 把note保存到AsyncStorage，再进入trigger页面。保存trigger时，一起保存note
+                         * 首先要把props.trigger.trigger清空
                          */
+                        const {clearTrigger} = this.props
+                        clearTrigger()
                         NavigationUtil.goPage({...this.props}, 'TriggerPage')
                     }}
                 >
@@ -224,7 +225,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     refreshNoteList: (params) => dispatch(actions.refreshNoteList(params)),
-    getNoteByNoteId: (params, callback) => dispatch(actions.getNoteByNoteId(params, callback))
+    getNoteByNoteId: (params, callback) => dispatch(actions.getNoteByNoteId(params, callback)),
+    clearTrigger: () => dispatch(actions.clearTrigger())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditNotePage)

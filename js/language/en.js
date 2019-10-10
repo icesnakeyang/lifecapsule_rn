@@ -42,7 +42,8 @@ export default {
         triggerRemark: 'Trigger remark',
         recipient: 'Recipient',
         selectPublicKey: 'Select Trigger',
-        userRemark: 'User remark'
+        userRemark: 'User remark',
+        gogoKeyHolder:'Please select a trigger key'
     },
     syserr: {
         '10002': 'Username and password error'

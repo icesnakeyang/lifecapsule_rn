@@ -27,7 +27,7 @@ class KeyDetail extends Component {
 
     componentDidMount() {
         this.loadAllData()
-        DeviceEventEmitter.addListener('refresh_trigger_detail', (params) => {
+        DeviceEventEmitter.addListener('refresh_key_detail', (params) => {
             this.loadAllData()
         })
     }
@@ -94,47 +94,9 @@ class KeyDetail extends Component {
     }
 
     saveKeyDetail() {
-        console.log(this.state)
-        console.log(this.props)
-        let params = {}
-        params.token = this.props.user.user.token
-        if (this.props.note.note.noteId) {
-            params.noteId = this.props.note.note.noteId
-        }
-        if (this.props.trigger.trigger) {
-            if (this.props.trigger.trigger.triggerId) {
-                params.triggerId = this.props.trigger.trigger.triggerId
-            }
-            if (this.props.trigger.trigger.triggerName) {
-                params.triggerName = this.props.trigger.trigger.triggerName
-            }
-            if (this.props.trigger.trigger.triggerRemark) {
-                params.triggerRemark = this.props.trigger.trigger.triggerRemark
-            }
-            if (this.props.trigger.trigger && this.props.trigger.trigger.gogoKey) {
-                if (this.props.trigger.trigger.gogoKey.gogoKeyId) {
-                    params.gogoKeyId = this.props.trigger.trigger.gogoKey
-                }
-                if (this.props.trigger.trigger.gogoKey.keyParams) {
-                    params.keyParams = this.props.trigger.trigger.gogoKey.keyParams
-                }
-                if (this.props.trigger.trigger.gogoKey.title) {
-                    params.title = this.props.trigger.trigger.gogoKey.title
-                }
-                if (this.props.trigger.trigger.gogoKey.description) {
-                    params.description = this.props.trigger.trigger.gogoKey.description
-                }
-            }
-        }
 
-        console.log(params)
-        return
 
-        //  triggerName
-        //  noteId
-        //  triggerRemark
-        //  title
-        // description
+        DeviceEventEmitter.emit('Refresh_TriggerPage')
         NavigationUtil.goPage({}, 'TriggerPage')
     }
 

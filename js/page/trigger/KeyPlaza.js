@@ -59,7 +59,7 @@ class KeyPlaza extends Component {
             let {getGogoPublicKey} = this.props
             getGogoPublicKey(params, (result) => {
                 if (result) {
-                    DeviceEventEmitter.emit('refresh_trigger_detail')
+                    DeviceEventEmitter.emit('refresh_key_detail')
                     NavigationUtil.goPage({...params}, 'KeyDetail')
                 }
             })

@@ -42,7 +42,8 @@ export default {
         triggerRemark: '触发器说明',
         recipient:'接收人',
         selectPublicKey:'选择触发器模板',
-        userRemark:'用户备注'
+        userRemark:'用户备注',
+        gogoKeyHolder:'请选择一个触发条件'
     },
     syserr: {
         '10002': '用户名或密码错误'

@@ -12,6 +12,7 @@ import NavigationBar from "../../common/component/NavigationBar";
 import {I18nJs} from "../../language/I18n";
 import actions from "../../action";
 import NavigationUtil from "../../navigator/NavigationUtil";
+import Textarea from "react-native-textarea";
 
 class KeyUserRemark extends Component {
     constructor(props) {
@@ -27,9 +28,9 @@ class KeyUserRemark extends Component {
     }
 
     loadAllData() {
-        if (this.props.trigger.gogoKey) {
+        if (this.props.trigger.remark) {
             this.setState({
-                remark: this.props.trigger.gogoKey.remark
+                remark: this.props.trigger.remark
             })
         }
     }
@@ -61,17 +62,14 @@ class KeyUserRemark extends Component {
     }
 
     saveRemark() {
-        const {saveEditKey} = this.props
-        let params = {}
-        if (this.props.trigger.editKey) {
-            params = this.props.trigger.editKey
+        const {saveTriggerRemark} = this.props
+        let params = {
+            remark: this.state.editRemark
         }
-        params.userRemark = this.state.editRemark
-
-        saveEditKey(params, (result) => {
+        saveTriggerRemark(params, (result) => {
             if (result) {
-                DeviceEventEmitter.emit('refresh_trigger_detail')
-                NavigationUtil.goPage({...params}, 'KeyDetail')
+                DeviceEventEmitter.emit('Refresh_TriggerPage')
+                NavigationUtil.goPage({...params}, 'TriggerPage')
             }
         })
     }
@@ -91,12 +89,12 @@ class KeyUserRemark extends Component {
             />
         )
         return (
-            <View>
+            <View style={{flex: 1}}>
                 {navigationBar}
-                <View>
-                    <TextInput
-                        defaultValue={this.state.remark}
-                        onChangeText={(editRemark) => this.setState({editRemark})}
+                <View style={{flex: 1, backgroundColor: '#555'}}>
+                    <Textarea containerStyle={{flex: 1}}
+                              defaultValue={this.state.remark}
+                              onChangeText={(editRemark) => this.setState({editRemark})}
                     />
                 </View>
             </View>
@@ -110,7 +108,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    saveEditKey: (params, callback) => dispatch(actions.saveEditKey(params, callback))
+    saveTriggerRemark: (params, callback) => dispatch(actions.saveTriggerRemark(params, callback))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(KeyUserRemark)
