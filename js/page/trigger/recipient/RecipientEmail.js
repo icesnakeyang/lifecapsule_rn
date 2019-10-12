@@ -34,8 +34,8 @@ class RecipientEmail extends Component {
     loadAllData() {
         if (this.props.trigger.recipient) {
             this.setState({
-                phone: this.props.trigger.recipient.email,
-                editPhone: this.props.trigger.recipient.email
+                email: this.props.trigger.recipient.email,
+                editEmail: this.props.trigger.recipient.email
             })
         }
     }

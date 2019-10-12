@@ -10,6 +10,7 @@ import {I18nJs} from "../../../language/I18n";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import NavigationUtil from "../../../navigator/NavigationUtil";
 import InputRow from "../../../common/component/InputRow";
+import actions from "../../../action";
 
 class RecipientList extends Component {
     constructor(props) {
@@ -32,6 +33,10 @@ class RecipientList extends Component {
 
     loadAllData() {
         console.log(this.props.trigger)
+        if(this.props.trigger.trigger && this.props.trigger.trigger.triggerId){
+            const {getTrigger}=this.props
+            getTrigger()
+        }
         if (this.props.trigger.trigger && this.props.trigger.trigger.recipientList.length > 0) {
             this.setState({
                 recipientList: this.props.trigger.trigger.recipientList
@@ -68,14 +73,25 @@ class RecipientList extends Component {
 
     renderItem(data) {
         let func = () => {
-
+            /**
+             * 把当前data保存到this.props.trigger.recipient
+             * 跳转到修改页面
+             */
+            const {saveRecipient} = this.props
+            saveRecipient(data, (result) => {
+                if (result) {
+                    NavigationUtil.goPage({...data}, 'RecipientDetail')
+                }
+            })
         }
+
+        console.log(data)
 
         return (
             <InputRow
                 touchFunction={func}
-                content={data.phone}
-                label={'ll'}
+                content={data.recipientName}
+                label={I18nJs.t('trigger.name')}
                 showLabel={true}
             />
         )
@@ -115,4 +131,9 @@ const mapStateToProps = state => ({
     trigger: state.trigger
 })
 
-export default connect(mapStateToProps)(RecipientList)
+const mapDispatchToProps = dispatch => ({
+    saveRecipient: (params, callback) => dispatch(actions.saveRecipient(params, callback)),
+    getTrigger: (params, callback) => dispatch(actions.getTrigger(params, callback))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(RecipientList)

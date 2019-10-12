@@ -1,8 +1,10 @@
 import {API} from "../../api/api";
 import DataStore from "../../expand/dao/DataStore";
 import Types from "../types";
-import {Type} from "react-native/ReactCommon/hermes/inspector/tools/msggen/src/Type";
 
+/**
+ * 读取所公共触发器模板列表
+ */
 export function listPublicKey(params, callback) {
     return dispatch => {
         let url = API.apiListGogoPublicKey
@@ -29,6 +31,9 @@ export function listPublicKey(params, callback) {
     }
 }
 
+/**
+ * 读取公共触发器模板详情
+ */
 export function getGogoPublicKey(params, callback) {
     return dispatch => {
         let url = API.apiGetGogoPublicKey
@@ -59,6 +64,9 @@ export function getGogoPublicKey(params, callback) {
 
 }
 
+/**
+ * 读取一个触发器详情
+ */
 export function getTrigger(params, callback) {
     return dispatch => {
         let url = API.apiGetTriggerByNoteId
@@ -106,6 +114,7 @@ export function getTrigger(params, callback) {
     }
 }
 
+//删除
 export function saveTrigger(params, callback) {
     return dispatch => {
         dispatch({
@@ -116,6 +125,18 @@ export function saveTrigger(params, callback) {
             callback(true)
         }, 1)
     }
+}
+
+export function saveRemarkServer(params, callback) {
+
+}
+
+export function saveGogoKeyServer(params, callback) {
+
+}
+
+export function saveRecipientServer(params, callback) {
+
 }
 
 export function saveTriggerToServer(params, callback) {
@@ -181,53 +202,6 @@ export function saveTriggerRemark(params, callback) {
         setTimeout(() => {
             callback(true)
         }, 1)
-    }
-}
-
-export function createRecipient(params, callback) {
-    return dispatch => {
-        let token = params.token
-
-        let body = {
-            noteId: params.noteId,
-            triggerId: params.triggerId,
-            name: params.name,
-            phone: params.phone,
-            email: params.email,
-            address: params.address
-        }
-
-        let url = API.apiCreateRecipient
-
-        let dataStore = new DataStore()
-        dataStore.fetchPostData(url, body, token)
-            .then((response) => {
-                if (response.code === 0) {
-                    dispatch({
-                        type: Types.TRIGGER_CREATE_RECIPIENT_SUCCESS
-                    })
-                    setTimeout(() => {
-                        callback(true)
-                    }, 1)
-                } else {
-                    dispatch({
-                        type: Types.TRIGGER_CREATE_RECIPIENT_FAIL,
-                        error: response.code
-                    })
-                    setTimeout(() => {
-                        callback(false)
-                    }, 1)
-                }
-            })
-            .catch((error) => {
-                dispatch({
-                    type: Types.TRIGGER_CREATE_RECIPIENT_FAIL,
-                    error: error
-                })
-                setTimeout(() => {
-                    callback(false)
-                }, 1)
-            })
     }
 }
 

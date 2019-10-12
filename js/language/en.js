@@ -51,7 +51,8 @@ export default {
         email:'Email',
         address:'Address',
         name:'Name',
-        recipientRemark:'Remark'
+        recipientRemark:'Remark',
+        editRecipient:'Edit Recipient'
     },
     syserr: {
         '10002': 'Username and password error'

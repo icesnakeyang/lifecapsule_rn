@@ -33,6 +33,7 @@ class RecipientDetail extends Component {
 
     loadAllData() {
         console.log(this.props)
+
         if (this.props.trigger.recipient) {
             console.log('fix')
             this.setState({
@@ -58,15 +59,14 @@ class RecipientDetail extends Component {
             return
         }
         let recipient = {}
-        recipient.token = this.props.user.user.token
         if (this.props.trigger.recipient && this.props.trigger.recipient.recipientId) {
             console.log('update')
             recipient = this.props.trigger.recipient
         } else {
             console.log('insert')
         }
-
-        recipient.name = this.props.trigger.recipient.name
+        recipient.token = this.props.user.user.token
+        recipient.name = this.props.trigger.recipient.recipientName
         recipient.phone = this.props.trigger.recipient.phone
         recipient.email = this.props.trigger.recipient.email
         recipient.address = this.props.trigger.recipient.address
@@ -84,19 +84,21 @@ class RecipientDetail extends Component {
     }
 
     _showData() {
+        console.log(this.props)
         let showData = {
-            name: '',
+            recipientName: '',
             phone: '',
             email: '',
             address: '',
             remark: ''
         }
+        console.log(this.props.trigger)
         if (this.props.trigger.recipient) {
             if (this.props.trigger.recipient.phone) {
                 showData.phone = this.props.trigger.recipient.phone
             }
-            if (this.props.trigger.recipient.name) {
-                showData.name = this.props.trigger.recipient.name
+            if (this.props.trigger.recipient.recipientName) {
+                showData.recipientName = this.props.trigger.recipient.recipientName
             }
             if (this.props.trigger.recipient.email) {
                 showData.email = this.props.trigger.recipient.email
@@ -134,7 +136,7 @@ class RecipientDetail extends Component {
                         NavigationUtil.goPage({...this.props}, 'RecipientName')
                     }}
                     label={I18nJs.t('trigger.name')}
-                    content={showData.name}
+                    content={showData.recipientName}
                     showLabel={true}
                 />
                 <InputRow

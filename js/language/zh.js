@@ -51,7 +51,8 @@ export default {
         email:'Email',
         address:'地址',
         name:'姓名',
-        recipientRemark:'接收人说明'
+        recipientRemark:'接收人说明',
+        editRecipient:'编辑接收人'
     },
     syserr: {
         '10002': '用户名或密码错误'

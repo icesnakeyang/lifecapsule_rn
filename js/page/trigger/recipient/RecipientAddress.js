@@ -34,8 +34,8 @@ class RecipientAddress extends Component {
     loadAllData() {
         if (this.props.trigger.recipient) {
             this.setState({
-                phone: this.props.trigger.recipient.address,
-                editPhone: this.props.trigger.recipient.address
+                address: this.props.trigger.recipient.address,
+                editAddress: this.props.trigger.recipient.address
             })
         }
     }

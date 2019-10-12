@@ -5,13 +5,13 @@ import {
     FlatList, DeviceEventEmitter
 } from 'react-native'
 import {connect} from "react-redux";
-import InputRow from "../../common/component/InputRow";
-import GetLeftButton from "../../common/component/GetLeftButton";
-import NavigationBar from "../../common/component/NavigationBar";
-import NavigationUtil from "../../navigator/NavigationUtil";
-import actions from "../../action";
-import {I18nJs} from "../../language/I18n";
-import lifestyles from "../../common/styles/lifestyles";
+import InputRow from "../../../common/component/InputRow";
+import GetLeftButton from "../../../common/component/GetLeftButton";
+import NavigationBar from "../../../common/component/NavigationBar";
+import NavigationUtil from "../../../navigator/NavigationUtil";
+import actions from "../../../action";
+import {I18nJs} from "../../../language/I18n";
+import lifestyles from "../../../common/styles/lifestyles";
 
 class KeyPlaza extends Component {
     constructor(props) {

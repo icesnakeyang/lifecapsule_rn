@@ -34,8 +34,8 @@ class RecipientName extends Component {
     loadAllData() {
         if (this.props.trigger.recipient) {
             this.setState({
-                name: this.props.trigger.recipient.name,
-                editName: this.props.trigger.recipient.name
+                name: this.props.trigger.recipient.recipientName,
+                editName: this.props.trigger.recipient.recipientName
             })
         }
     }
@@ -75,7 +75,7 @@ class RecipientName extends Component {
         if (this.props.trigger.recipient) {
             recipient = this.props.trigger.recipient
         }
-        recipient.name = this.state.editName
+        recipient.recipientName = this.state.editName
         console.log(recipient)
         const {saveRecipient} = this.props
         saveRecipient(recipient, (result) => {

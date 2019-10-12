@@ -34,8 +34,8 @@ class RecipientRemark extends Component {
     loadAllData() {
         if (this.props.trigger.recipient) {
             this.setState({
-                phone: this.props.trigger.recipient.remark,
-                editPhone: this.props.trigger.recipient.remark
+                remark: this.props.trigger.recipient.remark,
+                editRemark: this.props.trigger.recipient.remark
             })
         }
     }

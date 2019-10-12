@@ -9,12 +9,12 @@ import {
 } from 'react-native'
 import {connect} from "react-redux";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import NavigationBar from "../../common/component/NavigationBar";
-import GetLeftButton from "../../common/component/GetLeftButton";
-import lifestyles from '../../common/styles/lifestyles'
-import InputRow from "../../common/component/InputRow";
-import NavigationUtil from "../../navigator/NavigationUtil";
-import {I18nJs} from "../../language/I18n";
+import NavigationBar from "../../../common/component/NavigationBar";
+import GetLeftButton from "../../../common/component/GetLeftButton";
+import lifestyles from '../../../common/styles/lifestyles'
+import InputRow from "../../../common/component/InputRow";
+import NavigationUtil from "../../../navigator/NavigationUtil";
+import {I18nJs} from "../../../language/I18n";
 
 class KeyDetail extends Component {
     constructor(props) {
