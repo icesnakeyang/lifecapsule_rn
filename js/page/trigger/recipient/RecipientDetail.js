@@ -10,6 +10,7 @@ import NavigationBar from "../../../common/component/NavigationBar";
 import {I18nJs} from "../../../language/I18n";
 import InputRow from "../../../common/component/InputRow";
 import NavigationUtil from "../../../navigator/NavigationUtil";
+import actions from "../../../action";
 
 class RecipientDetail extends Component {
     constructor(props) {
@@ -50,19 +51,35 @@ class RecipientDetail extends Component {
 
     saveData() {
         console.log(this.props.trigger.recipient)
-        return
-        let recipientList = []
-        if (this.props.trigger.trigger.recipientList.length > 0) {
-        } else {
-            let recipient = {
-                phone: this.state.editPhone
-            }
-            recipientList.push(recipient)
+        if (!this.props.trigger.recipient) {
+            return
         }
-        let trigger = this.props.trigger.trigger
-        trigger.recipientList = recipientList
-        const {saveTrigger} = this.props
-        saveTrigger(trigger, (result) => {
+        if (!this.props.user.user.token) {
+            return
+        }
+        let recipient = {}
+        recipient.token = this.props.user.user.token
+        if (this.props.trigger.recipient && this.props.trigger.recipient.recipientId) {
+            console.log('update')
+            recipient = this.props.trigger.recipient
+        } else {
+            console.log('insert')
+        }
+
+        recipient.name = this.props.trigger.recipient.name
+        recipient.phone = this.props.trigger.recipient.phone
+        recipient.email = this.props.trigger.recipient.email
+        recipient.address = this.props.trigger.recipient.address
+        recipient.remark = this.props.trigger.recipient.remark
+        recipient.noteId = this.props.note.note.noteId
+
+        const {saveRecipientToServer} = this.props
+        saveRecipientToServer(recipient, (result) => {
+            console.log(result)
+            if (result) {
+                DeviceEventEmitter.emit('Refresh_RecipientList')
+                NavigationUtil.goPage({}, 'Refresh_RecipientList')
+            }
         })
     }
 
@@ -168,7 +185,13 @@ class RecipientDetail extends Component {
 
 const mapStateToProps = state => ({
     theme: state.theme.theme,
-    trigger: state.trigger
+    trigger: state.trigger,
+    user: state.user,
+    note: state.note
 })
 
-export default connect(mapStateToProps)(RecipientDetail)
+const mapDispatchToProps = dispatch => ({
+    saveRecipientToServer: (params, callback) => dispatch(actions.saveRecipientToServer(params, callback))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(RecipientDetail)

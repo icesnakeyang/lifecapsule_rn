@@ -21,7 +21,7 @@ class RecipientList extends Component {
 
     componentDidMount() {
         this.loadAllData()
-        this.listener = DeviceEventEmitter.addListener('Refresh_NoteList', (params) => {
+        this.listener = DeviceEventEmitter.addListener('Refresh_RecipientList', (params) => {
             this.loadAllData()
         })
     }
@@ -31,6 +31,7 @@ class RecipientList extends Component {
     }
 
     loadAllData() {
+        console.log(this.props.trigger)
         if (this.props.trigger.trigger && this.props.trigger.trigger.recipientList.length > 0) {
             this.setState({
                 recipientList: this.props.trigger.trigger.recipientList

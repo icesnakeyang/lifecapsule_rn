@@ -243,3 +243,53 @@ export function saveRecipient(params, callback) {
     }
 
 }
+
+export function saveRecipientToServer(params, callback) {
+    return dispatch => {
+        let url = ''
+        let body = {}
+        if (params.recipientId) {
+            url = API.apiUpdateRecipient
+            body.recipientId = params.recipientId
+        } else {
+            url = API.apiCreateRecipient
+        }
+        const token = params.token
+        body.recipientName = params.name
+        body.phone = params.phone
+        body.email = params.email
+        body.address = params.address
+        body.remark = params.remark
+        body.noteId = params.noteId
+        let dataStore = new DataStore()
+        dataStore.fetchPostData(url, body, token)
+            .then((response) => {
+                console.log(response)
+                if (response.code === 0) {
+                    dispatch({
+                        type: Types.TRIGGER_SAVE_RECIPIENT_SERVER_SUCCESS
+                    })
+                    setTimeout(() => {
+                        callback(true)
+                    }, 1)
+                } else {
+                    dispatch({
+                        type: Types.TRIGGER_SAVE_RECIPIENT_SERVER_FAIL,
+                        error: response.code
+                    })
+                    setTimeout(() => {
+                        callback(false)
+                    }, 1)
+                }
+            })
+            .catch((error) => {
+                dispatch({
+                    type: Types.TRIGGER_SAVE_RECIPIENT_SERVER_FAIL,
+                    error: error
+                })
+                setTimeout(() => {
+                    callback(false)
+                }, 1)
+            })
+    }
+}

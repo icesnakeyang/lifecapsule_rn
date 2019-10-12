@@ -24,5 +24,6 @@ export const API = {
     apiGetGogoPublicKey:`${host}/admin/gogokey/getGogoPublicKey`,
     apiSaveGogoKey:`${host}/trigger/saveGogoKey`,
     apiSaveTrigger:`${host}/trigger/saveTrigger`,
-    apiCreateRecipient:`${host}/trigger/createRecipient`
+    apiCreateRecipient:`${host}/trigger/createRecipient`,
+    apiUpdateRecipient:`${host}/trigger/updateRecipient`
 }

@@ -42,6 +42,7 @@ class TriggerPage extends Component {
         /**
          *
          */
+        console.log(this.props)
         if (!this.props.trigger.trigger) {
             if (!(this.props.user && this.props.user.user)) {
                 return
