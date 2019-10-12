@@ -46,6 +46,16 @@ export default function onAction(state = defaultStatus, action) {
                 ...state,
                 remark: action.remark
             }
+        case Types.TRIGGER_SAVE_RECIPIENT_FAIL:
+            return {
+                ...state,
+                error: action.error
+            }
+        case Types.TRIGGER_SAVE_RECIPIENT_SUCCESS:
+            return {
+                ...state,
+                recipient: action.recipient
+            }
         default:
             return state
     }

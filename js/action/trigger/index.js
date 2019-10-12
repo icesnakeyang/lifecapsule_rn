@@ -1,6 +1,7 @@
 import {API} from "../../api/api";
 import DataStore from "../../expand/dao/DataStore";
 import Types from "../types";
+import {Type} from "react-native/ReactCommon/hermes/inspector/tools/msggen/src/Type";
 
 export function listPublicKey(params, callback) {
     return dispatch => {
@@ -129,7 +130,6 @@ export function saveTriggerToServer(params, callback) {
         let dataStore = new DataStore()
         dataStore.fetchPostData(url, body, params.token)
             .then((response) => {
-                console.log(response)
                 if (response.code === 0) {
                     dispatch({
                         type: Types.TRIGGER_SAVE_SERVER_SUCCESS,
@@ -167,7 +167,7 @@ export function clearTrigger() {
         dispatch({
             type: Types.TRIGGER_CLEAR_SUCCESS,
             trigger: null,
-            remark:null
+            remark: null
         })
     }
 }
@@ -182,4 +182,64 @@ export function saveTriggerRemark(params, callback) {
             callback(true)
         }, 1)
     }
+}
+
+export function createRecipient(params, callback) {
+    return dispatch => {
+        let token = params.token
+
+        let body = {
+            noteId: params.noteId,
+            triggerId: params.triggerId,
+            name: params.name,
+            phone: params.phone,
+            email: params.email,
+            address: params.address
+        }
+
+        let url = API.apiCreateRecipient
+
+        let dataStore = new DataStore()
+        dataStore.fetchPostData(url, body, token)
+            .then((response) => {
+                if (response.code === 0) {
+                    dispatch({
+                        type: Types.TRIGGER_CREATE_RECIPIENT_SUCCESS
+                    })
+                    setTimeout(() => {
+                        callback(true)
+                    }, 1)
+                } else {
+                    dispatch({
+                        type: Types.TRIGGER_CREATE_RECIPIENT_FAIL,
+                        error: response.code
+                    })
+                    setTimeout(() => {
+                        callback(false)
+                    }, 1)
+                }
+            })
+            .catch((error) => {
+                dispatch({
+                    type: Types.TRIGGER_CREATE_RECIPIENT_FAIL,
+                    error: error
+                })
+                setTimeout(() => {
+                    callback(false)
+                }, 1)
+            })
+    }
+}
+
+export function saveRecipient(params, callback) {
+    return dispatch => {
+        dispatch({
+            type: Types.TRIGGER_SAVE_RECIPIENT_SUCCESS,
+            recipient: params
+        })
+        setTimeout(() => {
+            callback(true)
+        }, 1)
+    }
+
 }

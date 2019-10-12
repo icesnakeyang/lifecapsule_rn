@@ -43,7 +43,15 @@ export default {
         recipient:'接收人',
         selectPublicKey:'选择触发器模板',
         userRemark:'用户备注',
-        gogoKeyHolder:'请选择一个触发条件'
+        gogoKeyHolder:'请选择一个触发条件',
+        settingRecipient:'设置接收人',
+        addRecipient:'添加接收人',
+        btSaveRecipient:'保存',
+        phone:'电话',
+        email:'Email',
+        address:'地址',
+        name:'姓名',
+        recipientRemark:'接收人说明'
     },
     syserr: {
         '10002': '用户名或密码错误'

@@ -21,6 +21,13 @@ import KeyPlaza from "../page/trigger/KeyPlaza";
 import KeyDetail from "../page/trigger/KeyDetail";
 import KeyUserRemark from "../page/trigger/KeyUserRemark";
 import DateTimePickerPage from "../page/trigger/DateTimePickerPage";
+import RecipientList from "../page/trigger/recipient/RecipientList";
+import RecipientDetail from "../page/trigger/recipient/RecipientDetail";
+import RecipientPhone from "../page/trigger/recipient/RecipientPhone";
+import RecipientName from "../page/trigger/recipient/RecipientName";
+import RecipientEmail from "../page/trigger/recipient/RecipientEmail";
+import RecipientAddress from "../page/trigger/recipient/RecipientAddress";
+import RecipientRemark from "../page/trigger/recipient/RecipientRemark";
 
 export const rootCam = 'Init'
 
@@ -123,7 +130,50 @@ const MainNavigator = createStackNavigator({
         navigationOptions: {
             header: null
         }
+    },
+    RecipientList: {
+        screen: RecipientList,
+        navigationOptions: {
+            header: null
+        }
+    },
+    RecipientDetail: {
+        screen: RecipientDetail,
+        navigationOptions: {
+            header: null
+        }
+    },
+    RecipientPhone: {
+        screen: RecipientPhone,
+        navigationOptions: {
+            header: null
+        }
+    },
+    RecipientName: {
+        screen: RecipientName,
+        navigationOptions: {
+            header: null
+        }
+    },
+    RecipientEmail: {
+        screen: RecipientEmail,
+        navigationOptions: {
+            header: null
+        }
+    },
+    RecipientAddress: {
+        screen: RecipientAddress,
+        navigationOptions: {
+            header: null
+        }
+    },
+    RecipientRemark: {
+        screen: RecipientRemark,
+        navigationOptions: {
+            header: null
+        }
     }
+
 })
 
 export const RootNavigator = createSwitchNavigator({

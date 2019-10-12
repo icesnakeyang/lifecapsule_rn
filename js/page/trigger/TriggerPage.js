@@ -29,7 +29,6 @@ class TriggerPage extends Component {
     componentDidMount() {
         this.loadAllData()
         this.listener = DeviceEventEmitter.addListener('Refresh_TriggerPage', (params) => {
-            console.log('refresh')
             this.loadAllData()
         })
     }
@@ -43,7 +42,6 @@ class TriggerPage extends Component {
         /**
          *
          */
-        console.log(this.props)
         if (!this.props.trigger.trigger) {
             if (!(this.props.user && this.props.user.user)) {
                 return
@@ -60,18 +58,15 @@ class TriggerPage extends Component {
             }
             getTrigger(params, (result) => {
                 if (result) {
-                    console.log(this.props)
                     this.setState({
                         editTrigger: this.props.trigger.trigger
                     })
                 }
             })
         } else {
-            console.log(this.props)
             this.setState({
                 editTrigger: this.props.trigger.trigger
             })
-            console.log(this.state)
         }
     }
 
@@ -115,8 +110,6 @@ class TriggerPage extends Component {
     }
 
     saveTrigger() {
-        console.log(this.props)
-        console.log(this.state)
         const {saveTriggerToServer} = this.props
         let params = {}
         params.token = this.props.user.user.token
@@ -135,10 +128,8 @@ class TriggerPage extends Component {
             }
         }
 
-        console.log(params)
-
         saveTriggerToServer(params, (result) => {
-            console.log(result)
+
         })
 
     }
@@ -160,7 +151,6 @@ class TriggerPage extends Component {
                 showData.userRemark = this.props.trigger.trigger.remark
             }
         }
-        console.log(showData)
         return showData
     }
 
@@ -220,6 +210,14 @@ class TriggerPage extends Component {
                         </View>
                     </View>
                 </TouchableOpacity>
+                <InputRow
+                    touchFunction={() => {
+                        NavigationUtil.goPage({}, 'RecipientList')
+                    }}
+                    label={I18nJs.t('trigger.recipient')}
+                    content={'马翔宇'}
+                    showLabel={true}
+                />
                 <InputRow
                     touchFunction={() => {
                         NavigationUtil.goPage({}, 'KeyUserRemark')

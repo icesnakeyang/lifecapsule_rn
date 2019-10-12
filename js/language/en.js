@@ -43,7 +43,15 @@ export default {
         recipient: 'Recipient',
         selectPublicKey: 'Select Trigger',
         userRemark: 'User remark',
-        gogoKeyHolder:'Please select a trigger key'
+        gogoKeyHolder: 'Please select a trigger key',
+        settingRecipient: 'Setting Recipient',
+        addRecipient: 'Add Recipient',
+        btSaveRecipient:'Save',
+        phone:'Phone',
+        email:'Email',
+        address:'Address',
+        name:'Name',
+        recipientRemark:'Remark'
     },
     syserr: {
         '10002': 'Username and password error'
