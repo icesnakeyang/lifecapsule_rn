@@ -166,7 +166,8 @@ export function clearTrigger() {
     return dispatch => {
         dispatch({
             type: Types.TRIGGER_CLEAR_SUCCESS,
-            trigger: null
+            trigger: null,
+            remark:null
         })
     }
 }

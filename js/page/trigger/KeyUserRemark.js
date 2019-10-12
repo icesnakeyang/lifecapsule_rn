@@ -32,8 +32,15 @@ class KeyUserRemark extends Component {
             this.setState({
                 remark: this.props.trigger.remark
             })
+        } else {
+            if (this.props.trigger.trigger && this.props.trigger.trigger.remark) {
+                this.setState({
+                    remark: this.props.trigger.trigger.remark
+                })
+            }
         }
     }
+
 
     getLeftButton() {
         return (
@@ -91,8 +98,8 @@ class KeyUserRemark extends Component {
         return (
             <View style={{flex: 1}}>
                 {navigationBar}
-                <View style={{flex: 1, backgroundColor: '#555'}}>
-                    <Textarea containerStyle={{flex: 1}}
+                <View style={{flex: 1}}>
+                    <Textarea containerStyle={{height: 400}}
                               defaultValue={this.state.remark}
                               onChangeText={(editRemark) => this.setState({editRemark})}
                     />

@@ -34,7 +34,8 @@ export default function onAction(state = defaultStatus, action) {
         case Types.TRIGGER_CLEAR_SUCCESS:
             return {
                 ...state,
-                trigger: action.trigger
+                trigger: action.trigger,
+                remark: action.remark
             }
         case Types.TRIGGER_SAVE_SERVER_SUCCESS:
             return {

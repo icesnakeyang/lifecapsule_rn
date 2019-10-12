@@ -31,13 +31,18 @@ class NoteCategoryPage extends Component {
 
     componentDidMount() {
         this.loadData()
-        DeviceEventEmitter.addListener('refresh_list', (params) => {
+        this.listener = DeviceEventEmitter.addListener('refresh_list', (params) => {
             this.setState({
                 text: 'init4'
             })
             this.loadData()
         })
     }
+
+    componentWillUnmount() {
+        this.listener.remove()
+    }
+
 
     loadData() {
         if (!this.props.user.user) {

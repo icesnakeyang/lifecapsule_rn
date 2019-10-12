@@ -26,10 +26,15 @@ class NoteListPage extends Component {
 
     componentDidMount() {
         this.loadData()
-        DeviceEventEmitter.addListener('Refresh_NoteList', (params) => {
+        this.listener = DeviceEventEmitter.addListener('Refresh_NoteList', (params) => {
             this.loadData()
         })
     }
+
+    componentWillUnmount() {
+        this.listener.remove()
+    }
+
 
     loadData() {
         if (this.props.category.categoryId) {

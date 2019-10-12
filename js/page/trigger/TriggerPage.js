@@ -28,18 +28,20 @@ class TriggerPage extends Component {
 
     componentDidMount() {
         this.loadAllData()
-        DeviceEventEmitter.addListener('Refresh_TriggerPage', (params) => {
+        this.listener = DeviceEventEmitter.addListener('Refresh_TriggerPage', (params) => {
             console.log('refresh')
             this.loadAllData()
         })
     }
 
+    componentWillUnmount() {
+        this.listener.remove()
+    }
+
+
     loadAllData() {
         /**
-         * 首先检查editTrigger是否存在。存在即表示已经读取了数据，并处于修改状态。
-         * 如果不存在就读取服务器数据，然后复制给editTrigger。
-         * 页面显示的数据，绑定在editTrigger
-         * 保存时，直接保存editTrigger
+         *
          */
         console.log(this.props)
         if (!this.props.trigger.trigger) {
@@ -125,13 +127,15 @@ class TriggerPage extends Component {
             if (this.props.trigger.trigger.triggerId) {
                 params.triggerId = this.props.trigger.trigger.triggerId
             }
-            if (this.props.trigger.trigger.remark) {
-                params.remark = this.props.trigger.trigger.remark
+            if (this.props.trigger.remark) {
+                params.remark = this.props.trigger.remark
             }
             if (this.props.trigger.trigger && this.props.trigger.trigger.gogoKey) {
                 params.gogoKey = this.props.trigger.trigger.gogoKey
             }
         }
+
+        console.log(params)
 
         saveTriggerToServer(params, (result) => {
             console.log(result)
@@ -151,6 +155,10 @@ class TriggerPage extends Component {
         }
         if (this.props.trigger.remark) {
             showData.userRemark = this.props.trigger.remark
+        } else {
+            if (this.props.trigger.trigger && this.props.trigger.trigger.remark) {
+                showData.userRemark = this.props.trigger.trigger.remark
+            }
         }
         console.log(showData)
         return showData

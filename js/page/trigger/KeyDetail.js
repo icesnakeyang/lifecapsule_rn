@@ -27,10 +27,15 @@ class KeyDetail extends Component {
 
     componentDidMount() {
         this.loadAllData()
-        DeviceEventEmitter.addListener('refresh_key_detail', (params) => {
+        this.listener = DeviceEventEmitter.addListener('refresh_key_detail', (params) => {
             this.loadAllData()
         })
     }
+
+    componentWillUnmount() {
+        this.listener.remove()
+    }
+
 
     loadAllData() {
         /**
