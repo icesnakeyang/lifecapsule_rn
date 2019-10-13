@@ -127,14 +127,48 @@ export function saveTrigger(params, callback) {
     }
 }
 
+/**
+ * 保存remark到服务器
+ * 保存remark时，直接保存到服务器
+ * 跳转回trigger页面时，刷新trigger
+ * 如果没有trigger后台会自动创建一个
+ */
 export function saveRemarkServer(params, callback) {
-
+    return dispatch => {
+        let url = API.apiSaveTriggerRemark
+        let body = {
+            triggerId: params.triggerId,
+            noteId: params.noteId,
+            remark: params.remark
+        }
+        let token = params.token
+        let dataStore=new DataStore()
+        dataStore.fetchPostData(url, body, token)
+            .then((response)=>{
+                console.log(response)
+                if(response.code===0){
+                    dispatch({
+                        type:
+                    })
+                }
+            })
+    }
 }
 
+/**
+ * 保存gogokey到服务器
+ * 如果没有trigger后台会自动创建一个
+ * 保存成功后，跳转回trigger页面，并刷新trigger
+ */
 export function saveGogoKeyServer(params, callback) {
 
 }
 
+/**
+ * 保存recipient到服务器，
+ * 如果没有trigger后台会自动创建一个
+ *
+ */
 export function saveRecipientServer(params, callback) {
 
 }

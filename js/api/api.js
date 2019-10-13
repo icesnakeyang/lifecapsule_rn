@@ -1,5 +1,5 @@
-// const host = 'http://192.168.1.247:8088'
-const host = 'http://192.168.0.105:8088'
+const host = 'http://192.168.1.247:8088'
+// const host = 'http://192.168.0.105:8088'
 // const host = 'http://gogorpg.com:8088'
 // const host = 'http://192.168.31.242:8088'
 
@@ -25,5 +25,6 @@ export const API = {
     apiSaveGogoKey:`${host}/trigger/saveGogoKey`,
     apiSaveTrigger:`${host}/trigger/saveTrigger`,
     apiCreateRecipient:`${host}/trigger/createRecipient`,
-    apiUpdateRecipient:`${host}/trigger/updateRecipient`
+    apiUpdateRecipient:`${host}/trigger/updateRecipient`,
+    apiSaveTriggerRemark:`${host}/trigger/saveTriggerRemark`
 }
