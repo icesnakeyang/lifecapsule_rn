@@ -12,7 +12,7 @@ import {
     saveTriggerToServer,
     saveRecipient,
     saveRecipientToServer,
-    saveRemarkServer
+    saveRemarkServer, listRecipient, deleteRecipient
 } from "./trigger";
 
 export default {
@@ -37,5 +37,7 @@ export default {
     saveTriggerToServer,
     saveRemarkServer,
     saveRecipient,
-    saveRecipientToServer
+    saveRecipientToServer,
+    listRecipient,
+    deleteRecipient
 }

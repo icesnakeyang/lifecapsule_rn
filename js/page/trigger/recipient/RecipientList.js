@@ -23,6 +23,9 @@ class RecipientList extends Component {
     componentDidMount() {
         this.loadAllData()
         this.listener = DeviceEventEmitter.addListener('Refresh_RecipientList', (params) => {
+            this.setState({
+                recipientList: []
+            })
             this.loadAllData()
         })
     }
@@ -32,15 +35,44 @@ class RecipientList extends Component {
     }
 
     loadAllData() {
-        if(this.props.trigger.trigger && this.props.trigger.trigger.triggerId){
-            const {getTrigger}=this.props
-            getTrigger()
-        }
-        if (this.props.trigger.trigger && this.props.trigger.trigger.recipientList.length > 0) {
-            this.setState({
-                recipientList: this.props.trigger.trigger.recipientList
-            })
+        let params = {}
+        if (!(this.props.trigger.trigger && this.props.trigger.trigger.triggerId)) {
+            if (this.props.note.note && this.props.note.note.noteId) {
+                params = {
+                    noteId: this.props.note.note.noteId,
+                    token: this.props.user.user.token
+                }
+                const {getTrigger} = this.props
+                getTrigger(params, (result) => {
+                    if (result) {
+                        params.triggerId = this.props.trigger.trigger.triggerId
+                        const {listRecipient} = this.props
+                        listRecipient(params, (result) => {
+                            if (result) {
+                                if (this.props.trigger.trigger.recipientList.length > 0) {
+                                    this.setState({
+                                        recipientList: this.props.trigger.trigger.recipientList
+                                    })
+                                }
+                            }
+                        })
+                    }
+                })
+            }
         } else {
+            const {listRecipient} = this.props
+            let params = {
+                triggerId: this.props.trigger.trigger.triggerId
+            }
+            listRecipient(params, (result) => {
+                if (result) {
+                    if (this.props.trigger.trigger.recipientList.length > 0) {
+                        this.setState({
+                            recipientList: this.props.trigger.trigger.recipientList
+                        })
+                    }
+                }
+            })
         }
     }
 
@@ -56,6 +88,8 @@ class RecipientList extends Component {
                 <View style={{padding: 5, paddingRight: 8}}>
                     <TouchableOpacity
                         onPress={() => {
+                            const {clearTrigger} = this.props
+                            clearTrigger()
                             NavigationUtil.goPage({}, 'RecipientDetail')
                         }}
                     >
@@ -111,7 +145,6 @@ class RecipientList extends Component {
         return (
             <View>
                 {navigationBar}
-                <Text>recipient list</Text>
                 <FlatList
                     keyExtractor={item => '' + item.ids}
                     data={this.state.recipientList}
@@ -126,11 +159,15 @@ class RecipientList extends Component {
 
 const mapStateToProps = state => ({
     theme: state.theme.theme,
-    trigger: state.trigger
+    trigger: state.trigger,
+    note: state.note,
+    user: state.user
 })
 
 const mapDispatchToProps = dispatch => ({
     saveRecipient: (params, callback) => dispatch(actions.saveRecipient(params, callback)),
+    listRecipient: (params, callback) => dispatch(actions.listRecipient(params, callback)),
+    clearTrigger: () => dispatch(actions.clearTrigger()),
     getTrigger: (params, callback) => dispatch(actions.getTrigger(params, callback))
 })
 

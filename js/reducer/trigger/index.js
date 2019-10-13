@@ -35,7 +35,8 @@ export default function onAction(state = defaultStatus, action) {
             return {
                 ...state,
                 trigger: action.trigger,
-                remark: action.remark
+                remark: action.remark,
+                recipient: action.recipient
             }
         case Types.TRIGGER_SAVE_SERVER_SUCCESS:
             return {
@@ -54,6 +55,16 @@ export default function onAction(state = defaultStatus, action) {
             return {
                 ...state,
                 recipient: action.recipient
+            }
+        case Types.TRIGGER_LIST_RECIPIENT_SUCCESS:
+            return {
+                ...state,
+                recipientList: action.recipientList
+            }
+        case Types.TRIGGER_LIST_RECIPIENT_FAIL:
+            return {
+                ...state,
+                error: action.error
             }
         default:
             return state

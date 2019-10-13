@@ -115,6 +115,46 @@ export function getTrigger(params, callback) {
     }
 }
 
+export function listRecipient(params, callback) {
+    return dispatch => {
+        let url = API.apiListRecipientByTriggerId
+        let token = params.token
+        let body = {
+            triggerId: params.triggerId
+        }
+        let dataStore = new DataStore()
+        dataStore.fetchPostData(url, body, token)
+            .then((response) => {
+                if (response.code === 0) {
+                    dispatch({
+                        type: Types.TRIGGER_LIST_RECIPIENT_SUCCESS,
+                        recipientList: response.data.recipientList
+                    })
+                    setTimeout(() => {
+                        callback(true)
+                    }, 100)
+                } else {
+                    dispatch({
+                        type: Types.TRIGGER_LIST_RECIPIENT_FAIL,
+                        error: response.code
+                    })
+                    setTimeout(() => {
+                        callback(false)
+                    }, 100)
+                }
+            })
+            .catch((error) => {
+                dispatch({
+                    type: Types.TRIGGER_LIST_RECIPIENT_FAIL,
+                    error: error
+                })
+                setTimeout(() => {
+                    callback(false)
+                }, 100)
+            })
+    }
+}
+
 //删除
 export function saveTrigger(params, callback) {
     return dispatch => {
@@ -194,7 +234,6 @@ export function saveRecipientServer(params, callback) {
         let dataStore = new DataStore()
         dataStore.fetchPostData(url, body, token)
             .then((response) => {
-                console.log(response)
                 if (response.code === 0) {
                     setTimeout(() => {
                         callback(true)
@@ -258,7 +297,8 @@ export function clearTrigger() {
         dispatch({
             type: Types.TRIGGER_CLEAR_SUCCESS,
             trigger: null,
-            remark: null
+            remark: null,
+            recipient: null
         })
     }
 }
@@ -323,4 +363,33 @@ export function saveRecipientToServer(params, callback) {
                 }, 1)
             })
     }
+}
+
+export function deleteRecipient(params, callback) {
+    return dispatch => {
+        let url = API.apiDeleteRecipient
+        let body = {
+            recipientId: params.recipientId
+        }
+        let token = params.token
+        let dataStore = new DataStore()
+        dataStore.fetchPostData(url, body, token)
+            .then((response) => {
+                if (response.code === 0) {
+                    setTimeout(() => {
+                        callback(true)
+                    }, 100)
+                } else {
+                    setTimeout(() => {
+                        callback(false)
+                    }, 100)
+                }
+            })
+            .catch((error) => {
+                setTimeout(() => {
+                    callback(false)
+                }, 100)
+            })
+    }
+
 }

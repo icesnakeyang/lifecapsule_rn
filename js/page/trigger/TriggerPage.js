@@ -130,10 +130,12 @@ class TriggerPage extends Component {
     }
 
     _formatData() {
+        console.log(this.props)
         let showData = {
             gogoKeyTitle: I18nJs.t('trigger.gogoKeyHolder'),
             gogoKeyDscription: '',
-            userRemark: ''
+            userRemark: '',
+            recipient: ''
         }
         if (this.props.trigger.trigger && this.props.trigger.trigger.gogoKey) {
             showData.gogoKeyTitle = this.props.trigger.trigger.gogoKey.title
@@ -145,6 +147,17 @@ class TriggerPage extends Component {
             if (this.props.trigger.trigger && this.props.trigger.trigger.remark) {
                 showData.userRemark = this.props.trigger.trigger.remark
             }
+        }
+        if (this.props.trigger.trigger && this.props.trigger.trigger.recipientList.length > 0) {
+            let rep = ''
+            this.props.trigger.trigger.recipientList.forEach((item, index) => {
+                if (index > 0) {
+                    rep += '/'
+                }
+                rep += item.recipientName
+            })
+            console.log(rep)
+            showData.recipient = rep
         }
         return showData
     }
@@ -177,40 +190,12 @@ class TriggerPage extends Component {
                         NavigationUtil.goPage({...this.props}, 'KeyDetail')
                     }}
                 />
-                <TouchableOpacity
-                    style={{
-                        flexDirection: 'row',
-                        backgroundColor: this.props.theme.THEME_ROW_COLOR,
-                        height: 50,
-                        justifyContent: 'flex-start',
-                        alignItems: 'center',
-                        marginTop: 10
-                    }}
-                    onPress={this.props.touchFunction}
-                >
-                    <Text style={{marginLeft: 10}}>{I18nJs.t('trigger.recipient')}</Text>
-                    <View
-                        style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end'}}>
-                        <View style={{marginRight: 10}}>
-                            <Image
-                                style={{width: 24, height: 24}}
-                                source={{uri: 'https://img.yeitu.com/2017/0727/20170727040504430.jpg'}}/>
-                        </View>
-                        <View style={{marginRight: 20}}>
-                            <Ionicons
-                                name={'ios-arrow-forward'}
-                                size={20}
-                                style={{color: this.props.theme.THEME_ROW_ICON}}
-                            />
-                        </View>
-                    </View>
-                </TouchableOpacity>
                 <InputRow
                     touchFunction={() => {
                         NavigationUtil.goPage({}, 'RecipientList')
                     }}
                     label={I18nJs.t('trigger.recipient')}
-                    content={'马翔宇'}
+                    content={showData.recipient}
                     showLabel={true}
                 />
                 <InputRow

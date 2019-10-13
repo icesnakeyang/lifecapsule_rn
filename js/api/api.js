@@ -1,7 +1,7 @@
 // const host = 'http://192.168.1.247:8088'
-// const host = 'http://192.168.0.105:8088'
+const host = 'http://192.168.0.105:8088'
 // const host = 'http://gogorpg.com:8088'
-const host = 'http://192.168.3.6:8088'
+// const host = 'http://192.168.3.6:8088'
 
 export const API = {
     apiGetRSAKey: `${host}/security/requestRSAPublicKey`,
@@ -27,5 +27,7 @@ export const API = {
     apiCreateRecipient:`${host}/trigger/createRecipient`,
     apiUpdateRecipient:`${host}/trigger/updateRecipient`,
     apiSaveTriggerRemark:`${host}/trigger/saveTriggerRemark`,
-    apiSaveRecipient:`${host}/trigger/saveRecipient`
+    apiSaveRecipient:`${host}/trigger/saveRecipient`,
+    apiListRecipientByTriggerId:`${host}/trigger/listRecipientByTriggerId`,
+    apiDeleteRecipient:`${host}/trigger/deleteRecipient`
 }
