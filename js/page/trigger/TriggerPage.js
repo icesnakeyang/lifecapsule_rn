@@ -42,33 +42,27 @@ class TriggerPage extends Component {
         /**
          *
          */
-        console.log(this.props)
-        if (!this.props.trigger.trigger) {
-            if (!(this.props.user && this.props.user.user)) {
-                return
-            }
-            const token = this.props.user.user.token
-            if (!(this.props.note && this.props.note.note)) {
-                return
-            }
-            const noteId = this.props.note.note.noteId
-            const {getTrigger} = this.props
-            const params = {
-                noteId: noteId,
-                token: token
-            }
-            getTrigger(params, (result) => {
-                if (result) {
-                    this.setState({
-                        editTrigger: this.props.trigger.trigger
-                    })
-                }
-            })
-        } else {
-            this.setState({
-                editTrigger: this.props.trigger.trigger
-            })
+
+        if (!(this.props.user && this.props.user.user)) {
+            return
         }
+        const token = this.props.user.user.token
+        if (!(this.props.note && this.props.note.note)) {
+            return
+        }
+        const noteId = this.props.note.note.noteId
+        const {getTrigger} = this.props
+        const params = {
+            noteId: noteId,
+            token: token
+        }
+        getTrigger(params, (result) => {
+            if (result) {
+                this.setState({
+                    editTrigger: this.props.trigger.trigger
+                })
+            }
+        })
     }
 
     getLeftButton() {

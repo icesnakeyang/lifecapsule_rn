@@ -74,11 +74,8 @@ class RecipientRemark extends Component {
             recipient = this.props.trigger.recipient
         }
         recipient.remark = this.state.editRemark
-        console.log(recipient)
         const {saveRecipient} = this.props
         saveRecipient(recipient, (result) => {
-            console.log(result)
-            console.log(this.props)
             DeviceEventEmitter.emit('Refresh_RecipientDetail')
             NavigationUtil.goPage({}, 'RecipientDetail')
         })

@@ -69,18 +69,13 @@ class RecipientName extends Component {
     }
 
     saveName() {
-        console.log('save')
-        console.log(this.props)
         let recipient = {}
         if (this.props.trigger.recipient) {
             recipient = this.props.trigger.recipient
         }
         recipient.recipientName = this.state.editName
-        console.log(recipient)
         const {saveRecipient} = this.props
         saveRecipient(recipient, (result) => {
-            console.log(result)
-            console.log(this.props)
             DeviceEventEmitter.emit('Refresh_RecipientDetail')
             NavigationUtil.goPage({}, 'RecipientDetail')
         })

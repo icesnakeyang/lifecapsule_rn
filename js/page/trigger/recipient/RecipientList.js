@@ -32,7 +32,6 @@ class RecipientList extends Component {
     }
 
     loadAllData() {
-        console.log(this.props.trigger)
         if(this.props.trigger.trigger && this.props.trigger.trigger.triggerId){
             const {getTrigger}=this.props
             getTrigger()
@@ -85,7 +84,6 @@ class RecipientList extends Component {
             })
         }
 
-        console.log(data)
 
         return (
             <InputRow

@@ -32,15 +32,12 @@ class RecipientDetail extends Component {
     }
 
     loadAllData() {
-        console.log(this.props)
 
         if (this.props.trigger.recipient) {
-            console.log('fix')
             this.setState({
                 recipient: this.props.trigger.recipient
             })
         } else {
-            console.log('new')
         }
     }
 
@@ -51,7 +48,6 @@ class RecipientDetail extends Component {
     }
 
     saveData() {
-        console.log(this.props.trigger.recipient)
         if (!this.props.trigger.recipient) {
             return
         }
@@ -60,10 +56,8 @@ class RecipientDetail extends Component {
         }
         let recipient = {}
         if (this.props.trigger.recipient && this.props.trigger.recipient.recipientId) {
-            console.log('update')
             recipient = this.props.trigger.recipient
         } else {
-            console.log('insert')
         }
         recipient.token = this.props.user.user.token
         recipient.name = this.props.trigger.recipient.recipientName
@@ -72,10 +66,12 @@ class RecipientDetail extends Component {
         recipient.address = this.props.trigger.recipient.address
         recipient.remark = this.props.trigger.recipient.remark
         recipient.noteId = this.props.note.note.noteId
+        recipient.recipientId = recipient.recipientId
 
+        console.log(recipient)
+        return
         const {saveRecipientToServer} = this.props
         saveRecipientToServer(recipient, (result) => {
-            console.log(result)
             if (result) {
                 DeviceEventEmitter.emit('Refresh_RecipientList')
                 NavigationUtil.goPage({}, 'Refresh_RecipientList')
@@ -84,7 +80,6 @@ class RecipientDetail extends Component {
     }
 
     _showData() {
-        console.log(this.props)
         let showData = {
             recipientName: '',
             phone: '',
@@ -92,7 +87,6 @@ class RecipientDetail extends Component {
             address: '',
             remark: ''
         }
-        console.log(this.props.trigger)
         if (this.props.trigger.recipient) {
             if (this.props.trigger.recipient.phone) {
                 showData.phone = this.props.trigger.recipient.phone

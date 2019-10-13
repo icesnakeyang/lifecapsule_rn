@@ -13,6 +13,7 @@ import {I18nJs} from "../../language/I18n";
 import actions from "../../action";
 import NavigationUtil from "../../navigator/NavigationUtil";
 import Textarea from "react-native-textarea";
+import {saveRemarkServer} from "../../action/trigger";
 
 class KeyUserRemark extends Component {
     constructor(props) {
@@ -69,11 +70,19 @@ class KeyUserRemark extends Component {
     }
 
     saveRemark() {
-        const {saveTriggerRemark} = this.props
         let params = {
-            remark: this.state.editRemark
+            token: this.props.user.user.token,
+            noteId: this.props.note.note.noteId
         }
-        saveTriggerRemark(params, (result) => {
+        if (this.props.trigger.trigger && this.props.trigger.trigger.triggerId) {
+            params.triggerId = this.props.trigger.trigger.triggerId
+        }
+        params.remark = this.state.editRemark
+
+
+        const {saveRemarkServer} = this.props
+
+        saveRemarkServer(params, (result) => {
             if (result) {
                 DeviceEventEmitter.emit('Refresh_TriggerPage')
                 NavigationUtil.goPage({...params}, 'TriggerPage')
@@ -111,11 +120,13 @@ class KeyUserRemark extends Component {
 
 const mapStateToProps = state => ({
     theme: state.theme.theme,
-    trigger: state.trigger
+    trigger: state.trigger,
+    note: state.note,
+    user: state.user
 })
 
 const mapDispatchToProps = dispatch => ({
-    saveTriggerRemark: (params, callback) => dispatch(actions.saveTriggerRemark(params, callback))
+    saveRemarkServer: (params, callback) => dispatch(actions.saveRemarkServer(params, callback))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(KeyUserRemark)

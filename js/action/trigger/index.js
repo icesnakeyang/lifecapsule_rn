@@ -1,6 +1,7 @@
 import {API} from "../../api/api";
 import DataStore from "../../expand/dao/DataStore";
 import Types from "../types";
+import {unstable_batchedUpdates} from "react-redux/es/utils/reactBatchedUpdates.native";
 
 /**
  * 读取所公共触发器模板列表
@@ -142,15 +143,22 @@ export function saveRemarkServer(params, callback) {
             remark: params.remark
         }
         let token = params.token
-        let dataStore=new DataStore()
+        let dataStore = new DataStore()
         dataStore.fetchPostData(url, body, token)
-            .then((response)=>{
-                console.log(response)
-                if(response.code===0){
+            .then((response) => {
+                if (response.code === 0) {
                     dispatch({
-                        type:
+                        type: Types.TRIGGER_SAVE_REMARK_SUCCESS
                     })
+                    setTimeout(() => {
+                        callback(true)
+                    }, 1)
+                } else {
+                    callback(false)
                 }
+            })
+            .catch((error) => {
+                callback(false)
             })
     }
 }
@@ -170,7 +178,35 @@ export function saveGogoKeyServer(params, callback) {
  *
  */
 export function saveRecipientServer(params, callback) {
-
+    return dispatch => {
+        let url = API.apiSaveRecipient
+        let token = params.token
+        let body = {
+            noteId: params.noteId,
+            triggerId: params.triggerId,
+            name: params.name,
+            phone: params.phone,
+            email: params.email,
+            address: params.address,
+            remark: params.remark,
+            recipientId: params.recipient
+        }
+        let dataStore = new DataStore()
+        dataStore.fetchPostData(url, body, token)
+            .then((response) => {
+                console.log(response)
+                if (response.code === 0) {
+                    setTimeout(() => {
+                        callback(true)
+                    }, 1)
+                } else {
+                    callback(false)
+                }
+            })
+            .catch((error) => {
+                callback(false)
+            })
+    }
 }
 
 export function saveTriggerToServer(params, callback) {
@@ -227,18 +263,6 @@ export function clearTrigger() {
     }
 }
 
-export function saveTriggerRemark(params, callback) {
-    return dispatch => {
-        dispatch({
-            type: Types.TRIGGER_SAVE_REMARK_SUCCESS,
-            remark: params.remark
-        })
-        setTimeout(() => {
-            callback(true)
-        }, 1)
-    }
-}
-
 export function saveRecipient(params, callback) {
     return dispatch => {
         dispatch({
@@ -272,7 +296,6 @@ export function saveRecipientToServer(params, callback) {
         let dataStore = new DataStore()
         dataStore.fetchPostData(url, body, token)
             .then((response) => {
-                console.log(response)
                 if (response.code === 0) {
                     dispatch({
                         type: Types.TRIGGER_SAVE_RECIPIENT_SERVER_SUCCESS

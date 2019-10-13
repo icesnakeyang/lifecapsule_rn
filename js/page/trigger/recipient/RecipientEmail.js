@@ -76,8 +76,6 @@ class RecipientEmail extends Component {
         recipient.email = this.state.editEmail
         const {saveRecipient} = this.props
         saveRecipient(recipient, (result) => {
-            console.log(result)
-            console.log(this.props)
             DeviceEventEmitter.emit('Refresh_RecipientDetail')
             NavigationUtil.goPage({}, 'RecipientDetail')
         })

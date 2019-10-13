@@ -43,8 +43,7 @@ export default function onAction(state = defaultStatus, action) {
             }
         case Types.TRIGGER_SAVE_REMARK_SUCCESS:
             return {
-                ...state,
-                remark: action.remark
+                ...state
             }
         case Types.TRIGGER_SAVE_RECIPIENT_FAIL:
             return {
