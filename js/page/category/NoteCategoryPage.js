@@ -62,11 +62,12 @@ class NoteCategoryPage extends Component {
 
     renderItem(data) {
         let func = () => {
+            console.log(1)
             NavigationUtil.goPage({...data}, 'CategoryDetail')
         }
         return (
             <InputRow
-                optionalFunc={func}
+                touchFunction={func}
                 content={data.categoryName}
                 showLabel={false}
             />
@@ -95,19 +96,18 @@ class NoteCategoryPage extends Component {
 
     render() {
         let statusBar = {
-            backgroundColor: this.props.theme.theme.THEME_COLOR,
-            barStyle: 'light-content'
+            backgroundColor: this.props.theme.THEME_HEAD_COLOR
         }
         let navigationBar = (
             <NavigationBar
                 title={I18nJs.t('category.category')}
                 statusBar={statusBar}
-                style={{backgroundColor: this.props.theme.theme.THEME_COLOR}}
+                style={{backgroundColor: this.props.theme.THEME_HEAD_COLOR}}
                 rightButton={this.getRightButton()}
             />
         )
         return (
-            <View style={styles.container}>
+            <View style={{flex:1,backgroundColor: this.props.theme.THEME_BACK_COLOR}}>
                 {navigationBar}
                 <View>
                     <FlatList
@@ -125,7 +125,7 @@ class NoteCategoryPage extends Component {
 
 const mapStateToProps = state => ({
     category: state.category,
-    theme: state.theme,
+    theme: state.theme.theme,
     user: state.user
 })
 
@@ -135,9 +135,3 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(NoteCategoryPage)
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    }
-})

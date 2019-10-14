@@ -87,21 +87,20 @@ class NewNotePage extends Component {
         saveNote(params, (result) => {
             if (result) {
                 DeviceEventEmitter.emit('Refresh_NoteList')
-                NavigationUtil.goBack(this.props.navigation)
+                NavigationUtil.goPage({}, 'HomePage')
             }
         })
     }
 
     render() {
         let statusBar = {
-            backgroundColor: this.props.theme.THEME_COLOR,
-            barStyle: 'light-content'
+            backgroundColor: this.props.theme.THEME_HEAD_COLOR,
         }
         let navigationBar =
             <NavigationBar
                 title={I18nJs.t('note.newNote')}
                 statusBar={statusBar}
-                style={{backgroundColor: this.props.theme.THEME_COLOR}}
+                style={{backgroundColor: this.props.theme.THEME_HEAD_COLOR}}
                 leftButton={this.getLeftButton()}
                 rightButton={this.getRightButton()}
             />

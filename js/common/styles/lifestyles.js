@@ -10,7 +10,7 @@ export default StyleSheet.create({
     tip_text: {
         fontSize: 14,
         padding: 10,
-        backgroundColor: '#00924d',
+        backgroundColor: 'rgba(0,255,251,0.09)',
         borderWidth: 0.5,
         borderColor: '#aaa'
     },

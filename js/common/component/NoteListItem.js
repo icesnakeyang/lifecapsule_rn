@@ -7,40 +7,41 @@ import {
 } from 'react-native'
 import moment from "moment";
 import NavigationUtil from "../../navigator/NavigationUtil";
+import {connect} from "react-redux";
 
-export default class NoteListItem extends Component {
+class NoteListItem extends Component {
     render() {
         const {item} = this.props
         const createdTime = moment(item.createdTime).format('YYYY-MM-DD')
         return (
             <TouchableOpacity
-                style={styles.row}
-                onPress={()=>{
+                style={{
+                    flex: 1,
+                    backgroundColor: this.props.theme.THEME_BACK_COLOR,
+                    padding: 10,
+                    borderBottomWidth: 0.4,
+                    height: 60,
+                    marginTop: 10
+                }}
+                onPress={() => {
                     NavigationUtil.goPage({
-                    note: item
-                }, 'EditNotePage')}}
+                        note: item
+                    }, 'EditNotePage')
+                }}
             >
-                <Text style={styles.title}>{item.title}</Text>
-                <Text style={styles.time}>{createdTime}</Text>
+                <View>
+                    <Text style={{fontSize: 16, color: this.props.theme.THEME_TEXT_COLOR}}>{item.title}</Text>
+                </View>
+                <View style={{marginTop:10}}>
+                    <Text
+                        style={{fontSize: 12, color: this.props.theme.THEME_TEXT_COLOR}}>{createdTime}</Text>
+                </View>
             </TouchableOpacity>
         )
     }
 }
 
-const styles = StyleSheet.create({
-    row: {
-        flex: 1,
-        backgroundColor: '#fefffb',
-        padding: 10,
-        borderBottomWidth: 0.5,
-        borderBottomColor: '#ddd'
-    },
-    title: {
-        fontSize: 16,
-        color: '#424240'
-    },
-    time: {
-        fontSize: 12,
-        color: '#424240'
-    }
+const mapStateToProps = state => ({
+    theme: state.theme.theme
 })
+export default connect(mapStateToProps)(NoteListItem)

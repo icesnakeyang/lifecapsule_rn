@@ -1,6 +1,6 @@
 import {onThemeChange} from "./theme";
 import {loginUserAuto, loginUserByNamePass, saveNickName} from "./user";
-import {getNoteByNoteId, listNoteByCategory, listNoteRecent, refreshNoteList, saveNote} from "./note";
+import {getNoteByNoteId, listNoteByCategory, listNoteRecent, refreshNoteList, saveNote, updateNote} from "./note";
 import {loadCategory, setCategory} from "./category";
 import {changeLanguage, loadLanguage} from "./language";
 import {
@@ -40,5 +40,6 @@ export default {
     saveRecipientToServer,
     listRecipient,
     deleteRecipient,
-    saveGogoKeyServer
+    saveGogoKeyServer,
+    updateNote
 }

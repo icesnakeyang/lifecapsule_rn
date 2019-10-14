@@ -5,12 +5,17 @@ import {
     Text,
     TextInput,
     Button,
-    DeviceEventEmitter
+    DeviceEventEmitter,
+    TouchableOpacity
 } from 'react-native'
 import NavigationUtil from "../../navigator/NavigationUtil";
 import {API} from "../../api/api";
 import {connect} from "react-redux";
 import DataStore from "../../expand/dao/DataStore";
+import GetLeftButton from "../../common/component/GetLeftButton";
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import NavigationBar from "../../common/component/NavigationBar";
+import {I18nJs} from "../../language/I18n";
 
 class NewCategoryDetail extends Component {
     constructor(props) {
@@ -18,6 +23,31 @@ class NewCategoryDetail extends Component {
         this.state = {
             editCategoryName: ''
         }
+    }
+
+    getLeftButton() {
+        return (
+            <GetLeftButton {...this.props}/>
+        )
+    }
+
+    getRightButton() {
+        return (
+            <View>
+                <TouchableOpacity
+                    style={{margin: 5, marginRight: 8}}
+                    onPress={() => {
+                        this.saveCategory()
+                    }}
+                >
+                    <Ionicons
+                        name={'md-checkmark'}
+                        size={26}
+                        style={{color: this.props.theme.THEME_HEAD_TEXT}}
+                    />
+                </TouchableOpacity>
+            </View>
+        )
     }
 
     componentDidMount() {
@@ -42,26 +72,34 @@ class NewCategoryDetail extends Component {
     }
 
     render() {
+        let statusBar = {
+            backgroundColor: this.props.theme.THEME_HEAD_COLOR
+        }
+        let navigationBar = (
+            <NavigationBar
+                title={I18nJs.t('category.newCategory')}
+                style={{backgroundColor: this.props.theme.THEME_HEAD_COLOR}}
+                statusBar={statusBar}
+                leftButton={this.getLeftButton()}
+                rightButton={this.getRightButton()}
+            />
+        )
         return (
             <View style={{flex: 1}}>
-                <Text>Category name:</Text>
+                {navigationBar}
                 <TextInput
-                    style={{borderWidth: .5, margin: 10}}
+                    style={{borderBottomWidth: .5, margin: 10}}
                     defaultValue={''}
                     onChangeText={(editCategoryName) => this.setState({editCategoryName})}
                 ></TextInput>
-                <Button title={'save'} onPress={() => {
-                    this.saveCategory()
-                }}
-                />
             </View>
         )
     }
-
 }
 
 const mapStateToProps = state => ({
-    user: state.user
+    user: state.user,
+    theme: state.theme.theme
 })
 
 export default connect(mapStateToProps)(NewCategoryDetail)

@@ -24,6 +24,7 @@ export default {
         settings: '设置'
     },
     category: {
+        newCategory:'新建分类',
         category: '分类'
     },
     noteList: {

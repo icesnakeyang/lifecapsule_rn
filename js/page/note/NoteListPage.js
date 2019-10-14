@@ -119,18 +119,19 @@ class NoteListPage extends Component {
 
     render() {
         let statusBar = {
-            backgroundColor: this.props.theme.theme.THEME_COLOR,
-            barStyle: 'light-content'
+            backgroundColor: this.props.theme.THEME_HEAD_COLOR,
         }
         let navigationBar =
             <NavigationBar
                 title={I18nJs.t('noteList.headerName')}
                 statusBar={statusBar}
-                style={{backgroundColor: this.props.theme.theme.THEME_COLOR}}
+                style={{backgroundColor: this.props.theme.THEME_HEAD_COLOR}}
                 rightButton={this.getRightButton()}
             />
         return (
-            <View>
+            <View style={{
+                backgroundColor: this.props.theme.THEME_BACK_COLOR
+            }}>
                 {navigationBar}
                 <FlatList
                     data={this.state.noteList}
@@ -147,7 +148,7 @@ const
     mapStateToProps = state => ({
         user: state.user,
         note: state.note,
-        theme: state.theme,
+        theme: state.theme.theme,
         category: state.category
     })
 const

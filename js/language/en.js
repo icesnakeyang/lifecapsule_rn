@@ -24,6 +24,7 @@ export default {
         settings: 'Settings'
     },
     category: {
+        newCategory:'New Category',
         category: 'Category'
     },
     noteList: {
