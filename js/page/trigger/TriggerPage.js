@@ -42,7 +42,7 @@ class TriggerPage extends Component {
         /**
          *
          */
-
+        console.log(1)
         if (!(this.props.user && this.props.user.user)) {
             return
         }
@@ -74,19 +74,6 @@ class TriggerPage extends Component {
     getRightButton() {
         return (
             <View style={{flexDirection: 'row'}}>
-                <View style={{padding: 5, paddingRight: 13}}>
-                    <TouchableOpacity
-                        onPress={() => {
-                            this.saveTrigger()
-                        }}
-                    >
-                        <Ionicons
-                            name={'md-checkmark'}
-                            size={26}
-                            style={{color: this.props.theme.THEME_ICON_COLOR}}
-                        />
-                    </TouchableOpacity>
-                </View>
                 <View style={{padding: 5, paddingRight: 8}}>
                     <TouchableOpacity
                         onPress={() => {
@@ -96,37 +83,12 @@ class TriggerPage extends Component {
                         <Ionicons
                             name={'md-trash'}
                             size={26}
-                            style={{color: this.props.theme.THEME_ICON_COLOR}}
+                            style={{color: this.props.theme.THEME_HEAD_TEXT}}
                         />
                     </TouchableOpacity>
                 </View>
             </View>
         )
-    }
-
-    saveTrigger() {
-        const {saveTriggerToServer} = this.props
-        let params = {}
-        params.token = this.props.user.user.token
-        if (this.props.note.note.noteId) {
-            params.noteId = this.props.note.note.noteId
-        }
-        if (this.props.trigger.trigger) {
-            if (this.props.trigger.trigger.triggerId) {
-                params.triggerId = this.props.trigger.trigger.triggerId
-            }
-            if (this.props.trigger.remark) {
-                params.remark = this.props.trigger.remark
-            }
-            if (this.props.trigger.trigger && this.props.trigger.trigger.gogoKey) {
-                params.gogoKey = this.props.trigger.trigger.gogoKey
-            }
-        }
-
-        saveTriggerToServer(params, (result) => {
-
-        })
-
     }
 
     _formatData() {
@@ -165,19 +127,19 @@ class TriggerPage extends Component {
     render() {
         const showData = this._formatData()
         let statusBar = {
-            backgroundColor: this.props.theme.THEME_COLOR
+            backgroundColor: this.props.theme.THEME_HEAD_COLOR
         }
         let navigationBar = (
             <NavigationBar
                 title={I18nJs.t('trigger.trigger')}
                 statusBar={statusBar}
-                style={{backgroundColor: this.props.theme.THEME_COLOR}}
+                style={{backgroundColor: this.props.theme.THEME_HEAD_COLOR}}
                 leftButton={this.getLeftButton()}
                 rightButton={this.getRightButton()}
             />
         )
         return (
-            <View style={styles.page_container}>
+            <View style={{flex: 1, backgroundColor: this.props.theme.THEME_BACK_COLOR}}>
                 {navigationBar}
                 <View style={lifeStyles.tip_view}>
                     <Text style={lifeStyles.tip_text}>{I18nJs.t('trigger.tip1')}</Text>
@@ -224,9 +186,3 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(TriggerPage)
-
-const styles = StyleSheet.create({
-    page_container: {
-        flex: 1
-    }
-})

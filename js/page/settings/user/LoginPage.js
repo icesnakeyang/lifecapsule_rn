@@ -49,14 +49,14 @@ class LoginPage extends Component {
 
     render() {
         let statusBar = {
-            backgroundColor: this.props.theme.theme.THEME_COLOR,
+            backgroundColor: this.props.theme.theme.THEME_HEAD_COLOR,
             barStyle: 'light-content'
         }
         let navigationBar = (
             <NavigationBar
                 title={I18nJs.t('myAccount.login')}
                 statusBar={statusBar}
-                style={{backgroundColor: this.props.theme.theme.THEME_COLOR}}
+                style={{backgroundColor: this.props.theme.theme.THEME_HEAD_COLOR}}
                 leftButton={this.getLeftButton()}
             />
         )
@@ -97,7 +97,7 @@ class LoginPage extends Component {
                 </View>
                 <View style={{marginTop: 20}}>
                     <Button
-                        color={this.props.theme.theme.THEME_COLOR}
+                        color={this.props.theme.theme.THEME_HEAD_COLOR}
                         title={I18nJs.t('myAccount.login')}
                         onPress={() => {
                             this.login()

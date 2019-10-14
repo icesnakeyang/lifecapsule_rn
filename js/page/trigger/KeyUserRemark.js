@@ -3,7 +3,9 @@ import {
     View,
     Text,
     TouchableOpacity,
-    TextInput, DeviceEventEmitter
+    TextInput,
+    DeviceEventEmitter,
+    Dimensions
 } from 'react-native'
 import {connect} from "react-redux";
 import GetLeftButton from "../../common/component/GetLeftButton";
@@ -18,9 +20,12 @@ import {saveRemarkServer} from "../../action/trigger";
 class KeyUserRemark extends Component {
     constructor(props) {
         super(props);
+        let {height, width} = Dimensions.get('window')
         this.state = {
             remark: '',
-            editRemark: ''
+            editRemark: '',
+            screen_height: height,
+            screen_width: width
         }
     }
 
@@ -61,7 +66,7 @@ class KeyUserRemark extends Component {
                         <Ionicons
                             name={'md-checkmark'}
                             size={26}
-                            style={{color: this.props.theme.THEME_ICON_COLOR}}
+                            style={{color: this.props.theme.THEME_HEAD_TEXT}}
                         />
                     </View>
                 </TouchableOpacity>
@@ -93,22 +98,25 @@ class KeyUserRemark extends Component {
 
     render() {
         let statusBar = {
-            backgroundColor: this.props.theme.THEME_COLOR
+            backgroundColor: this.props.theme.THEME_HEAD_COLOR
         }
         let navigationBar = (
             <NavigationBar
                 title={I18nJs.t('trigger.userRemark')}
                 statusBar={statusBar}
-                style={{backgroundColor: this.props.theme.THEME_COLOR}}
+                style={{backgroundColor: this.props.theme.THEME_HEAD_COLOR}}
                 leftButton={this.getLeftButton()}
                 rightButton={this.getRightButton()}
             />
         )
         return (
-            <View style={{flex: 1}}>
+            <View style={{flex: 1, backgroundColor: this.props.theme.THEME_BACK_COLOR}}>
                 {navigationBar}
                 <View style={{flex: 1}}>
-                    <Textarea containerStyle={{height: 400}}
+                    <Textarea containerStyle={{
+                        height: this.state.screen_height,
+                        backgroundColor: this.props.theme.THEME_ROW_COLOR
+                    }}
                               defaultValue={this.state.remark}
                               onChangeText={(editRemark) => this.setState({editRemark})}
                     />

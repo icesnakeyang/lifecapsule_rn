@@ -1,8 +1,6 @@
 import React, {Component} from 'react'
 import {
     View,
-    Text,
-    Button,
     TextInput,
     DeviceEventEmitter,
     TouchableOpacity
@@ -10,10 +8,6 @@ import {
 import {connect} from "react-redux";
 import Textarea from "react-native-textarea";
 import NavigationUtil from "../../navigator/NavigationUtil";
-import {API} from "../../api/api";
-import DataStore from "../../expand/dao/DataStore";
-import {Decrypt, Decrypt2, Encrypt, GenerateKey, GenerateRandomString16, RSAencrypt} from "../../common/encoder/crypto";
-import CryptoJS from "crypto-js";
 import actions from "../../action";
 import NavigationBar from "../../common/component/NavigationBar";
 import GetLeftButton from "../../common/component/GetLeftButton";
@@ -107,8 +101,11 @@ class EditNotePage extends Component {
                          * 首先要把props.trigger.trigger清空
                          */
                         const {clearTrigger} = this.props
-                        clearTrigger()
-                        NavigationUtil.goPage({...this.props}, 'TriggerPage')
+                        clearTrigger((result) => {
+                            if (result) {
+                                NavigationUtil.goPage({...this.props}, 'TriggerPage')
+                            }
+                        })
                     }}
                 >
                     <View style={{padding: 5, marginRight: 13}}>
@@ -149,37 +146,28 @@ class EditNotePage extends Component {
                 rightButton={this.getRightButton()}
             />
         return (
-            <View style={{flex: 1}}>
-                {/*<View style={{flex: 1, fontSize: 48, backgroundColor: '#00ff00'}}>*/
-                }
-                {/*    <WebView*/
-                }
-                {/*        style={{color: '#ffff00', fontSize: 48}}*/
-                }
-                {/*        originWhitelist={['*']}*/
-                }
-                {/*        source={{html: detail}}*/
-                }
-                {/*    />*/
-                }
-                {/*</View>*/
-                }
+            <View style={{flex: 1, backgroundColor: this.props.theme.THEME_BACK_COLOR}}>
                 {navigationBar}
-                <TextInput
-                    defaultValue={this.state.note.title}
-                    // onChangeText={(editTitle)=>this.setState({editTitle})}
-                    onChangeText={(editTitle) => this.setState({editTitle})}
-                />
-                <Textarea
-                    containerStyle={
-                        {
-                            flex: 1
+                <View style={{backgroundColor: this.props.theme.THEME_ROW_COLOR, marginTop: 10}}>
+                    <TextInput
+                        style={{fontSize: 16}}
+                        defaultValue={this.state.note.title}
+                        // onChangeText={(editTitle)=>this.setState({editTitle})}
+                        onChangeText={(editTitle) => this.setState({editTitle})}
+                    />
+                </View>
+                <View style={{flex: 1, marginTop: 10, backgroundColor: this.props.theme.THEME_ROW_COLOR}}>
+                    <Textarea
+                        containerStyle={
+                            {
+                                flex: 1
+                            }
                         }
-                    }
-                    defaultValue={this.state.note.detail}
-                    onChangeText={(editDetail) => this.setState({editDetail})
-                    }
-                />
+                        defaultValue={this.state.note.detail}
+                        onChangeText={(editDetail) => this.setState({editDetail})
+                        }
+                    />
+                </View>
             </View>
         )
     }
@@ -194,7 +182,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     refreshNoteList: (params) => dispatch(actions.refreshNoteList(params)),
     getNoteByNoteId: (params, callback) => dispatch(actions.getNoteByNoteId(params, callback)),
-    clearTrigger: () => dispatch(actions.clearTrigger()),
+    clearTrigger: (callback) => dispatch(actions.clearTrigger(callback)),
     updateNote: (params, callback) => dispatch(actions.updateNote(params, callback))
 })
 

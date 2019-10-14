@@ -89,14 +89,17 @@ class RecipientList extends Component {
                     <TouchableOpacity
                         onPress={() => {
                             const {clearTrigger} = this.props
-                            clearTrigger()
-                            NavigationUtil.goPage({}, 'RecipientDetail')
+                            clearTrigger((result) => {
+                                if (result) {
+                                    NavigationUtil.goPage({}, 'RecipientDetail')
+                                }
+                            })
                         }}
                     >
                         <Ionicons
                             name={'md-add'}
                             size={26}
-                            style={{color: this.props.theme.THEME_ICON_COLOR}}
+                            style={{color: this.props.theme.THEME_HEAD_TEXT}}
                         />
                     </TouchableOpacity>
                 </View>
@@ -123,7 +126,7 @@ class RecipientList extends Component {
             <InputRow
                 touchFunction={func}
                 content={data.recipientName}
-                label={I18nJs.t('trigger.name')}
+                label={I18nJs.t('trigger.recipient')}
                 showLabel={true}
             />
         )
@@ -131,19 +134,19 @@ class RecipientList extends Component {
 
     render() {
         let statusBar = {
-            backgroundColor: this.props.theme.THEME_COLOR
+            backgroundColor: this.props.theme.THEME_HEAD_COLOR
         }
         let navigationBar = (
             <NavigationBar
                 statusBar={statusBar}
-                style={{backgroundColor: this.props.theme.THEME_COLOR}}
+                style={{backgroundColor: this.props.theme.THEME_HEAD_COLOR}}
                 title={I18nJs.t('trigger.settingRecipient')}
                 leftButton={this.getLeftButton()}
                 rightButton={this.getRightButton()}
             />
         )
         return (
-            <View>
+            <View style={{flex: 1, backgroundColor: this.props.theme.THEME_BACK_COLOR}}>
                 {navigationBar}
                 <FlatList
                     keyExtractor={item => '' + item.ids}
@@ -167,7 +170,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     saveRecipient: (params, callback) => dispatch(actions.saveRecipient(params, callback)),
     listRecipient: (params, callback) => dispatch(actions.listRecipient(params, callback)),
-    clearTrigger: () => dispatch(actions.clearTrigger()),
+    clearTrigger: (callback) => dispatch(actions.clearTrigger(callback)),
     getTrigger: (params, callback) => dispatch(actions.getTrigger(params, callback))
 })
 

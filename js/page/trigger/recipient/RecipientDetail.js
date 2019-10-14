@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import {
     View,
-    Text,
     Button,
     DeviceEventEmitter,
     TouchableOpacity
@@ -54,18 +53,19 @@ class RecipientDetail extends Component {
 
     getRightButton() {
         return (
-            <View style={{flex: 1}}>
+            <View style={{flexDirection: 'row'}}>
                 <TouchableOpacity
-                    style={{margin: 5, marginRight: 8}}
                     onPress={() => {
                         this.deleteData()
                     }}
                 >
-                    <Ionicons
-                        name={'md-trash'}
-                        size={26}
-                        style={{color: this.props.theme.THEME_ICON_COLOR}}
-                    />
+                    <View style={{margin: 5, marginRight: 16, justifyContent: 'center'}}>
+                        <Ionicons
+                            name={'md-trash'}
+                            size={26}
+                            style={{color: this.props.theme.THEME_HEAD_TEXT}}
+                        />
+                    </View>
                 </TouchableOpacity>
             </View>
         )
@@ -90,15 +90,19 @@ class RecipientDetail extends Component {
         recipient.address = this.props.trigger.recipient.address
         recipient.remark = this.props.trigger.recipient.remark
         recipient.noteId = this.props.note.note.noteId
-        recipient.recipientId = recipient.recipientId
+
+        console.log(recipient)
 
         const {saveRecipientToServer} = this.props
         saveRecipientToServer(recipient, (result) => {
             if (result) {
                 const {clearTrigger} = this.props
-                clearTrigger()
-                DeviceEventEmitter.emit('Refresh_RecipientList')
-                NavigationUtil.goPage({}, 'RecipientList')
+                clearTrigger((result) => {
+                    if (result) {
+                        DeviceEventEmitter.emit('Refresh_RecipientList')
+                        NavigationUtil.goPage({}, 'RecipientList')
+                    }
+                })
             }
         })
     }
@@ -118,9 +122,12 @@ class RecipientDetail extends Component {
         deleteRecipient(recipient, (result) => {
             if (result) {
                 const {clearTrigger} = this.props
-                clearTrigger()
-                DeviceEventEmitter.emit('Refresh_RecipientList')
-                NavigationUtil.goPage({}, 'RecipientList')
+                clearTrigger((result) => {
+                    if(result){
+                        DeviceEventEmitter.emit('Refresh_RecipientList')
+                        NavigationUtil.goPage({}, 'RecipientList')
+                    }
+                })
             }
         })
     }
@@ -157,20 +164,20 @@ class RecipientDetail extends Component {
     render() {
         let showData = this._showData()
         let statusBar = {
-            backgroundColor: this.props.theme.THEME_COLOR
+            backgroundColor: this.props.theme.THEME_HEAD_COLOR
         }
         let navigationBar = (
             <NavigationBar
                 statusBar={statusBar}
-                style={{backgroundColor: this.props.theme.THEME_COLOR}}
-                title={I18nJs.t('trigger.addRecipient')}
+                style={{backgroundColor: this.props.theme.THEME_HEAD_COLOR}}
+                title={I18nJs.t('trigger.settingRecipient')}
                 leftButton={this.getLeftButton()}
                 rightButton={this.getRightButton()}
             >
             </NavigationBar>
         )
         return (
-            <View>
+            <View style={{flex: 1, backgroundColor: this.props.theme.THEME_BACK_COLOR}}>
                 {navigationBar}
                 <InputRow
                     touchFunction={() => {
@@ -214,12 +221,11 @@ class RecipientDetail extends Component {
                 />
                 <View style={{marginTop: 20}}>
                     <Button
-                        color={this.props.theme.THEME_COLOR}
+                        color={this.props.theme.THEME_HEAD_COLOR}
                         title={I18nJs.t('trigger.btSaveRecipient')}
                         onPress={() => {
                             this.saveData()
-                        }}
-                    />
+                        }}/>
                 </View>
             </View>
         )
@@ -236,7 +242,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     saveRecipientToServer: (params, callback) => dispatch(actions.saveRecipientToServer(params, callback)),
     deleteRecipient: (params, callback) => dispatch(actions.deleteRecipient(params, callback)),
-    clearTrigger: () => dispatch(actions.clearTrigger())
+    clearTrigger: (callback) => dispatch(actions.clearTrigger(callback))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipientDetail)

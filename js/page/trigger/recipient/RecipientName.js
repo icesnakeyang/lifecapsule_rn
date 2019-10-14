@@ -60,7 +60,7 @@ class RecipientName extends Component {
                         <Ionicons
                             name={'md-checkmark'}
                             size={26}
-                            style={{color: this.props.theme.THEME_ICON_COLOR}}
+                            style={{color: this.props.theme.THEME_HEAD_TEXT}}
                         />
                     </View>
                 </TouchableOpacity>
@@ -83,13 +83,13 @@ class RecipientName extends Component {
 
     render() {
         let statusBar = {
-            backgroundColor: this.props.theme.THEME_COLOR
+            backgroundColor: this.props.theme.THEME_HEAD_COLOR
         }
         let navigationBar = (
             <NavigationBar
                 title={I18nJs.t('trigger.name')}
                 statusBar={statusBar}
-                style={{backgroundColor: this.props.theme.THEME_COLOR}}
+                style={{backgroundColor: this.props.theme.THEME_HEAD_COLOR}}
                 leftButton={this.getLeftButton()}
                 rightButton={this.getRightButton()}
             />

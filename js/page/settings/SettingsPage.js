@@ -3,7 +3,8 @@ import {
     View,
     Text,
     StyleSheet,
-    TouchableOpacity
+    TouchableOpacity,
+    Dimensions
 } from 'react-native'
 import {connect} from "react-redux";
 import NavigationBar from "../../common/component/NavigationBar";
@@ -11,11 +12,15 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import UserHeader from "./components/UserHeader";
 import {I18nJs} from '../../language/I18n'
 import NavigationUtil from "../../navigator/NavigationUtil";
+import InputRow from "../../common/component/InputRow";
 
 class SettingsPage extends Component {
     constructor(props) {
         super(props);
+        let {height, width} = Dimensions.get('window')
         this.state = {
+            screen_height: height,
+            screen_width: width,
             lan: 'en'
         }
     }
@@ -31,7 +36,7 @@ class SettingsPage extends Component {
                         <Ionicons
                             name={'md-mail'}
                             size={26}
-                            style={{color: this.props.theme.THEME_ICON_COLOR}}
+                            style={{color: this.props.theme.THEME_HEAD_TEXT}}
                         />
                     </TouchableOpacity>
                 </View>
@@ -43,7 +48,7 @@ class SettingsPage extends Component {
                         <Ionicons
                             name={'md-settings'}
                             size={26}
-                            style={{color: this.props.theme.THEME_ICON_COLOR}}
+                            style={{color: this.props.theme.THEME_HEAD_TEXT}}
                         />
                     </TouchableOpacity>
                 </View>
@@ -53,66 +58,41 @@ class SettingsPage extends Component {
     }
 
     render() {
-
         let statusBar = {
-            backgroundColor: this.props.theme.THEME_COLOR
+            backgroundColor: this.props.theme.THEME_HEAD_COLOR
         }
         let navigationBar =
             <NavigationBar
                 title={I18nJs.t('settings.settings')}
                 statusBar={statusBar}
-                style={{backgroundColor: this.props.theme.THEME_COLOR}}
+                style={{backgroundColor: this.props.theme.THEME_HEAD_COLOR}}
                 rightButton={this.getRightButton()}
             />
         return (
             <View>
                 {navigationBar}
                 <UserHeader/>
-                <View style={{marginTop: 20}}>
-                    <TouchableOpacity
-                        style={styles.touch_row_container}
-                        onPress={() => {
+                <View style={{
+                    marginTop: 20,
+                    backgroundColor: this.props.theme.THEME_BACK_COLOR,
+                    height: this.state.screen_height
+                }}>
+                    <InputRow
+                        label={I18nJs.t('settings.language')}
+                        content={I18nJs.t(`settings.${I18nJs.locale}`)}
+                        showLabel={true}
+                        touchFunction={() => {
                             NavigationUtil.goPage({...this.props}, 'LanguagePage')
                         }}
-                    >
-                        <Text
-                            style={{marginLeft: 20, fontSize: 18}}
-                        >{I18nJs.t('settings.language')}</Text>
-                        <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end'}}>
-                            <Text
-                                style={{marginRight: 20}}
-                            >{I18nJs.t(`settings.${I18nJs.locale}`)}</Text>
-                            <View
-                                style={{marginRight: 20}}
-                            >
-                                <Ionicons
-                                    name={'ios-arrow-forward'}
-                                    size={20}
-                                />
-                            </View>
-                        </View>
-                    </TouchableOpacity>
-                </View>
-                <View style={{marginTop: 20}}>
-                    <TouchableOpacity
-                        style={styles.touch_row_container}
-                        onPress={() => {
-                            NavigationUtil.goPage({...this.props}, 'LanguagePage')
+                    />
+                    <InputRow
+                        label={I18nJs.t('security.security')}
+                        content={''}
+                        showLabel={true}
+                        touchFunction={() => {
+
                         }}
-                    >
-                        <Text style={{marginLeft: 20, fontSize: 18}}
-                        >{I18nJs.t('security.security')}</Text>
-                        <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end'}}>
-                            <View
-                                style={{marginRight: 20}}
-                            >
-                                <Ionicons
-                                    name={'ios-arrow-forward'}
-                                    size={20}
-                                />
-                            </View>
-                        </View>
-                    </TouchableOpacity>
+                    />
                 </View>
             </View>
         )

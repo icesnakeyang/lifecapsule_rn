@@ -3,7 +3,9 @@ import {
     View,
     Text,
     TouchableOpacity,
-    StyleSheet, FlatList, DeviceEventEmitter
+    FlatList,
+    DeviceEventEmitter,
+    Dimensions
 } from 'react-native'
 import {connect} from "react-redux";
 import GetLeftButton from "../../common/component/GetLeftButton";
@@ -15,8 +17,10 @@ import I18nJs from "react-native-i18n";
 class SelectCategory extends Component {
     constructor(props) {
         super(props);
+        let {height, width} = Dimensions.get('window')
         this.state = {
-            theme_color: '#000fff',
+            screen_height: height,
+            screen_width: width,
             categoryList: []
         }
     }
@@ -33,17 +37,15 @@ class SelectCategory extends Component {
     }
 
     _data() {
-        if (this.props.theme && this.props.theme.THEME_COLOR) {
-            this.setState({
-                theme_color: this.props.theme.THEME_COLOR
-            })
-        }
         let {loadCategory} = this.props
         if (this.props.user && this.props.user.user && this.props.user.user.token) {
             loadCategory(1, 20, this.props.user.user.token, (result) => {
-                this.setState({
-                    categoryList: this.props.category.categoryList.categoryList
-                })
+                console.log(result)
+                if (result) {
+                    this.setState({
+                        categoryList: this.props.category.categoryList.categoryList
+                    })
+                }
             })
         }
     }
@@ -52,7 +54,14 @@ class SelectCategory extends Component {
         const item = data
         return (
             <TouchableOpacity
-                style={styles.row}
+                style={{
+                    flex: 1,
+                    marginTop: 10,
+                    backgroundColor: this.props.theme.THEME_ROW_COLOR,
+                    height: 50,
+                    padding: 10,
+                    justifyContent: 'center'
+                }}
                 onPress={() => {
                     const {setCategory} = this.props
                     setCategory(item.categoryId, (result) => {
@@ -64,28 +73,28 @@ class SelectCategory extends Component {
                     })
                 }}
             >
-                <Text style={styles.title}>{item.categoryName}</Text>
+                <Text style={{fontSize: 16, color: this.props.theme.THEME_TEXT_COLOR}}>{item.categoryName}</Text>
             </TouchableOpacity>
         )
     }
 
     render() {
+        console.log(this.state)
         let statusBar = {
-            backgroundColor: this.state.theme_color,
-            barStyle: 'light-content'
+            backgroundColor: this.props.theme.THEME_HEAD_COLOR
         }
         let navigationBar = (
             <NavigationBar
                 title={I18nJs.t('note.selectCategory')}
                 statusBar={statusBar}
-                style={{backgroundColor: this.state.theme_color}}
+                style={{backgroundColor: this.props.theme.THEME_HEAD_COLOR}}
                 leftButton={this.getLeftButton()}
             />
         )
         return (
-            <View>
+            <View style={{backgroundColor: this.props.theme.THEME_BACK_COLOR}}>
                 {navigationBar}
-                <View>
+                <View style={{height: this.state.screen_height}}>
                     <FlatList
                         keyExtractor={item => '' + item.ids}
                         data={this.state.categoryList}
@@ -112,13 +121,3 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SelectCategory)
-
-const styles = StyleSheet.create({
-    row: {
-        flex: 1,
-        backgroundColor: '#fefffb',
-        padding: 10,
-        borderBottomWidth: 0.5,
-        borderBottomColor: '#ddd'
-    },
-})

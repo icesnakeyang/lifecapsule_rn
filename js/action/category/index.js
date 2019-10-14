@@ -19,7 +19,10 @@ export function loadCategory(pageIndex, pageSize, token, callback) {
                         type: Types.CATEGORY_LOAD_SUCCESS,
                         categoryList: response.data
                     })
-                    callback(true)
+                    setTimeout(() => {
+                        callback(true)
+                    }, 1)
+
                 }
             })
     }

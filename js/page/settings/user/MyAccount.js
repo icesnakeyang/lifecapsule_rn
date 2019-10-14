@@ -14,6 +14,7 @@ import NavigationBar from "../../../common/component/NavigationBar";
 import GetLeftButton from "../../../common/component/GetLeftButton";
 import UserHeader from "../components/UserHeader";
 import {I18nJs} from "../../../language/I18n";
+import InputRow from "../../../common/component/InputRow";
 
 class MyAccount extends Component {
     checkout() {
@@ -28,47 +29,30 @@ class MyAccount extends Component {
 
     render() {
         let statusBar = {
-            backgroundColor: this.props.theme.THEME_COLOR
+            backgroundColor: this.props.theme.THEME_HEAD_COLOR
         }
         let navigationBar =
             <NavigationBar
                 title={I18nJs.t('myAccount.myAccount')}
                 statusBar={statusBar}
-                style={{backgroundColor: this.props.theme.THEME_COLOR}}
+                style={{backgroundColor: this.props.theme.THEME_HEAD_COLOR}}
                 leftButton={this.getLeftButton()}
             />
         return (
-            <View style={{flex: 1}}>
+            <View style={{flex: 1, backgroundColor: this.props.theme.THEME_BACK_COLOR}}>
                 {navigationBar}
                 <UserHeader/>
-                <View>
-                    <TouchableOpacity
-                        style={styles.touch_row_container}
-                        onPress={() => {
-                            NavigationUtil.goPage({...this.props}, 'NickNamePage')
-                        }}
-                    >
-                        <Text
-                            style={{marginLeft: 20, fontSize: 18}}
-                        >{I18nJs.t('myAccount.nickname')}</Text>
-                        <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end'}}>
-                            <Text
-                                style={{marginRight: 20}}
-                            >{this.props.user.user.nickname}</Text>
-                            <View
-                                style={{marginRight: 20}}
-                            >
-                                <Ionicons
-                                    name={'ios-arrow-forward'}
-                                    size={20}
-                                />
-                            </View>
-                        </View>
-                    </TouchableOpacity>
-                </View>
+                <InputRow
+                    label={I18nJs.t('myAccount.nickname')}
+                    content={this.props.user.user.nickname}
+                    showLabel={true}
+                    touchFunction={() => {
+                        NavigationUtil.goPage({...this.props}, 'NickNamePage')
+                    }}
+                />
                 <View style={{flex: 1, marginTop: 20}}>
                     <Button
-                        color={this.props.theme.THEME_COLOR}
+                        color={this.props.theme.THEME_HEAD_COLOR}
                         title={I18nJs.t('myAccount.changeUser')}
                         onPress={() => {
                             this.checkout()

@@ -211,10 +211,10 @@ export function saveRemarkServer(params, callback) {
 export function saveGogoKeyServer(params, callback) {
     return dispatch => {
         let url = API.apiSaveGogoKey
-        let token=params.token
+        let token = params.token
         let body = {
             triggerId: params.triggerId,
-            gogoPublicKeyId:params.gogoPublicKeyId,
+            gogoPublicKeyId: params.gogoPublicKeyId,
             keyParams: params.keyParams,
             noteId: params.noteId
         }
@@ -289,7 +289,7 @@ export function saveGogoKey(params, callback) {
     }
 }
 
-export function clearTrigger() {
+export function clearTrigger(callback) {
     return dispatch => {
         dispatch({
             type: Types.TRIGGER_CLEAR_SUCCESS,
@@ -297,6 +297,9 @@ export function clearTrigger() {
             remark: null,
             recipient: null
         })
+        setTimeout(() => {
+            callback(true)
+        }, 1)
     }
 }
 
@@ -314,14 +317,12 @@ export function saveRecipient(params, callback) {
 }
 
 export function saveRecipientToServer(params, callback) {
+    console.log(params)
     return dispatch => {
-        let url = ''
+        let url = API.apiSaveRecipient
         let body = {}
         if (params.recipientId) {
-            url = API.apiUpdateRecipient
             body.recipientId = params.recipientId
-        } else {
-            url = API.apiCreateRecipient
         }
         const token = params.token
         body.recipientName = params.name
