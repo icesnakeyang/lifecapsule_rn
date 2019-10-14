@@ -209,7 +209,29 @@ export function saveRemarkServer(params, callback) {
  * 保存成功后，跳转回trigger页面，并刷新trigger
  */
 export function saveGogoKeyServer(params, callback) {
-
+    return dispatch => {
+        let url = API.apiSaveGogoKey
+        let token=params.token
+        let body = {
+            triggerId: params.triggerId,
+            gogoPublicKeyId:params.gogoPublicKeyId,
+            keyParams: params.keyParams,
+            noteId: params.noteId
+        }
+        let dataStore = new DataStore()
+        dataStore.fetchPostData(url, body, params.token)
+            .then((response) => {
+                console.log(response)
+                if (response.code === 0) {
+                    dispatch({
+                        type: Types.TRIGGER_SAVE_GOGOKEY_SERVER_SUCCESS
+                    })
+                    setTimeout(() => {
+                        callback(true)
+                    }, 100)
+                }
+            })
+    }
 }
 
 /**
@@ -244,31 +266,6 @@ export function saveRecipientServer(params, callback) {
             })
             .catch((error) => {
                 callback(false)
-            })
-    }
-}
-
-export function saveTriggerToServer(params, callback) {
-    return dispatch => {
-        let url = API.apiSaveTrigger
-        let body = {
-            triggerId: params.triggerId,
-            remark: params.remark,
-            noteId: params.noteId,
-            gogoKey: params.gogoKey
-        }
-        let dataStore = new DataStore()
-        dataStore.fetchPostData(url, body, params.token)
-            .then((response) => {
-                if (response.code === 0) {
-                    dispatch({
-                        type: Types.TRIGGER_SAVE_SERVER_SUCCESS,
-                        trigger: params
-                    })
-                    setTimeout(() => {
-                        callback(true)
-                    }, 1)
-                }
             })
     }
 }

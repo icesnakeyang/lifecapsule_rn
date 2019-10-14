@@ -38,7 +38,7 @@ export default function onAction(state = defaultStatus, action) {
                 remark: action.remark,
                 recipient: action.recipient
             }
-        case Types.TRIGGER_SAVE_SERVER_SUCCESS:
+        case Types.TRIGGER_SAVE_GOGOKEY_SERVER_SUCCESS:
             return {
                 ...state
             }

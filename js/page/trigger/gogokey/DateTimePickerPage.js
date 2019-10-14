@@ -14,7 +14,6 @@ import NavigationBar from "../../../common/component/NavigationBar";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import actions from "../../../action";
 import NavigationUtil from "../../../navigator/NavigationUtil";
-import {saveTrigger} from "../../../action/trigger";
 
 class DateTimePickerPage extends Component {
     constructor(props) {

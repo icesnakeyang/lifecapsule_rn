@@ -12,7 +12,7 @@ import {
     saveTriggerToServer,
     saveRecipient,
     saveRecipientToServer,
-    saveRemarkServer, listRecipient, deleteRecipient
+    saveRemarkServer, listRecipient, deleteRecipient, saveGogoKeyServer
 } from "./trigger";
 
 export default {
@@ -39,5 +39,6 @@ export default {
     saveRecipient,
     saveRecipientToServer,
     listRecipient,
-    deleteRecipient
+    deleteRecipient,
+    saveGogoKeyServer
 }

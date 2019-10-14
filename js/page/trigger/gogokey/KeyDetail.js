@@ -15,6 +15,8 @@ import lifestyles from '../../../common/styles/lifestyles'
 import InputRow from "../../../common/component/InputRow";
 import NavigationUtil from "../../../navigator/NavigationUtil";
 import {I18nJs} from "../../../language/I18n";
+import actions from "../../../action";
+import possibleConstructorReturn from "@babel/runtime/helpers/esm/possibleConstructorReturn";
 
 class KeyDetail extends Component {
     constructor(props) {
@@ -99,10 +101,36 @@ class KeyDetail extends Component {
     }
 
     saveKeyDetail() {
+        const {saveGogoKeyServer} = this.props
+        if (!(this.props.user.user && this.props.user.user.token)) {
+            return
+        }
+        if (!(this.props.note.note && this.props.note.note.noteId)) {
+            return
+        }
+        let params = {
+            token: this.props.user.user.token,
+            noteId: this.props.note.note.noteId
+        }
+        if (this.props.trigger.trigger) {
+            if (this.props.trigger.trigger.triggerId) {
+                params.triggerId = this.props.trigger.trigger.triggerId
+            }
+            if (this.props.trigger.trigger.gogoKey && this.props.trigger.trigger.gogoKey.publicKeyId) {
+                params.gogoPublicKeyId = this.props.trigger.trigger.gogoKey.publicKeyId
+                params.keyParams = this.props.trigger.trigger.gogoKey.keyParams
+            }
+        }
 
+        console.log(this.props)
 
-        DeviceEventEmitter.emit('Refresh_TriggerPage')
-        NavigationUtil.goPage({}, 'TriggerPage')
+        saveGogoKeyServer(params, (result) => {
+            console.log(result)
+            if (result) {
+                DeviceEventEmitter.emit('Refresh_TriggerPage')
+                NavigationUtil.goPage({}, 'TriggerPage')
+            }
+        })
     }
 
     renderItem(data) {
@@ -174,4 +202,8 @@ const mapStateToProps = state => ({
     user: state.user
 })
 
-export default connect(mapStateToProps)(KeyDetail)
+const mapDispatchToProps = dispatch => ({
+    saveGogoKeyServer: (params, callback) => dispatch(actions.saveGogoKeyServer(params, callback))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(KeyDetail)
