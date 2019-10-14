@@ -157,6 +157,7 @@ class KeyDetail extends Component {
                     <Button
                         title={I18nJs.t('trigger.selectPublicKey')}
                         onPress={() => {
+                            console.log(1)
                             NavigationUtil.goPage({}, 'KeyPlaza')
                         }}
                     />

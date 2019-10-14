@@ -26,6 +26,7 @@ class KeyPlaza extends Component {
     }
 
     loadAllData() {
+        console.log(2)
         const {listPublicKey} = this.props
         const params = {
             token: this.props.user.user.token
