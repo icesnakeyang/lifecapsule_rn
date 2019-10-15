@@ -3,9 +3,7 @@ import {
     View,
     Text,
     TouchableOpacity,
-    StyleSheet,
-    TextInput,
-    Image, DeviceEventEmitter
+    DeviceEventEmitter
 } from 'react-native'
 import {connect} from "react-redux";
 import GetLeftButton from "../../common/component/GetLeftButton";
@@ -17,12 +15,14 @@ import InputRow from "../../common/component/InputRow";
 
 import lifeStyles from '../../common/styles/lifestyles'
 import actions from "../../action";
+import Dialog from 'react-native-dialog'
 
 class TriggerPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            editTrigger: ''
+            editTrigger: '',
+            dialogShow: false
         }
     }
 
@@ -77,7 +77,7 @@ class TriggerPage extends Component {
                 <View style={{padding: 5, paddingRight: 8}}>
                     <TouchableOpacity
                         onPress={() => {
-
+                            this.deleteTrigger()
                         }}
                     >
                         <Ionicons
@@ -89,6 +89,15 @@ class TriggerPage extends Component {
                 </View>
             </View>
         )
+    }
+
+    deleteTrigger() {
+        console.log(this.props.trigger.trigger.triggerId)
+        console.log(this.state)
+        this.setState({
+            dialogShow: true
+        })
+        console.log(this.state)
     }
 
     _formatData() {
@@ -121,7 +130,20 @@ class TriggerPage extends Component {
             console.log(rep)
             showData.recipient = rep
         }
+        console.log(this.state)
         return showData
+    }
+
+    handleCancel() {
+        this.setState({
+            dialogShow: false
+        })
+    }
+
+    handleDelete() {
+        this.setState({
+            dialogShow: false
+        })
     }
 
     render() {
@@ -168,6 +190,24 @@ class TriggerPage extends Component {
                     content={showData.userRemark}
                     showLabel={true}
                 />
+                <Dialog.Container visible={this.state.dialogShow}>
+                    <Dialog.Title>{I18nJs.t('common.dialogTitleOk')}</Dialog.Title>
+                    <Dialog.Description>
+                        {I18nJs.t('trigger.deleteDialogTip')}
+                    </Dialog.Description>
+                    <Dialog.Button
+                        label={I18nJs.t('common.cancel')}
+                        onPress={() => {
+                            this.handleCancel()
+                        }}
+                    />
+                    <Dialog.Button
+                        label={I18nJs.t('common.delete')}
+                        onPress={() => {
+                            this.handleDelete()
+                        }}
+                    />
+                </Dialog.Container>
             </View>
         )
     }

@@ -16,6 +16,7 @@
     "react-native": "0.60.5",
     "react-native-datepicker": "^1.7.2",
     "react-native-device-info": "^3.1.4",
+    "react-native-dialog": "^5.6.0",
     "react-native-easy-toast": "^1.2.0",
     "react-native-gesture-handler": "^1.4.1",
     "react-native-i18n": "^2.0.15",

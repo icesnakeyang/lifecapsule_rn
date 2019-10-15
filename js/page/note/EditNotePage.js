@@ -13,6 +13,7 @@ import NavigationBar from "../../common/component/NavigationBar";
 import GetLeftButton from "../../common/component/GetLeftButton";
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import {I18nJs} from "../../language/I18n";
+import WebView from "react-native-webview";
 
 class EditNotePage extends Component {
     constructor(props) {

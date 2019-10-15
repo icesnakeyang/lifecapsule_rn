@@ -78,18 +78,18 @@ class KeyPlaza extends Component {
 
     render() {
         let statusBar = {
-            backgroundColor: this.props.theme.THEME_COLOR
+            backgroundColor: this.props.theme.THEME_HEAD_COLOR
         }
         let navigationBar = (
             <NavigationBar
                 title={'title'}
                 statusBar={statusBar}
-                style={{backgroundColor: this.props.theme.THEME_COLOR}}
+                style={{backgroundColor: this.props.theme.THEME_HEAD_COLOR}}
                 leftButton={this.getLeftButton()}
             />
         )
         return (
-            <View>
+            <View style={{flex:1, backgroundColor: this.props.theme.THEME_BACK_COLOR}}>
                 {navigationBar}
                 <View style={lifestyles.tip_view}>
                     <Text style={lifestyles.tip_text}>{I18nJs.t('trigger.tip2')}</Text>

@@ -56,7 +56,7 @@ class DateTimePickerPage extends Component {
                         <Ionicons
                             name={'md-checkmark'}
                             size={26}
-                            style={{color: this.props.theme.THEME_ICON_COLOR}}
+                            style={{color: this.props.theme.THEME_HEAD_TEXT}}
                         />
                     </TouchableOpacity>
                 </View>
@@ -92,13 +92,13 @@ class DateTimePickerPage extends Component {
 
     render() {
         let statusBar = {
-            backgroundColor: this.props.theme.THEME_COLOR
+            backgroundColor: this.props.theme.THEME_HEAD_COLOR
         }
         let navigationBar = (
             <NavigationBar
                 statusBar={statusBar}
                 title={'设置时间'}
-                style={{backgroundColor: this.props.theme.THEME_COLOR}}
+                style={{backgroundColor: this.props.theme.THEME_HEAD_COLOR}}
                 leftButton={this.getLeftButton()}
                 rightButton={this.GetRightButton()}
             />
@@ -107,7 +107,6 @@ class DateTimePickerPage extends Component {
             <View>
                 {navigationBar}
                 <View style={{marginTop: 20, margin: 10}}>
-                    <Text>{this.state.param}</Text>
                     <DatePicker
                         style={{width: this.state.width}}
                         date={this.state.value}

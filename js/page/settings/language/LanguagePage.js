@@ -38,35 +38,55 @@ class LanguagePage extends Component {
 
     render() {
         let statusBar = {
-            backgroundColor: this.props.theme.THEME_COLOR
+            backgroundColor: this.props.theme.THEME_HEAD_COLOR
         }
         let navigationBar = (
             <NavigationBar
                 title={I18nJs.t('settings.language')}
                 statusBar={statusBar}
-                style={{backgroundColor: this.props.theme.THEME_COLOR}}
+                style={{backgroundColor: this.props.theme.THEME_HEAD_COLOR}}
                 leftButton={this.getLeftButton()}
             />
         )
         return (
-            <View style={styles.page_container}>
+            <View style={{flex: 1, backgroundColor: this.props.theme.THEME_BACK_COLOR}}>
                 {navigationBar}
-                <View style={styles.row_view}>
+                <View style={{
+                    height: 40,
+                    marginTop: 10,
+                    backgroundColor: this.props.theme.THEME_ROW_COLOR,
+                    justifyContent: 'center'
+                }}>
                     <TouchableOpacity
                         onPress={() => {
                             this.changeLanguage('zh')
                         }}
-                        style={styles.touch_view}>
-                        <Text style={styles.row_text}>中文</Text>
+                    >
+                        <Text style={{
+                            fontSize: 18,
+                            marginLeft: 10,
+                            marginRight: 10,
+                            color: this.props.theme.THEME_TEXT_COLOR
+                        }}>中文</Text>
                     </TouchableOpacity>
                 </View>
-                <View style={styles.row_view}>
+                <View style={{
+                    height: 40,
+                    marginTop: 10,
+                    backgroundColor: this.props.theme.THEME_ROW_COLOR,
+                    justifyContent: 'center'
+                }}>
                     <TouchableOpacity
                         onPress={() => {
                             this.changeLanguage('en')
                         }}
-                        style={styles.touch_view}>
-                        <Text style={styles.row_text}>English</Text>
+                    >
+                        <Text style={{
+                            fontSize: 18,
+                            marginLeft: 10,
+                            marginRight: 10,
+                            color: this.props.theme.THEME_TEXT_COLOR
+                        }}>English</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -83,23 +103,3 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(LanguagePage)
-
-const styles = StyleSheet.create({
-    page_container: {
-        flex: 1
-    },
-    row_view: {
-        height: 40,
-        marginTop: 10,
-        backgroundColor: '#ddd',
-        justifyContent: 'center'
-    },
-    touch_view: {
-        // backgroundColor:'#ffff00'
-    },
-    row_text: {
-        fontSize: 18,
-        marginLeft: 10,
-        marginRight: 10,
-    }
-})

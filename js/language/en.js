@@ -1,6 +1,11 @@
 export default {
     title: 'Life Capsule',
     slogan: 'Make your thoughts pass your future!',
+    common: {
+        dialogTitleOk: 'Confirm',
+        cancel: 'Cancel',
+        delete: 'Delete'
+    },
     settings: {
         language: 'Language',
         zh: 'Chinese',
@@ -24,7 +29,7 @@ export default {
         settings: 'Settings'
     },
     category: {
-        newCategory:'New Category',
+        newCategory: 'New Category',
         category: 'Category'
     },
     noteList: {
@@ -47,13 +52,14 @@ export default {
         gogoKeyHolder: 'Please select a trigger key',
         settingRecipient: 'Setting Recipient',
         addRecipient: 'Add Recipient',
-        btSaveRecipient:'Save',
-        phone:'Phone',
-        email:'Email',
-        address:'Address',
-        name:'Name',
-        recipientRemark:'Remark',
-        editRecipient:'Edit Recipient'
+        btSaveRecipient: 'Save',
+        phone: 'Phone',
+        email: 'Email',
+        address: 'Address',
+        name: 'Name',
+        recipientRemark: 'Remark',
+        editRecipient: 'Edit Recipient',
+        deleteDialogTip: 'Are you sure to delete this trigger？'
     },
     syserr: {
         '10002': 'Username and password error'

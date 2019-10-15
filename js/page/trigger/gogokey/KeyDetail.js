@@ -79,7 +79,7 @@ class KeyDetail extends Component {
                         <Ionicons
                             name={'md-checkmark'}
                             size={26}
-                            style={{color: this.props.theme.THEME_ICON_COLOR}}
+                            style={{color: this.props.theme.THEME_HEAD_TEXT}}
                         />
                     </TouchableOpacity>
                 </View>
@@ -92,7 +92,7 @@ class KeyDetail extends Component {
                         <Ionicons
                             name={'md-trash'}
                             size={26}
-                            style={{color: this.props.theme.THEME_ICON_COLOR}}
+                            style={{color: this.props.theme.THEME_HEAD_TEXT}}
                         />
                     </TouchableOpacity>
                 </View>
@@ -152,19 +152,19 @@ class KeyDetail extends Component {
         if (!this.props.trigger.trigger) {
         }
         let statusBar = {
-            backgroundColor: this.props.theme.THEME_COLOR
+            backgroundColor: this.props.theme.THEME_HEAD_COLOR
         }
         let navigationBar = (
             <NavigationBar
                 title={'key detail'}
                 statusBar={statusBar}
-                style={{backgroundColor: this.props.theme.THEME_COLOR}}
+                style={{backgroundColor: this.props.theme.THEME_HEAD_COLOR}}
                 leftButton={this.GetLeftButton()}
                 rightButton={this.GetRightButton()}
             />
         )
         return (
-            <View>
+            <View style={{backgroundColor: this.props.theme.THEME_BACK_COLOR}}>
                 {navigationBar}
                 <View style={lifestyles.tip_view}>
                     <Text style={lifestyles.tip_text}>{I18nJs.t('trigger.tip2')}</Text>
@@ -183,6 +183,7 @@ class KeyDetail extends Component {
                 />
                 <View style={{marginTop: 30}}>
                     <Button
+                        color={this.props.theme.THEME_HEAD_COLOR}
                         title={I18nJs.t('trigger.selectPublicKey')}
                         onPress={() => {
                             console.log(1)
