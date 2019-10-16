@@ -13,7 +13,12 @@ export default {
         settings: '设置'
     },
     security: {
-        security: '安全'
+        security: '安全',
+        tip1:'设置密码，绑定手机，Email',
+        password:'密码',
+        phone:'手机号码绑定',
+        email:'邮箱绑定',
+        newPassword:'新密码'
     },
     myAccount: {
         myAccount: '我的账户',

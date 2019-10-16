@@ -28,6 +28,9 @@ import RecipientName from "../page/trigger/recipient/RecipientName";
 import RecipientEmail from "../page/trigger/recipient/RecipientEmail";
 import RecipientAddress from "../page/trigger/recipient/RecipientAddress";
 import RecipientRemark from "../page/trigger/recipient/RecipientRemark";
+import EmailBindingPage from "../page/settings/user/EmailBindingPage";
+import PhoneBindingPage from "../page/settings/user/PhoneBindingPage";
+import SecurityPage from "../page/settings/user/SecurityPage";
 
 export const rootCam = 'Init'
 
@@ -169,6 +172,24 @@ const MainNavigator = createStackNavigator({
     },
     RecipientRemark: {
         screen: RecipientRemark,
+        navigationOptions: {
+            header: null
+        }
+    },
+    SecurityPage: {
+        screen: SecurityPage,
+        navigationOptions: {
+            header: null
+        }
+    },
+    PhoneBindingPage: {
+        screen: PhoneBindingPage,
+        navigationOptions: {
+            header: null
+        }
+    },
+    EmailBindingPage: {
+        screen: EmailBindingPage,
         navigationOptions: {
             header: null
         }

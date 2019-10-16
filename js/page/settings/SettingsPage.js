@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import {
     View,
-    Text,
     StyleSheet,
     TouchableOpacity,
     Dimensions
@@ -87,10 +86,10 @@ class SettingsPage extends Component {
                     />
                     <InputRow
                         label={I18nJs.t('security.security')}
-                        content={''}
+                        content={I18nJs.t('security.tip1')}
                         showLabel={true}
                         touchFunction={() => {
-
+                            NavigationUtil.goPage({}, 'SecurityPage')
                         }}
                     />
                 </View>

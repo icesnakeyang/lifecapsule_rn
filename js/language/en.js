@@ -13,7 +13,12 @@ export default {
         settings: 'Settings'
     },
     security: {
-        security: 'Security'
+        security: 'Security',
+        tip1: 'Password, Phone, Email',
+        password: 'Change password',
+        phone: 'Binding phone number',
+        email: 'Binding email',
+        newPassword:'New Password'
     },
     myAccount: {
         myAccount: 'My Account',
