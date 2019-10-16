@@ -18,7 +18,9 @@ export default {
         password:'密码',
         phone:'手机号码绑定',
         email:'邮箱绑定',
-        newPassword:'新密码'
+        newPassword:'新密码',
+        savePasswordSuccess:'修改密码成功',
+        savePasswordFail:'修改密码失败'
     },
     myAccount: {
         myAccount: '我的账户',

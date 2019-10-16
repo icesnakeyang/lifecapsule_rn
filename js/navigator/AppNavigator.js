@@ -31,6 +31,7 @@ import RecipientRemark from "../page/trigger/recipient/RecipientRemark";
 import EmailBindingPage from "../page/settings/user/EmailBindingPage";
 import PhoneBindingPage from "../page/settings/user/PhoneBindingPage";
 import SecurityPage from "../page/settings/user/SecurityPage";
+import PasswordPage from "../page/settings/user/PasswordPage";
 
 export const rootCam = 'Init'
 
@@ -178,6 +179,12 @@ const MainNavigator = createStackNavigator({
     },
     SecurityPage: {
         screen: SecurityPage,
+        navigationOptions: {
+            header: null
+        }
+    },
+    PasswordPage: {
+        screen: PasswordPage,
         navigationOptions: {
             header: null
         }

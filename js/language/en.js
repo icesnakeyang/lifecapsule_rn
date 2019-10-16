@@ -18,7 +18,9 @@ export default {
         password: 'Change password',
         phone: 'Binding phone number',
         email: 'Binding email',
-        newPassword:'New Password'
+        newPassword: 'New Password',
+        savePasswordSuccess: 'Success',
+        savePasswordFail: 'Failed'
     },
     myAccount: {
         myAccount: 'My Account',

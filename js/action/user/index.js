@@ -241,3 +241,81 @@ export function saveNickName(nickname, token, callback) {
             })
     }
 }
+
+export function saveLoginPassword(params, callback) {
+    console.log('save password')
+    return dispatch => {
+        const url = API.apiSaveLoginPassword
+        const body = {
+            password: params.password
+        }
+        let dataStore = new DataStore()
+        dataStore.fetchPostData(url, body, params.token)
+            .then((response) => {
+                if (response.code === 0) {
+                    dispatch({
+                        type: Types.USER_PASSWORD_SAVE_SUCCESS
+                    })
+                    setTimeout(() => {
+                        callback(true)
+                    }, 100)
+                } else {
+                    dispatch({
+                        type: Types.USER_PASSWORD_SAVE_FAIL,
+                        error: response.code
+                    })
+                    setTimeout(() => {
+                        callback(false)
+                    }, 100)
+                }
+            })
+            .catch((error) => {
+                dispatch({
+                    type: Types.USER_PASSWORD_SAVE_FAIL,
+                    error: error
+                })
+                setTimeout(() => {
+                    callback(false)
+                }, 100)
+            })
+    }
+}
+
+export function bindPhone1(params, callback) {
+    return disptach => {
+        let url = API.apiBindPhone1
+        let body = {
+            phone: params.phone
+        }
+        let token = params.token
+        let dataStore = new DataStore()
+        dataStore.fetchPostData(url, body, token)
+            .then((response) => {
+                if (response.code === 0) {
+                    dispatch({
+                        type: Types.USER_PHONE_SAVE_SUCCESS
+                    })
+                    setTimeout(() => {
+                        callback(true)
+                    }, 100)
+                } else {
+                    dispatch({
+                        type: Types.USER_PHONE_SAVE_FAIL,
+                        error: response.code
+                    })
+                    setTimeout(() => {
+                        callback(false)
+                    }, 100)
+                }
+            })
+            .catch((error) => {
+                dispatch({
+                    type: Types.USER_PHONE_SAVE_FAIL,
+                    error: error
+                })
+                setTimeout(() => {
+                    callback(false)
+                }, 100)
+            })
+    }
+}

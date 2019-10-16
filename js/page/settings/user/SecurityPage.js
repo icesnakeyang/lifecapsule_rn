@@ -9,6 +9,7 @@ import GetLeftButton from "../../../common/component/GetLeftButton";
 import NavigationBar from "../../../common/component/NavigationBar";
 import {I18nJs} from "../../../language/I18n";
 import InputRow from "../../../common/component/InputRow";
+import NavigationUtil from "../../../navigator/NavigationUtil";
 
 class SecurityPage extends Component {
     constructor(props) {
@@ -46,7 +47,8 @@ class SecurityPage extends Component {
                     content={I18nJs.t('security.password')}
                     showLabel={false}
                     touchFunction={() => {
-
+                        console.log(1)
+                        NavigationUtil.goPage({}, 'PasswordPage')
                     }}
                 />
                 <InputRow
