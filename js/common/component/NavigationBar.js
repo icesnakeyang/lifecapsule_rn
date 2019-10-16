@@ -42,8 +42,6 @@ export default class NavigationBar extends Component {
     }
 
     render() {
-        console.log(Platform.OS)
-        console.log(DeviceInfo)
         let statusBar = !this.props.statusBar.hidden ?
             <View style={styles.statusBar}>
                 <StatusBar {...this.props.statusBar}/>

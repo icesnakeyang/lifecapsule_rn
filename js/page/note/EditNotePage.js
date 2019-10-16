@@ -76,7 +76,6 @@ class EditNotePage extends Component {
             detail: params.note.detail,
             token: params.token
         }
-        console.log(body)
         let {updateNote} = this.props
         updateNote(body, (result) => {
             if (result) {

@@ -1,5 +1,5 @@
 import {onThemeChange} from "./theme";
-import {bindPhone1, loginUserAuto, loginUserByNamePass, saveLoginPassword, saveNickName} from "./user";
+import {bindEmail1, bindPhone1, loginUserAuto, loginUserByNamePass, saveLoginPassword, saveNickName} from "./user";
 import {getNoteByNoteId, listNoteByCategory, listNoteRecent, refreshNoteList, saveNote, updateNote} from "./note";
 import {loadCategory, setCategory} from "./category";
 import {changeLanguage, loadLanguage} from "./language";
@@ -43,5 +43,6 @@ export default {
     saveGogoKeyServer,
     updateNote,
     saveLoginPassword,
-    bindPhone1
+    bindPhone1,
+    bindEmail1
 }

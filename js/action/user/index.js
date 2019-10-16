@@ -243,7 +243,6 @@ export function saveNickName(nickname, token, callback) {
 }
 
 export function saveLoginPassword(params, callback) {
-    console.log('save password')
     return dispatch => {
         const url = API.apiSaveLoginPassword
         const body = {
@@ -311,6 +310,45 @@ export function bindPhone1(params, callback) {
             .catch((error) => {
                 dispatch({
                     type: Types.USER_PHONE_SAVE_FAIL,
+                    error: error
+                })
+                setTimeout(() => {
+                    callback(false)
+                }, 100)
+            })
+    }
+}
+
+export function bindEmail1(params, callback) {
+    return dispatch => {
+        let url = API.apiBindEmail1
+        let body = {
+            email: params.email
+        }
+        let token = params.token
+        let dataStore = new DataStore()
+        dataStore.fetchPostData(url, body, token)
+            .then((response) => {
+                if (response.code === 0) {
+                    dispatch({
+                        type: Types.USER_EMAIL_SAVE_SUCCESS
+                    })
+                    setTimeout(() => {
+                        callback(true)
+                    }, 100)
+                } else {
+                    dispatch({
+                        type: Types.USER_EMAIL_SAVE_FAIL,
+                        error: response.code
+                    })
+                    setTimeout(() => {
+                        callback(false)
+                    }, 100)
+                }
+            })
+            .catch((error) => {
+                dispatch({
+                    type: Types.USER_EMAIL_SAVE_FAIL,
                     error: error
                 })
                 setTimeout(() => {

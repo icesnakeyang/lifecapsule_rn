@@ -22,7 +22,10 @@ export default {
         newPassword:'新密码',
         savePasswordSuccess:'修改密码成功',
         savePasswordFail:'修改密码失败',
-        phone1Fail:'提交电话号码失败'
+        phone1Fail:'提交电话号码失败',
+        emailAddress:'电子邮箱',
+        saveEmailSuccess:'修改Email成功',
+        saveEmailFail:'修改Email失败',
     },
     myAccount: {
         myAccount: '我的账户',

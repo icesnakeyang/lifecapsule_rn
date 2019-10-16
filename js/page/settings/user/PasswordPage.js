@@ -34,13 +34,11 @@ class PasswordPage extends Component {
                 <TouchableOpacity
                     style={{margin: 5, marginRight: 8}}
                     onPress={() => {
-                        console.log(this.state)
                         const {saveLoginPassword} = this.props
                         let params = {
                             password: this.state.txtPassword,
                             token: this.props.user.user.token
                         }
-                        console.log(this.props)
                         saveLoginPassword(params, (result) => {
                             if (result) {
                                 this.refs.toast.show(I18nJs.t('security.savePasswordSuccess'))

@@ -91,8 +91,6 @@ class RecipientDetail extends Component {
         recipient.remark = this.props.trigger.recipient.remark
         recipient.noteId = this.props.note.note.noteId
 
-        console.log(recipient)
-
         const {saveRecipientToServer} = this.props
         saveRecipientToServer(recipient, (result) => {
             if (result) {

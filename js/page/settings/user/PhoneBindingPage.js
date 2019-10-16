@@ -20,11 +20,21 @@ class PhoneBindingPage extends Component {
         super(props);
         const {width, height} = Dimensions.get("window")
         this.state = {
-            phoneNumber: '',
+            oldPhone: '',
             screen_width: width,
-            screen_height: height
+            screen_height: height,
+            editPhone: ''
         }
     }
+
+    componentDidMount() {
+        if (this.props.user.user && this.props.user.user.phone) {
+            this.setState({
+                oldPhone: this.props.user.user.phone
+            })
+        }
+    }
+
 
     getLeftButton() {
         return (
@@ -38,7 +48,6 @@ class PhoneBindingPage extends Component {
                 <TouchableOpacity
                     style={{margin: 5, marginRight: 8}}
                     onPress={() => {
-                        console.log(this.state)
                         const {bindPhone1} = this.props
                         const params = {
                             phone: this.state.txtPhone,
@@ -96,7 +105,8 @@ class PhoneBindingPage extends Component {
                     <View style={{flex: 1, marginLeft: 10}}>
                         <TextInput
                             style={{borderBottomWidth: 0.5, padding: 0}}
-                            onChangeText={(txtPhone) => this.setState({txtPhone})}
+                            defaultValue={this.state.oldPhone}
+                            onChangeText={(editPhone) => this.setState({editPhone})}
                         />
                     </View>
                 </View>

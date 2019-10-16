@@ -22,7 +22,10 @@ export default {
         newPassword: 'New Password',
         savePasswordSuccess: 'Success',
         savePasswordFail: 'Failed',
-        phone1Fail: 'Submit phone failed'
+        phone1Fail: 'Submit phone failed',
+        emailAddress: 'Email',
+        saveEmailSuccess: 'Save email successful',
+        saveEmailFail: 'save email failed',
     },
     myAccount: {
         myAccount: 'My Account',

@@ -62,7 +62,6 @@ class NoteCategoryPage extends Component {
 
     renderItem(data) {
         let func = () => {
-            console.log(1)
             NavigationUtil.goPage({...data}, 'CategoryDetail')
         }
         return (

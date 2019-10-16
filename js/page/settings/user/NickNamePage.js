@@ -31,7 +31,6 @@ class NickNamePage extends Component {
     }
 
     loadAllData() {
-        console.log(this.props)
         if (this.props.user.user && this.props.user.user.nickname) {
             this.setState({
                 nickname: this.props.user.user.nickname,

@@ -42,7 +42,6 @@ class TriggerPage extends Component {
         /**
          *
          */
-        console.log(1)
         if (!(this.props.user && this.props.user.user)) {
             return
         }
@@ -92,16 +91,12 @@ class TriggerPage extends Component {
     }
 
     deleteTrigger() {
-        console.log(this.props.trigger.trigger.triggerId)
-        console.log(this.state)
         this.setState({
             dialogShow: true
         })
-        console.log(this.state)
     }
 
     _formatData() {
-        console.log(this.props)
         let showData = {
             gogoKeyTitle: I18nJs.t('trigger.gogoKeyHolder'),
             gogoKeyDscription: '',
@@ -127,10 +122,8 @@ class TriggerPage extends Component {
                 }
                 rep += item.recipientName
             })
-            console.log(rep)
             showData.recipient = rep
         }
-        console.log(this.state)
         return showData
     }
 

@@ -122,10 +122,7 @@ class KeyDetail extends Component {
             }
         }
 
-        console.log(this.props)
-
         saveGogoKeyServer(params, (result) => {
-            console.log(result)
             if (result) {
                 DeviceEventEmitter.emit('Refresh_TriggerPage')
                 NavigationUtil.goPage({}, 'TriggerPage')
@@ -186,7 +183,6 @@ class KeyDetail extends Component {
                         color={this.props.theme.THEME_HEAD_COLOR}
                         title={I18nJs.t('trigger.selectPublicKey')}
                         onPress={() => {
-                            console.log(1)
                             NavigationUtil.goPage({}, 'KeyPlaza')
                         }}
                     />

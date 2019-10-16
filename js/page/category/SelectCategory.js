@@ -40,7 +40,6 @@ class SelectCategory extends Component {
         let {loadCategory} = this.props
         if (this.props.user && this.props.user.user && this.props.user.user.token) {
             loadCategory(1, 20, this.props.user.user.token, (result) => {
-                console.log(result)
                 if (result) {
                     this.setState({
                         categoryList: this.props.category.categoryList.categoryList
@@ -79,7 +78,6 @@ class SelectCategory extends Component {
     }
 
     render() {
-        console.log(this.state)
         let statusBar = {
             backgroundColor: this.props.theme.THEME_HEAD_COLOR
         }

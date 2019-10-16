@@ -221,7 +221,6 @@ export function saveGogoKeyServer(params, callback) {
         let dataStore = new DataStore()
         dataStore.fetchPostData(url, body, params.token)
             .then((response) => {
-                console.log(response)
                 if (response.code === 0) {
                     dispatch({
                         type: Types.TRIGGER_SAVE_GOGOKEY_SERVER_SUCCESS
@@ -317,7 +316,6 @@ export function saveRecipient(params, callback) {
 }
 
 export function saveRecipientToServer(params, callback) {
-    console.log(params)
     return dispatch => {
         let url = API.apiSaveRecipient
         let body = {}
