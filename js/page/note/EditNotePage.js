@@ -147,7 +147,12 @@ class EditNotePage extends Component {
         return (
             <View style={{flex: 1, backgroundColor: this.props.theme.THEME_BACK_COLOR}}>
                 {navigationBar}
-                <View style={{backgroundColor: this.props.theme.THEME_ROW_COLOR, marginTop: 10}}>
+                <View style={{
+                    backgroundColor: this.props.theme.THEME_ROW_COLOR,
+                    marginTop: 10,
+                    height: 50,
+                    justifyContent: 'center'
+                }}>
                     <TextInput
                         style={{fontSize: 16}}
                         defaultValue={this.state.note.title}
