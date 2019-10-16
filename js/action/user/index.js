@@ -282,7 +282,7 @@ export function saveLoginPassword(params, callback) {
 }
 
 export function bindPhone1(params, callback) {
-    return disptach => {
+    return dispatch => {
         let url = API.apiBindPhone1
         let body = {
             phone: params.phone

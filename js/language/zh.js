@@ -17,10 +17,12 @@ export default {
         tip1:'设置密码，绑定手机，Email',
         password:'密码',
         phone:'手机号码绑定',
+        phoneNumber:'手机号码',
         email:'邮箱绑定',
         newPassword:'新密码',
         savePasswordSuccess:'修改密码成功',
-        savePasswordFail:'修改密码失败'
+        savePasswordFail:'修改密码失败',
+        phone1Fail:'提交电话号码失败'
     },
     myAccount: {
         myAccount: '我的账户',

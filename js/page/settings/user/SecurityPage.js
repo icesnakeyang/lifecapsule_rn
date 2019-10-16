@@ -47,7 +47,6 @@ class SecurityPage extends Component {
                     content={I18nJs.t('security.password')}
                     showLabel={false}
                     touchFunction={() => {
-                        console.log(1)
                         NavigationUtil.goPage({}, 'PasswordPage')
                     }}
                 />
@@ -55,14 +54,14 @@ class SecurityPage extends Component {
                     content={I18nJs.t('security.phone')}
                     showLabel={false}
                     touchFunction={() => {
-
+                        NavigationUtil.goPage({}, 'PhoneBindingPage')
                     }}
                 />
                 <InputRow
                     content={I18nJs.t('security.email')}
                     showLabel={false}
                     touchFunction={() => {
-
+                        NavigationUtil.goPage({}, 'EmailBindingPage')
                     }}
                 />
             </View>

@@ -17,10 +17,12 @@ export default {
         tip1: 'Password, Phone, Email',
         password: 'Change password',
         phone: 'Binding phone number',
+        phoneNumber: 'Phone',
         email: 'Binding email',
         newPassword: 'New Password',
         savePasswordSuccess: 'Success',
-        savePasswordFail: 'Failed'
+        savePasswordFail: 'Failed',
+        phone1Fail: 'Submit phone failed'
     },
     myAccount: {
         myAccount: 'My Account',
