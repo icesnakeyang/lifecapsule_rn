@@ -20,7 +20,10 @@ class EditNotePage extends Component {
         this.state = {
             editTitle: '',
             editDetail: '',
-            note: {}
+            note: {
+                title: '',
+                detail: ''
+            }
         }
     }
 

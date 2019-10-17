@@ -1,9 +1,4 @@
-// const host = 'http://192.168.1.247:8088'
-// const host = 'http://192.168.0.105:8088'
 const host = 'http://gogorpg.com:8088'
-// const host = 'http://192.168.43.29:8088'
-// const host = 'http://192.168.1.100:8088'
-// const host = 'http://10.10.7.162:8088'
 
 export const API = {
     apiGetRSAKey: `${host}/security/requestRSAPublicKey`,

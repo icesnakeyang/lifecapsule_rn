@@ -45,17 +45,19 @@ class RecipientList extends Component {
                 const {getTrigger} = this.props
                 getTrigger(params, (result) => {
                     if (result) {
-                        params.triggerId = this.props.trigger.trigger.triggerId
-                        const {listRecipient} = this.props
-                        listRecipient(params, (result) => {
-                            if (result) {
-                                if (this.props.trigger.trigger.recipientList.length > 0) {
-                                    this.setState({
-                                        recipientList: this.props.trigger.trigger.recipientList
-                                    })
+                        if (this.props.trigger.trigger && this.props.trigger.trigger.triggerId) {
+                            params.triggerId = this.props.trigger.trigger.triggerId
+                            const {listRecipient} = this.props
+                            listRecipient(params, (result) => {
+                                if (result) {
+                                    if (this.props.trigger.trigger.recipientList) {
+                                        this.setState({
+                                            recipientList: this.props.trigger.trigger.recipientList
+                                        })
+                                    }
                                 }
-                            }
-                        })
+                            })
+                        }
                     }
                 })
             }

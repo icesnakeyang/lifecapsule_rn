@@ -114,7 +114,7 @@ class TriggerPage extends Component {
                 showData.userRemark = this.props.trigger.trigger.remark
             }
         }
-        if (this.props.trigger.trigger && this.props.trigger.trigger.recipientList.length > 0) {
+        if (this.props.trigger.trigger && this.props.trigger.trigger.recipientList) {
             let rep = ''
             this.props.trigger.trigger.recipientList.forEach((item, index) => {
                 if (index > 0) {
