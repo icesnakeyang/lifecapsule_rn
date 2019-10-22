@@ -53,7 +53,7 @@ class WelcomePage extends Component {
                         NavigationUtil.resetToHomePage({
                             navigation: this.props.navigation
                         })
-                    }, 500)
+                    }, 5000)
                 } else {
                 }
             })
@@ -90,9 +90,9 @@ class WelcomePage extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.img_view}>
-                    <Image source={require('../static/imgs/page1image5566720.png')}
+                    <Image source={require('../static/imgs/zellhome.png')}
                         // style={{width: this.state.width, height: this.state.height}}
-                           style={{width: this.state.width, height: 300}}
+                           style={{width: this.state.width, height: this.state.height}}
                            resizeMode="cover"
                     />
                 </View>
